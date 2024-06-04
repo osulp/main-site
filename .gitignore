@@ -2,9 +2,10 @@
 /drush/contrib/
 /vendor/
 /web/core/
+/web/libraries/
 /web/modules/contrib/
-/web/themes/contrib/
 /web/profiles/contrib/
+/web/themes/contrib/
 
 # Ignore sensitive information
 # We have chosen to commit the settings.php file because we pull secrets from the environment and it simplifies our deployment strategy

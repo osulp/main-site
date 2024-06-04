@@ -611,7 +611,7 @@ $settings['update_free_access'] = FALSE;
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-# $settings['file_private_path'] = '';
+$settings['file_private_path'] = getenv('PRIVATE_FILE_PATH');
 
 /**
  * Temporary file path:
@@ -772,7 +772,10 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
-# $settings['trusted_host_patterns'] = [];
+$settings['trusted_host_patterns'] = [
+  '^.+\.library\.oregonstate\.edu$',
+  '^library\.oregonstate\.edu$'
+];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.

@@ -34,6 +34,7 @@ services:
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
       DB_DRIVER: $DB_DRIVER
+      PRIVATE_FILE_PATH: /mnt/files/private
 #      DRUSH_OPTIONS_URI: "http://${PROJECT_BASE_URL}:${PROJECT_PORT}"
 #      PHP_FPM_USER: wodby
 #      PHP_FPM_GROUP: wodby
