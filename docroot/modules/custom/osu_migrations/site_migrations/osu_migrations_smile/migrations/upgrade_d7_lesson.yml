@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_lesson
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - SMILE
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: lesson
+process:
+  nid: nid
+  title: title
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_documents:
+    plugin: sub_process
+    source: field_documents
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_files
+        source: fid
+  field_grade_level_range: field_grade_level_range
+  field_notes: field_notes
+  field_short_description: field_short_description
+  field_subject: field_subject
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: lesson
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build": "browserify -p esmify js/osu-icon.js > js/bundle.js",
+    "watch": "watchify -p esmify js/osu-icon.js -o js/bundle.js",
+    "generate-icons": "node js/generate-icon-names.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "esmify": "^2.1.1",
+    "node-fetch": "^3.2.10",
+    "watchify": "^4.0.0"
+  }
+}

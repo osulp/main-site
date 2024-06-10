@@ -1,0 +1,39 @@
+services:
+  drupal:
+    image: docker.io/osuwams/drupal:10-apache-dev
+    environment:
+      - DRUPAL_DBHOST=database
+      - DRUPAL_DBUSER=drupal
+      - DRUPAL_DBPASS=drupal
+      - DRUPAL_DBNAME=drupal
+      - DRUPAL_MEMCACHE=true
+      - DRUPAL_MEMCACHEHOST=cache
+      #- DRUPAL_THEME_DEVEL=true
+      #- XDEBUG_MODE=debug,develop
+      #- XDEBUG_CONFIG="xdebug.start_with_request=trigger xdebug.idekey=PHPSTORM"
+    ports:
+      - 8080:80
+    volumes:
+      - drupal-files:/var/www/html/docroot/sites/default/files
+      - ./:/var/www/html/docroot/themes/custom/madrone:Z
+    cap_add:
+      - CAP_NET_BIND_SERVICE
+      - CAP_DAC_OVERRIDE
+    restart: unless-stopped
+  database:
+    image: docker.io/library/mariadb:10.11
+    volumes:
+      - drupal-db:/var/lib/mysql/drupal
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+    restart: unless-stopped
+  cache:
+    image: docker.io/library/memcached:latest
+    restart: unless-stopped
+
+volumes:
+  drupal-db:
+  drupal-files:

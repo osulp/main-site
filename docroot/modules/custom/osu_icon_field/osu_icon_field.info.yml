@@ -1,0 +1,5 @@
+name: OSU Icon Field
+type: module
+description: 'Adds a custom field to display OSU and fontawesome icons'
+core_version_requirement: ^9 || ^10
+version: 1.1.1

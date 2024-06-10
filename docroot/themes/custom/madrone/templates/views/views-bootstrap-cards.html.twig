@@ -1,0 +1,43 @@
+{#
+/**
+ * @file views-bootstrap-cards.html.twig
+ * Default simple view template to display Bootstrap Cards.
+ *
+ *
+ * - rows: Contains a nested array of rows. Each row contains an array of
+ *   columns.
+ *
+ * @ingroup views_templates
+ */
+#}
+{% set classes = [
+  'views-view-bootstrap-card'
+] %}
+<div {{ attributes.addClass(classes) }}>
+  <div class="row">
+    {% for key, row in rows %}
+    <div class="col">
+      <div {{ row.attributes }}>
+        {# Show image #}
+        {% if row.image %}
+          <span class="card-img-top">{{ row.image }}</span>
+        {% endif %}
+        <div class="card-body">
+          {% if row.title %}
+            <h5 class="card-title">{{ row.title }}</h5>
+          {% endif %}
+          {% if row.content %}
+            <div class="card-body">
+              {{- row.content -}}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% if (key + 1) % columns == 0 %}
+  </div>
+  <div class="row">
+    {% endif %}
+    {%- endfor %}
+  </div>
+</div>

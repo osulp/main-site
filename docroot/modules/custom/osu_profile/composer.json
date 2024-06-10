@@ -1,0 +1,15 @@
+{
+  "name": "osu-wams/osu_profile",
+  "description": "Drupal Module for OSU profile content type",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Alex Ruef",
+      "email": "alex.ruef@oregonstate.edu"
+    }
+  ],
+  "require": {
+  }
+}

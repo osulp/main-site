@@ -1,0 +1,9 @@
+name: OSU Migrations - Hatfield Marine Science Center
+type: module
+description: Contains migrations specifically for the Hatfield Marine Science Center Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - drupal:osu_migrations
+  - osu_migrations:og_to_group

@@ -1,0 +1,352 @@
+_meta:
+  version: '1.0'
+  entity_type: section_library_template
+  uuid: e91a5628-cb28-402e-81f8-ba3690768232
+  default_langcode: en
+  depends:
+    9724a1cd-7ee4-4e08-868d-e55e56bbd5a8: file
+default:
+  user_id:
+    - target_id: 1
+  label:
+    - value: 'Two Column 50-50'
+  type:
+    - value: section
+  entity_id:
+    - entity: 0
+  entity_type:
+    - value: node
+  layout_section:
+    - section:
+        layout_id: 'bootstrap_layout_builder:blb_col_2'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: color
+              background_color:
+                class: osu-bg-page-alt-2
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: osu-text-bucktoothwhite
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: ps-5
+              padding_top:
+                class: pt-4
+              padding_right:
+                class: pe-5
+              padding_bottom:
+                class: pb-4
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              items_alignment:
+                class: null
+              min_height:
+                class: 0
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: w-100
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+            blb_region_col_2: ''
+          regions_attributes:
+            blb_region_col_1: null
+            blb_region_col_2: null
+          breakpoints:
+            desktop: blb_col_6_6
+            tablet: blb_col_6_6
+            mobile: blb_col_12
+          layout_regions_classes:
+            blb_region_col_1:
+              - col-lg-6
+              - col-md-6
+              - col-12
+            blb_region_col_2:
+              - col-lg-6
+              - col-md-6
+              - col-12
+          remove_gutters: '1'
+          context_mapping: { }
+        components:
+          4d116977-4b0b-42a7-a5d1-b5f19d8cf860:
+            uuid: 4d116977-4b0b-42a7-a5d1-b5f19d8cf860
+            region: blb_region_col_1
+            configuration:
+              id: 'inline_block:basic'
+              label: 'Left hand Column'
+              label_display: 0
+              provider: layout_builder
+              view_mode: full
+              block_revision_id: null
+              block_serialized: "O:40:\"Drupal\\block_content\\Entity\\BlockContent\":30:{s:15:\"\0*\0entityTypeId\";s:13:\"block_content\";s:15:\"\0*\0enforceIsNew\";b:1;s:12:\"\0*\0typedData\";N;s:16:\"\0*\0cacheContexts\";a:0:{}s:12:\"\0*\0cacheTags\";a:0:{}s:14:\"\0*\0cacheMaxAge\";i:-1;s:14:\"\0*\0_serviceIds\";a:0:{}s:18:\"\0*\0_entityStorages\";a:0:{}s:9:\"\0*\0values\";a:18:{s:2:\"id\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";N;}}}s:11:\"revision_id\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";N;}}}s:4:\"type\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:9:\"target_id\";s:5:\"basic\";}}}s:4:\"uuid\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:36:\"36878165-103a-46e4-8310-20cdcc00d86e\";}}}s:8:\"langcode\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:2:\"en\";}}}s:13:\"revision_user\";a:1:{s:9:\"x-default\";a:0:{}}s:16:\"revision_created\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:10:\"1662595106\";}}}s:12:\"revision_log\";a:1:{s:9:\"x-default\";a:0:{}}s:16:\"revision_default\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:17:\"isDefaultRevision\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:6:\"status\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:4:\"info\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:16:\"Left hand Column\";}}}s:7:\"changed\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:10:\"1662595294\";}}}s:16:\"default_langcode\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:29:\"revision_translation_affected\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:8:\"reusable\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"0\";}}}s:4:\"body\";a:1:{s:9:\"x-default\";a:1:{i:0;a:3:{s:5:\"value\";s:1142:\"<h2>This is a 2 column 50% 50% edge to edge no gutters</h2>\r\n\r\n<h2>Heading 2</h2>\r\n\r\n<h3>Heading 3</h3>\r\n\r\n<h4>Heading 4</h4>\r\n\r\n<h5>Heading 5</h5>\r\n\r\n<h6>Heading 6</h6>\r\n\r\n<p>If you have a dark or light background set and want to add space around your content, you want to apply padding, not margins. Background colors extend with padding, but not with margins.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, <a href=\"/\">consectetur adipiscing elit,</a> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<ul>\r\n\t<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>\r\n\t<li>Aliquam tincidunt mauris eu risus.</li>\r\n\t<li>Vestibulum auctor dapibus neque.</li>\r\n\t<li>Nunc dignissim risus id metus.</li>\r\n\t<li>Cras ornare tristique elit.</li>\r\n\t<li>Vivamus vestibulum ntulla nec ante.</li>\r\n</ul>\r\n\";s:7:\"summary\";s:0:\"\";s:6:\"format\";s:9:\"full_html\";}}}s:7:\"metatag\";a:1:{s:9:\"x-default\";a:0:{}}}s:9:\"\0*\0fields\";a:0:{}s:19:\"\0*\0fieldDefinitions\";N;s:12:\"\0*\0languages\";N;s:14:\"\0*\0langcodeKey\";s:8:\"langcode\";s:21:\"\0*\0defaultLangcodeKey\";s:16:\"default_langcode\";s:17:\"\0*\0activeLangcode\";s:9:\"x-default\";s:18:\"\0*\0defaultLangcode\";s:2:\"en\";s:15:\"\0*\0translations\";a:1:{s:9:\"x-default\";a:1:{s:6:\"status\";i:1;}}s:24:\"\0*\0translationInitialize\";b:0;s:14:\"\0*\0newRevision\";b:0;s:20:\"\0*\0isDefaultRevision\";s:1:\"1\";s:13:\"\0*\0entityKeys\";a:2:{s:6:\"bundle\";s:5:\"basic\";s:8:\"revision\";N;}s:25:\"\0*\0translatableEntityKeys\";a:5:{s:5:\"label\";a:1:{s:9:\"x-default\";s:16:\"Left hand Column\";}s:8:\"langcode\";a:1:{s:9:\"x-default\";s:2:\"en\";}s:9:\"published\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:16:\"default_langcode\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:29:\"revision_translation_affected\";a:1:{s:9:\"x-default\";s:1:\"1\";}}s:12:\"\0*\0validated\";b:0;s:21:\"\0*\0validationRequired\";b:0;s:19:\"\0*\0loadedRevisionId\";N;s:33:\"\0*\0revisionTranslationAffectedKey\";s:29:\"revision_translation_affected\";s:37:\"\0*\0enforceRevisionTranslationAffected\";a:0:{}s:12:\"\0*\0isSyncing\";b:0;s:8:\"\0*\0theme\";N;s:19:\"\0*\0accessDependency\";N;}"
+              context_mapping: { }
+              block_uuid: null
+            weight: 3
+            additional:
+              bootstrap_styles:
+                block_style:
+                  background:
+                    background_type: color
+                  background_color:
+                    class: null
+                  background_media:
+                    image:
+                      media_id: null
+                    video:
+                      media_id: null
+                    background_options:
+                      background_position: center
+                      background_repeat: no-repeat
+                      background_attachment: not_fixed
+                      background_size: cover
+                  text_color:
+                    class: null
+                  text_alignment:
+                    class: null
+                  padding:
+                    class: p-3
+                  padding_left:
+                    class: _none
+                  padding_top:
+                    class: _none
+                  padding_right:
+                    class: _none
+                  padding_bottom:
+                    class: _none
+                  margin:
+                    class: m-1
+                  margin_left:
+                    class: _none
+                  margin_top:
+                    class: _none
+                  margin_right:
+                    class: _none
+                  margin_bottom:
+                    class: _none
+                  border:
+                    border_style:
+                      class: null
+                    border_width:
+                      class: _none
+                    border_color:
+                      class: null
+                    rounded_corners:
+                      class: _none
+                    border_left_style:
+                      class: null
+                    border_left_width:
+                      class: _none
+                    border_left_color:
+                      class: null
+                    border_top_style:
+                      class: null
+                    border_top_width:
+                      class: _none
+                    border_top_color:
+                      class: null
+                    border_right_style:
+                      class: null
+                    border_right_width:
+                      class: _none
+                    border_right_color:
+                      class: null
+                    border_bottom_style:
+                      class: null
+                    border_bottom_width:
+                      class: _none
+                    border_bottom_color:
+                      class: null
+                    rounded_corner_top_left:
+                      class: _none
+                    rounded_corner_top_right:
+                      class: _none
+                    rounded_corner_bottom_left:
+                      class: _none
+                    rounded_corner_bottom_right:
+                      class: _none
+                  scroll_effects:
+                    class: null
+                  items_alignment:
+                    class: null
+                  min_height:
+                    class: 0
+          906491dd-f430-42ff-b4a4-b0645564ca0b:
+            uuid: 906491dd-f430-42ff-b4a4-b0645564ca0b
+            region: blb_region_col_2
+            configuration:
+              id: 'inline_block:basic'
+              label: 'Right hand Column'
+              label_display: 0
+              provider: layout_builder
+              view_mode: full
+              block_revision_id: null
+              block_serialized: "O:40:\"Drupal\\block_content\\Entity\\BlockContent\":30:{s:15:\"\0*\0entityTypeId\";s:13:\"block_content\";s:15:\"\0*\0enforceIsNew\";b:1;s:12:\"\0*\0typedData\";N;s:16:\"\0*\0cacheContexts\";a:0:{}s:12:\"\0*\0cacheTags\";a:0:{}s:14:\"\0*\0cacheMaxAge\";i:-1;s:14:\"\0*\0_serviceIds\";a:0:{}s:18:\"\0*\0_entityStorages\";a:0:{}s:9:\"\0*\0values\";a:18:{s:2:\"id\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";N;}}}s:11:\"revision_id\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";N;}}}s:4:\"type\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:9:\"target_id\";s:5:\"basic\";}}}s:4:\"uuid\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:36:\"2caadddd-e134-43e0-be64-b07205627073\";}}}s:8:\"langcode\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:2:\"en\";}}}s:13:\"revision_user\";a:1:{s:9:\"x-default\";a:0:{}}s:16:\"revision_created\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:10:\"1662595228\";}}}s:12:\"revision_log\";a:1:{s:9:\"x-default\";a:0:{}}s:16:\"revision_default\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:17:\"isDefaultRevision\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:6:\"status\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:4:\"info\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:17:\"Right hand Column\";}}}s:7:\"changed\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:10:\"1662595406\";}}}s:16:\"default_langcode\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:29:\"revision_translation_affected\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"1\";}}}s:8:\"reusable\";a:1:{s:9:\"x-default\";a:1:{i:0;a:1:{s:5:\"value\";s:1:\"0\";}}}s:4:\"body\";a:1:{s:9:\"x-default\";a:1:{i:0;a:3:{s:5:\"value\";s:396:\"<drupal-media data-align=\"center\" data-entity-type=\"media\" data-entity-uuid=\"ca47a269-1650-4593-8156-4d99fb97d293\"></drupal-media>\r\n\r\n<p>This photo is fairly large at&nbsp; 1900x1080 but with the max-width of 100% we ensure the photo does not overflow the content area. It's best to use photos closer to the size you want. You can configure Drupal to provide more options than the few here.</p>\r\n\";s:7:\"summary\";s:0:\"\";s:6:\"format\";s:9:\"full_html\";}}}s:7:\"metatag\";a:1:{s:9:\"x-default\";a:0:{}}}s:9:\"\0*\0fields\";a:0:{}s:19:\"\0*\0fieldDefinitions\";N;s:12:\"\0*\0languages\";N;s:14:\"\0*\0langcodeKey\";s:8:\"langcode\";s:21:\"\0*\0defaultLangcodeKey\";s:16:\"default_langcode\";s:17:\"\0*\0activeLangcode\";s:9:\"x-default\";s:18:\"\0*\0defaultLangcode\";s:2:\"en\";s:15:\"\0*\0translations\";a:1:{s:9:\"x-default\";a:1:{s:6:\"status\";i:1;}}s:24:\"\0*\0translationInitialize\";b:0;s:14:\"\0*\0newRevision\";b:0;s:20:\"\0*\0isDefaultRevision\";s:1:\"1\";s:13:\"\0*\0entityKeys\";a:2:{s:6:\"bundle\";s:5:\"basic\";s:8:\"revision\";N;}s:25:\"\0*\0translatableEntityKeys\";a:5:{s:5:\"label\";a:1:{s:9:\"x-default\";s:17:\"Right hand Column\";}s:8:\"langcode\";a:1:{s:9:\"x-default\";s:2:\"en\";}s:9:\"published\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:16:\"default_langcode\";a:1:{s:9:\"x-default\";s:1:\"1\";}s:29:\"revision_translation_affected\";a:1:{s:9:\"x-default\";s:1:\"1\";}}s:12:\"\0*\0validated\";b:0;s:21:\"\0*\0validationRequired\";b:0;s:19:\"\0*\0loadedRevisionId\";N;s:33:\"\0*\0revisionTranslationAffectedKey\";s:29:\"revision_translation_affected\";s:37:\"\0*\0enforceRevisionTranslationAffected\";a:0:{}s:12:\"\0*\0isSyncing\";b:0;s:8:\"\0*\0theme\";N;s:19:\"\0*\0accessDependency\";N;}"
+              context_mapping: { }
+              block_uuid: null
+            weight: 3
+            additional:
+              bootstrap_styles:
+                block_style:
+                  background:
+                    background_type: color
+                  background_color:
+                    class: null
+                  background_media:
+                    image:
+                      media_id: null
+                    video:
+                      media_id: null
+                    background_options:
+                      background_position: center
+                      background_repeat: no-repeat
+                      background_attachment: not_fixed
+                      background_size: cover
+                  text_color:
+                    class: null
+                  text_alignment:
+                    class: null
+                  padding:
+                    class: p-3
+                  padding_left:
+                    class: _none
+                  padding_top:
+                    class: _none
+                  padding_right:
+                    class: _none
+                  padding_bottom:
+                    class: _none
+                  margin:
+                    class: m-1
+                  margin_left:
+                    class: _none
+                  margin_top:
+                    class: _none
+                  margin_right:
+                    class: _none
+                  margin_bottom:
+                    class: _none
+                  border:
+                    border_style:
+                      class: null
+                    border_width:
+                      class: _none
+                    border_color:
+                      class: null
+                    rounded_corners:
+                      class: _none
+                    border_left_style:
+                      class: null
+                    border_left_width:
+                      class: _none
+                    border_left_color:
+                      class: null
+                    border_top_style:
+                      class: null
+                    border_top_width:
+                      class: _none
+                    border_top_color:
+                      class: null
+                    border_right_style:
+                      class: null
+                    border_right_width:
+                      class: _none
+                    border_right_color:
+                      class: null
+                    border_bottom_style:
+                      class: null
+                    border_bottom_width:
+                      class: _none
+                    border_bottom_color:
+                      class: null
+                    rounded_corner_top_left:
+                      class: _none
+                    rounded_corner_top_right:
+                      class: _none
+                    rounded_corner_bottom_left:
+                      class: _none
+                    rounded_corner_bottom_right:
+                      class: _none
+                  box_shadow:
+                    class: null
+                  items_alignment:
+                    class: null
+                  scroll_effects:
+                    class: null
+                  min_height:
+                    class: 0
+        third_party_settings: { }
+  image:
+    - entity: 9724a1cd-7ee4-4e08-868d-e55e56bbd5a8
+      display: true
+      description: ''
+  created:
+    - value: 1662680448

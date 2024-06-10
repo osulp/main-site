@@ -1,0 +1,9 @@
+name: OSU Migrate Media
+type: module
+description: Migrate OSU Media.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations
+  - osu_migrations_files:osu_migrations_files

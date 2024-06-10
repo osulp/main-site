@@ -1,0 +1,32 @@
+{
+    "name": "osu-wams/osu_custom_blocks",
+    "description": "OSU Drupal Module to create block types for use in OSU Drupal.",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Matthew Brabham",
+            "email": "matthew.brabham@oregonstate.edu"
+        }
+    ],
+    "minimum-stability": "stable",
+    "scripts": {
+        "cs": "phpcs",
+        "cs-checkstyle": "phpcs -q --report=checkstyle",
+        "phpcs": "phpcs",
+        "cbf": "phpcbf",
+        "phpcbf": "phpcbf",
+        "twigcs": "twigcs --twig-version=2"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "drupal/coder": "^8.3",
+        "friendsoftwig/twigcs": "^6.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

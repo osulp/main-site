@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 0108f6d8-4ec2-4e27-a9e9-87dd02a8c7fc
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: lb_three_column_card.jpg
+  uri:
+    - value: 'public://credentialing_providers/lb_three_column_card.jpg'
+  filemime:
+    - value: image/jpeg
+  filesize:
+    - value: 23853
+  status:
+    - value: true
+  created:
+    - value: 1664577297

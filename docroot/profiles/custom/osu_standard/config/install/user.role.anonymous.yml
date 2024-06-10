@@ -1,0 +1,26 @@
+uuid: 1d0fb78c-b635-4617-aa1d-7e2c6375f3cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - contact
+    - exclude_node_title
+    - filter
+    - google_cse
+    - media
+    - search
+    - system
+id: anonymous
+label: 'Anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'search Google CSE'
+  - 'search content'
+  - 'use exclude node title'
+  - 'use text format restricted_html'
+  - 'view media'

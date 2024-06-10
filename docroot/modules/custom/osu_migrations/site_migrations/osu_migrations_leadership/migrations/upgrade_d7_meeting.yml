@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_meeting
+field_plugin_method: null
+cck_plugin_method: null
+migration_group: Leadership
+migration_tags:
+  - Drupal 7
+  - Leadership
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: meeting
+process:
+  nid: nid
+  title: title
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_additional_files:
+    plugin: sub_process
+    source: field_additional_files
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_meeting_date:
+    plugin: sub_process
+    source: field_meeting_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d\TH:i:s'
+        to_format: 'Y-m-d\TH:i:s'
+        source: value
+  field_meeting_minutes:
+    plugin: sub_process
+    source: field_meeting_minutes
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  field_listen_to_the_meeting:
+    - plugin: sub_process
+      source: field_listen_to_the_meeting
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_meeting_location: field_meeting_location
+  field_meeting_type:
+    plugin: sub_process
+    source: field_meeting_type
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_taxonomy_terms
+        source: tid
+  field_notice:
+    - plugin: sub_process
+      source: field_notice
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_public_notice_pdf:
+    plugin: sub_process
+    source: field_public_notice_pdf
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  field_searchable_meeting_minutes: field_searchable_meeting_minutes
+  field_special_meeting_informatio:
+    - plugin: sub_process
+      source: field_special_meeting_informatio
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: meeting
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+    - upgrade_d7_node_type
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

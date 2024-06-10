@@ -1,0 +1,8 @@
+name: OSU Migrations - Advanced Technology and Manufacturing Institute (ATAMI)
+type: module
+description: Contains migrations specifically for the ATAMI Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - drupal:osu_migrations

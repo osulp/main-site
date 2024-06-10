@@ -1,0 +1,90 @@
+langcode: en
+status: true
+id: upgrade_d7_news
+label: 'News Content Migration'
+migration_group: content
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Cascades
+  - Content
+  - Layout content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: news
+process:
+  type:
+    plugin: default_value
+    default_value: news
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_publication_date:
+    - plugin: sub_process
+      source: field_publication_date
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_news_thumbnail:
+    - plugin: sub_process
+      source: field_news_thumbnail
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  field_news_caption: field_news_caption
+  field_source: field_source
+  field_file_upload:
+    - plugin: sub_process
+      source: field_file_upload
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+  field_external_url:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_external_url
+  field_social_media_image:
+    - plugin: sub_process
+      source: field_social_media_image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+  bundle: news
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

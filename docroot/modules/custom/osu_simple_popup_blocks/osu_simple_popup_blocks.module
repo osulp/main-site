@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for OSU Simple Popup Blocks module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_simple_popup_blocks_form_simple_popup_blocks_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['minimize']['#default_value'] = FALSE;
+  $form['overlay']['#default_value'] = FALSE;
+  $form['layout']['#default_value'] = 7;
+  $form = osu_simple_popup_blocks_set_form_options($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_simple_popup_blocks_form_simple_popup_blocks_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form = osu_simple_popup_blocks_set_form_options($form);
+}
+
+/**
+ * Remove form options from the layout.
+ *
+ * @param array $form
+ *   The Form array to update.
+ *
+ * @return array
+ *   The updated Form array.
+ */
+function osu_simple_popup_blocks_set_form_options(array $form) {
+  unset($form['layout']['#options'][0]);
+  unset($form['layout']['#options'][1]);
+  unset($form['layout']['#options'][5]);
+  unset($form['layout']['#options'][6]);
+  unset($form['layout']['#options'][8]);
+  unset($form['layout']['#options'][9]);
+  return $form;
+}

@@ -1,0 +1,37 @@
+id: upgrade_d7_url_alias
+label: URL aliases
+migration_tags:
+  - Drupal 7
+  - Content
+  - OSU
+  - OSU Alias
+source:
+  plugin: d7_url_alias
+  constants:
+    slash: '/'
+process:
+  # If you are using this file to build a custom migration consider removing
+  # the id field to allow incremental migrations.
+  id: pid
+  _path:
+    plugin: concat
+    source:
+      - constants/slash
+      - source
+  alias:
+    plugin: concat
+    source:
+      - constants/slash
+      - alias
+  langcode:
+    plugin: null_coalesce
+    source:
+      - '@node_translation/1'
+      - language
+  path:
+    plugin: path_set_translated
+    source:
+      - '@_path'
+      - '@node_translation'
+destination:
+  plugin: entity:path_alias

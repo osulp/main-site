@@ -1,0 +1,21 @@
+global-styling:
+  css:
+    base:
+      dist/madrone.css: { }
+  js:
+    dist/madrone.js: { }
+    dist/madrone-editoria11y.js: { }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+bootstrap:
+  js:
+    dist/bootstrap.bundle.js: { }
+
+fonts:
+  css:
+    theme:
+      '//fonts.googleapis.com/css?family=Open Sans:300,400,500,600,700': { type: external }
+      '//cdn.icomoon.io/155267/OregonStateBrandIcons/style-cf.css?8rsof6': { type: external, minified: false }

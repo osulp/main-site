@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Remove OSU Google Tag configuration.
+ */
+function osu_google_tag_update_9001(&$sandbox) {
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->delete('google_tag.container.osu_global');
+  return t('Removed Google Tag Container.');
+}

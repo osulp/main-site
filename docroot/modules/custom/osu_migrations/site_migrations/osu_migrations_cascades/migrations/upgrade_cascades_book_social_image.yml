@@ -1,0 +1,43 @@
+langcode: en
+status: true
+id: upgrade_cascades_book_social_image
+label: 'Book to Basic Page - Social Media Image Field only'
+migration_group: content
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Cascades
+  - Content
+  - Layout content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: book
+process:
+  field_social_media_image:
+    - plugin: sub_process
+      source: field_social_media_image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+  type:
+    plugin: default_value
+    default_value: page
+    overwrite_properties:
+      - field_social_media_image
+destination:
+  plugin: 'entity:node'
+  bundle: page
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

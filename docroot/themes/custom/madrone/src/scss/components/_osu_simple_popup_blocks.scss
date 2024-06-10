@@ -1,0 +1,40 @@
+@import '../abstracts/osu_variables';
+
+.simple-popup-blocks-global {
+  // The minimized button.
+  .spb_minimized {
+  }
+
+  .spb_overlay {
+    background-color: rgb(0 0 0 / 0.6);
+  }
+
+  .spb-popup-main-wrapper {
+    background-color: $bucktoothwhite-hsl;
+    border: 0.025rem solid $osuorange-hsl;
+    border-radius: 0.25rem;
+    padding: 1.3rem 2rem;
+
+    &.spb_center {
+      margin-left: max(calc(92vw / -2), var(--spb-margin-left)) !important;
+      max-width: min(92vw, var(--spb-width));
+    }
+
+    > .block-block-content {
+      display: none;
+    }
+
+    // The close, minimize button.
+    .spb-controls {
+      right: 5px;
+      top: 5px;
+
+      > .spb_close,
+      > .spb_minimize {
+        border-color: $osuorange-hsl;
+        border-radius: 0.25rem;
+        color: $osuorange-hsl;
+      }
+    }
+  }
+}

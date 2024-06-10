@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.hero_background
+label: 'Hero Background'
+targetEntityType: media
+cache: true

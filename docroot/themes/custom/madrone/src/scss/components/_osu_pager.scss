@@ -1,0 +1,17 @@
+nav.pager {
+  ul.pager__items {
+    gap: 0.5em;
+    margin-top: 1rem;
+
+    li.pager__item {
+      span.page-link:first-child,
+      span.page-link:last-child {
+        border-radius: 5px;
+      }
+
+      a {
+        border-radius: 5px;
+      }
+    }
+  }
+}

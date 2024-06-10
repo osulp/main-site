@@ -1,0 +1,108 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_policy_policy
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - Policy
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: policy
+process:
+  nid: nid
+  title: title
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_responsible_official: field_responsible_official
+  field_responsible_office: field_responsible_office
+  field_university_policy_no_: field_university_policy_no_
+  field_download_policy:
+    - plugin: sub_process
+      source: field_download_policy
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  field_policy_category:
+    - plugin: sub_process
+      source: field_policy_category
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_effective_date:
+    - plugin: sub_process
+      source: field_effective_date
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_last_revised:
+    - plugin: sub_process
+      source: field_last_revised
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_policy_or_standard:
+    - plugin: sub_process
+      source: field_policy_or_standard
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: policy
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

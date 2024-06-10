@@ -1,0 +1,10 @@
+name: OSU User Profile Migration
+type: module
+description: Migrate User Accounts to Profile content type.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - redirect:redirect
+  - migrate_plus:migrate_plus
+  - osu_migrations:osu_migrations

@@ -1,0 +1,11 @@
+name: OSU Paragraphs to layout builder
+type: module
+description: 'Migrates paragraphs to layout builder blocks'
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_drupal
+  - migrate_plus:migrate_plus
+  - drupal:osu_migrations

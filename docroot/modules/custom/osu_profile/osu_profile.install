@@ -1,0 +1,163 @@
+<?php
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\pathauto\Entity\PathautoPattern;
+
+/**
+ * Implements hook_install().
+ */
+function osu_profile_install() {
+  // Load default image by name to get uuid.
+  $default_image_array = \Drupal::entityTypeManager()
+    ->getStorage('file')
+    ->loadByProperties(['filename' => 'profile_preview.png']);
+  $default_image = reset($default_image_array);
+  $default_uuid = $default_image->get('uuid')->value;
+
+  // Load image field to set default image uuid.
+  $image_field = \Drupal::configFactory()
+    ->getEditable('field.field.node.osu_profile.field_profile_image');
+  $settings = $image_field->get('settings');
+  $settings['default_image']['uuid'] = $default_uuid;
+  $image_field->set('settings', $settings);
+  $image_field->save();
+}
+
+/**
+ * Make address field fields optional.
+ *
+ */
+function osu_profile_update_9005(&$sandbox) {
+  /** @var Drupal\field\Entity\FieldConfig $profile_address_field */
+  $profile_address_field = FieldConfig::loadByName('node', 'osu_profile', 'field_profile_address');
+  /** @var array $field_overrides */
+  $field_overrides = $profile_address_field->getSetting('field_overrides');
+  $address_field_updates = [
+    "addressLine1" => [
+      "override" => "optional",
+    ],
+    "postalCode" => [
+      "override" => "optional",
+    ],
+    "locality" => [
+      "override" => "optional",
+    ],
+    "administrativeArea" => [
+      "override" => "optional",
+    ],
+  ];
+  $field_overrides = array_merge($address_field_updates, $field_overrides);
+  $profile_address_field->setSetting('field_overrides', $field_overrides);
+  try {
+    $profile_address_field->save();
+    return t('Profile Address field is now optional.');
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_profile')->error($e->getMessage());
+    return t('Something went wrong');
+  }
+}
+
+/**
+ * Add teaser display to profile content type.
+ */
+function osu_profile_update_9004(&$sandbox) {
+  $osu_profile_path = \Drupal::service('module_handler')
+    ->getModule('osu_profile')
+    ->getPath();
+  $config_path = realpath($osu_profile_path . '/config/install');
+  /** @var \Drupal\Core\Config\FileStorage $file_source */
+  $file_source = new FileStorage($config_path);
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->write('core.entity_view_display.node.osu_profile.teaser', $file_source->read('core.entity_view_display.node.osu_profile.teaser'));
+}
+
+/**
+ * Add Metatag defaults and update display of name to an H1.
+ */
+function osu_profile_update_9003(&$sandbox) {
+  $osu_profile_path = \Drupal::service('module_handler')
+    ->getModule('osu_profile')
+    ->getPath();
+  $config_path = realpath($osu_profile_path . '/config/install');
+  /** @var \Drupal\Core\Config\FileStorage $file_source */
+  $file_source = new FileStorage($config_path);
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $profile_metatag = $file_source->read('metatag.metatag_defaults.node__osu_profile');
+  $config_storage->write('metatag.metatag_defaults.node__osu_profile', $profile_metatag);
+  return t('Add default metatag for profile content type.');
+}
+
+/**
+ * Add new field to profile.
+ */
+function osu_profile_update_9002(&$sandbox) {
+  $install_path = \Drupal::service('module_handler')
+    ->getModule('osu_profile')
+    ->getPath();
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  // Add new pathauto pattern.
+  PathautoPattern::create($source->read('pathauto.pattern.osu_profile_node'))
+    ->save();
+  // Create the field storage.
+  FieldStorageConfig::create($source->read('field.storage.node.field_profile_primary_title'))
+    ->save();
+  // Create the field instance.
+  FieldConfig::create($source->read('field.field.node.osu_profile.field_profile_primary_title'))
+    ->save();
+  // Update for form display by pushing to the end.
+  $form_config = $config_storage->read('core.entity_form_display.node.osu_profile.default');
+  $form_config['third_party_settings']['field_group']['group_personal_information']['children'][] = 'field_profile_primary_title';
+  // Add the field settings
+  $form_config['content']['field_profile_primary_title'] = [
+    "type" => "string_textfield",
+    "weight" => 13,
+    "region" => "content",
+    "settings" => [
+      "size" => 60,
+      "placeholder" => "",
+    ],
+    "third_party_settings" => [],
+  ];
+  $config_storage->write('views.view.profile', $source->read('views.view.profile'));
+  return t('Field, Pathauto, View and Form configs updates, manual updates to node view are required.');
+}
+
+/**
+ * Add text break to fix issues with long names and emails.
+ */
+function osu_profile_update_9001(&$sandbox) {
+  // Add text break to title and email on entity view display
+  $profile_layout = \Drupal::configFactory()
+    ->getEditable('core.entity_view_display.node.osu_profile.default');
+  $third_party_settings = $profile_layout->get('third_party_settings');
+  $components = $third_party_settings['layout_builder']['sections'][0]['components'];
+  foreach ($profile_layout->get('third_party_settings')['layout_builder']['sections'][0]['components'] as $key => &$component) {
+    if ($component['configuration']['id'] == 'field_block:node:osu_profile:title') {
+      $components[$key]['additional']['component_attributes']['block_content_attributes']['class'] = 'h2 fw-bolder osu-text-osuorange text-break';
+    }
+    else {
+      if ($component['configuration']['id'] == 'field_block:node:osu_profile:field_profile_email') {
+        $components[$key]['additional']['component_attributes']['block_content_attributes']['class'] = 'text-break';
+      }
+    }
+  }
+  $third_party_settings['layout_builder']['sections'][0]['components'] = $components;
+  $profile_layout->set('third_party_settings', $third_party_settings);
+  $profile_layout->save();
+
+  // Update view display on profile view
+  $profile_view = \Drupal::configFactory()->getEditable('views.view.profile');
+  $view_display = $profile_view->get('display');
+  $view_display['default']['display_options']['fields']['nothing']['alter']['text'] = "<div class=\"p-3 osu-bg-page-alt-1 rounded-bottom\">\r\n  <h2 class=\"fw-bolder text-break\">\r\n    {{ title }}\r\n  </h2>\r\n  <p class=\"pb-4\">{{ field_profile_pronouns }}</p>\r\n  <p class=\"text-break\">{{ field_profile_email }}</p>\r\n  <p>{{ field_profile_office_phone }}</p>\r\n  <p>{{ field_profile_address }}</p>\r\n</div>";
+  $profile_view->set('display', $view_display);
+  $profile_view->save();
+}

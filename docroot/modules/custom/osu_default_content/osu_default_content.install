@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+/**
+ * Update exiting layout library items to use our new placeholder photo.
+ */
+function osu_default_content_update_9001(&$sandbox) {
+  Drupal::service('module_installer')->install([
+    'osu_library_default_image',
+  ]);
+  \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
+  \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('f5f32813-2eb8-49ac-b5d6-df111babdb7c', '3a0135f7-33d4-4355-b553-3dc0e420a531');
+  // Update the 50/50 layout image.
+  $section_storage = \Drupal::entityTypeManager()
+    ->getStorage('section_library_template');
+  /** @var array $section_library_items */
+  $section_library_items = $section_storage->loadByProperties(['uuid' => 'e91a5628-cb28-402e-81f8-ba3690768232']);
+  /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $section_library_item */
+  $section_library_item = reset($section_library_items);
+  /** @var \Drupal\layout_builder\Plugin\Field\FieldType\LayoutSectionItem $layouts */
+  $layouts = $section_library_item->get('layout_section')->first();
+  /** @var \Drupal\layout_builder\Section $layout_section */
+  $layout_section = $layouts->getValue()['section'];
+  $layout_component = $layout_section->getComponent('906491dd-f430-42ff-b4a4-b0645564ca0b');
+  $layout_component_configuration = $layout_component->get('configuration');
+  $layout_block = unserialize($layout_component_configuration['block_serialized'], ['allowed_classes' => ['Drupal\block_content\Entity\BlockContent']]);
+  $body_value = $layout_block->get('body')->first();
+  $update_body_value = <<< newBodyValue
+  <drupal-media data-align="center" data-entity-type="media" data-entity-uuid="ca47a269-1650-4593-8156-4d99fb97d293"></drupal-media>\r\n
+  \r\n
+  <p>This photo is fairly large at&nbsp; 1900x1080 but with the max-width of 100% we ensure the photo does not overflow the content area. It's best to use photos closer to the size you want. You can configure Drupal to provide more options than the few here.</p>\r\n
+  newBodyValue;
+  $body_value->setValue([
+    'value' => $update_body_value,
+    'summary' => '',
+    'format' => 'full_html',
+  ]);
+  $layout_component_configuration['block_serialized'] = serialize($layout_block);
+
+  $layout_component->set('configuration', $layout_component_configuration);
+  $section_library_item->save();
+
+  return t('Added new default image and updated existing layouts');
+}

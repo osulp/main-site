@@ -1,0 +1,51 @@
+id: paragraph_grid_item__to__layout_builder
+label: Drupal 7 paragraph_grid_item Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - SeaGrant
+source:
+  plugin: d7_paragraphs_item
+  bundle: grid_item
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'osu_card'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_grid_item'
+  body:
+    - plugin: sub_process
+      source: field_grid_text
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_card_image:
+    - plugin: sub_process
+      source: field_grid_photo
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_media_images
+          source: fid
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required: [ ]
+  optional: [ ]

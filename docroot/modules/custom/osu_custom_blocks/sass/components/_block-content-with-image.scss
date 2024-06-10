@@ -1,0 +1,175 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.block--type-content-with-image {
+
+  .field--name-field-content-with-image-title {
+    @include heading-small;
+  }
+  .field--name-field-content-with-image-content {
+    @include body-large;
+    p {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+  .field--name-field-content-with-image-cta {
+    line-height: 1;
+    a {
+      @include cta-small;
+      padding-right: 27px;
+      color: $color-osu-orange;
+      background-size: 17px;
+    }
+  }
+
+  &.block--view-mode-image-left,
+  &.block--view-mode-image-right,
+  &.block--view-mode-image-bottom,
+  &.block--view-mode-floating-right {
+    .block__content {
+      max-width: $content-width;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+
+  &.block--view-mode-image-left,
+  &.block--view-mode-image-right,
+  &.block--view-mode-image-bottom {
+    .block__content {
+      display: flex;
+      margin: 60px auto;
+      gap: 30px;
+      @include breakpoint($mobile-large) {
+        margin: 120px auto;
+        gap: 100px;
+      }
+    }
+
+    .content-with-image-image-left-left-column,
+    .content-with-image-image-left-right-column,
+    .content-with-image-image-right-left-column,
+    .content-with-image-image-right-right-column {
+      flex: 1;
+    }
+    .content-with-image-image-left-right-column,
+    .content-with-image-image-right-left-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .field--name-field-content-with-image-image {
+      position: relative;
+      margin-bottom: 20px;
+      &:before {
+        position: absolute;
+        content: '';
+        background-color: $color-blue-light;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 20px;
+        z-index: -1;
+      }
+    }
+    .field--name-field-content-with-image-title {
+      color: $color-osu-orange;
+    }
+  }
+
+  &.block--view-mode-image-left {
+    .block__content {
+      flex-direction: column;
+      @include breakpoint($mobile-medium) {
+        flex-direction: row;
+      }
+    }
+    .field--name-field-content-with-image-image {
+      margin-left: 20px;
+      &:before {
+        left: -20px;
+      }
+    }
+  }
+
+  &.block--view-mode-image-right {
+    .block__content {
+      flex-direction: column-reverse;
+      @include breakpoint($mobile-medium) {
+        flex-direction: row;
+      }
+    }
+    .field--name-field-content-with-image-image {
+      margin-right: 20px;
+      &:before {
+        left: 20px;
+      }
+    }
+  }
+
+  &.block--view-mode-image-bottom {
+    .block__content {
+      flex-wrap: wrap;
+      gap: 0;
+      @include breakpoint($mobile-medium) {
+        gap: 30px;
+      }
+    }
+
+    .field--name-field-content-with-image-title,
+    .content-with-image-image-bottom-content-wrapper {
+      @include breakpoint($mobile-medium) {
+        width: calc(50% - 15px);
+      }
+      @include breakpoint($mobile-large) {
+        width: calc(50% - 50px);
+      }
+    }
+
+    .field--name-field-content-with-image-cta {
+      margin-bottom: 30px;
+      @include breakpoint($mobile-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    .field--name-field-content-with-image-image {
+      margin-left: 20px;
+      &:before {
+        background-color: $color-gold;
+        left: -20px;
+      }
+    }
+  }
+
+  &.block--view-mode-floating-right {
+    .block__content {
+      margin: 0px auto;
+      margin-top: 60px;
+      margin-bottom: 60px;
+      @include breakpoint($mobile-large) {
+        margin-top: 120px;
+        margin-bottom: 120px;
+      }
+    }
+
+    .content-with-image-floating-right-content-wrapper {
+      @include breakpoint($mobile-medium) {
+        margin-left: calc(100% / 3);
+      }
+      @include breakpoint($mobile-large) {
+        margin-left: calc(50% + 50px);
+      }
+    }
+
+    .field--name-field-content-with-image-title {
+      margin-bottom: 45px;
+    }
+    .field--name-field-content-with-image-cta {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+  }
+}

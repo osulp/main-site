@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 9724a1cd-7ee4-4e08-868d-e55e56bbd5a8
+  default_langcode: en
+default:
+  uid:
+    - target_id: 1
+  filename:
+    - value: lb_two_column_50_50_128_128.png
+  uri:
+    - value: 'public://credentialing_providers/lb_two_column_50_50_128_128.png'
+  filemime:
+    - value: image/png
+  filesize:
+    - value: 17714
+  status:
+    - value: true
+  created:
+    - value: 1698192142

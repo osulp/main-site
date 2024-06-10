@@ -1,0 +1,77 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.block--type-cta-list-with-image {
+
+  .block__content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    @include breakpoint($mobile-medium) {
+      flex-direction: row;
+      gap: 30px;
+      padding-bottom: 120px;
+      padding-top: 120px;
+    }
+    @include breakpoint($mobile-large) {
+      gap: 100px;
+    }
+  }
+
+  .cta-list-left-column,
+  .cta-list-right-column {
+    @include breakpoint($mobile-medium) {
+      width: calc(50% - 15px);
+    }
+    @include breakpoint($mobile-large) {
+      width: calc(50% - 50px);
+    }
+  }
+
+  .cta-list-left-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 60px;
+    @include breakpoint($mobile-medium) {
+      padding-bottom: 0;
+    }
+  }
+
+  .field--name-field-cta-list-title {
+    @include heading-small;
+    color: $color-osu-orange;
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    @include breakpoint($mobile-medium) {
+      max-width: 530px;
+      padding-right: 0;
+    }
+  }
+
+  .field--name-field-cta-list-link {
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+
+    a {
+      @include cta-large;
+      border-bottom: 1px solid $color-paddletail-black;
+      display: block;
+      padding-bottom: 30px;
+      padding-top: 30px;
+    }
+
+    @include breakpoint($mobile-medium) {
+      max-width: 530px;
+      padding-right: 0;
+    }
+  }
+
+  .field--name-field-cta-list-image img {
+    width: 100%;
+  }
+}

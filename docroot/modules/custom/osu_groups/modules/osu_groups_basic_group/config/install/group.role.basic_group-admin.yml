@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.basic_group
+id: basic_group-admin
+label: Admin
+weight: -4
+admin: true
+scope: individual
+global_role: null
+group_type: basic_group
+permissions: {  }

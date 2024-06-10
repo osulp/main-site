@@ -1,0 +1,56 @@
+id: upgrade_d7_node
+label: Nodes
+audit: true
+migration_tags:
+  - Drupal 7
+  - Content
+  - OSU Content
+  - OSU
+deriver: Drupal\node\Plugin\migrate\D7NodeDeriver
+source:
+  plugin: osu_d7_node
+  exclude_bundle:
+    - article
+    - biblio
+    - book
+    - feature_story
+    - feed
+    - group
+    - navigation_grid
+    - page
+    - parent_unit
+    - simple_tab
+    - stylesheet_overlay
+    - video
+    - webform
+process:
+  nid: tnid
+  vid: vid
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: "und"
+  title: title
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+destination:
+  plugin: entity:node
+migration_dependencies:
+  required:
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_node_type
+  optional:
+    - upgrade_d7_field_instance

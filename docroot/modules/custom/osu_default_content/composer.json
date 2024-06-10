@@ -1,0 +1,35 @@
+{
+  "name": "osu-wams/osu_default_content",
+  "description": "Drupal Module to add OSU default content",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Alex Ruef",
+      "email": "alex.ruef@oregonstate.edu"
+    },
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "scripts": {
+    "cs-checkstyle": "phpcs -q --report=checkstyle",
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf",
+    "yaml-lint": "yaml-lint *.yml"
+  },
+  "require-dev": {
+    "drupal/coder": "^8.3",
+    "squizlabs/php_codesniffer": "^3.7",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "j13k/yaml-lint": "^1.1",
+    "symfony/console": "^6.3"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

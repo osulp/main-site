@@ -1,0 +1,10 @@
+name: "OSU Bootstrap Layout Builder"
+description: "Adds OSU customizations to bootstrap layout builder"
+package: "Layout Builder"
+type: module
+core_version_requirement: ^9 || ^10
+version: 1.0.1
+dependencies:
+  - bootstrap_styles:bootstrap_styles
+  - bootstrap_layout_builder:bootstrap_layout_builder
+

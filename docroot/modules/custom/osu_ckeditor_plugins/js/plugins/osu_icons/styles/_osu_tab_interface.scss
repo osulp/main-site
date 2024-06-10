@@ -1,0 +1,38 @@
+.cke_reset_all {
+
+  .osu-icons-tabs {
+    border-bottom: 1px solid #ccc;
+
+    a {
+      cursor: pointer;
+      display: inline-block;
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 14px;
+      background: #eeeeee;
+      margin-bottom: -1px;
+      & + a {
+        margin-left: 4px;
+      }
+      &.tab-active {
+        background: #ffffff;
+        border-bottom-color: #ffffff;
+      }
+    }
+  }
+
+  .osu-icons-wrapper,
+  .fontawesome-icons-wrapper {
+    width: 600px;
+    display: none;
+    &.icons-visible {
+      display: block;
+    }
+  }
+
+  #osu-icon-picker {
+    margin-left: 10px;
+  }
+
+}
+

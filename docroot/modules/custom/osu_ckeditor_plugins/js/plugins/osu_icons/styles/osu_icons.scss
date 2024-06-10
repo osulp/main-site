@@ -1,0 +1,226 @@
+$osu: #d73f09;
+$neutral-100: #f7f5f5;
+$paddletailblack: #212529;
+$bucktoothwhite: #ffffff;
+$pine: #4a773c;
+$luminance: #ffb500;
+$rogue_wave: #00859b;
+$stratosphere: #006a8e;
+$body: #423E3C;
+/* Update webfont path */
+$fa-font-path: "webfonts";
+
+/* Colors */
+.primary {
+  color: $osu;
+}
+
+.light {
+  color: $neutral-100;
+}
+
+.dark {
+  color: $paddletailblack;
+}
+
+.white {
+  color: $bucktoothwhite;
+}
+
+.pine {
+  color: $pine;
+}
+
+.luminance {
+  color: $luminance;
+}
+
+.rogue-wave {
+  color: $rogue_wave;
+}
+
+.stratosphere {
+  color: $stratosphere;
+}
+
+.osu-colors {
+  p {
+    background-clip: content-box;
+    border: 2px dashed #ddd;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 2px;
+    padding: 2px;
+    width: 30px;
+
+    &.primary {
+      background-color: $osu;
+    }
+
+    &.light {
+      background-color: $neutral-100;
+    }
+
+    &.dark {
+      background-color: $paddletailblack;
+    }
+
+    &.white {
+      background-color: $bucktoothwhite;
+    }
+
+    &.pine {
+      background-color: $pine;
+    }
+
+    &.luminance {
+      background-color: $luminance;
+    }
+
+    &.rogue-wave {
+      background-color: $rogue_wave;
+    }
+
+    &.stratosphere {
+      background-color: $stratosphere;
+    }
+
+    &.color-active {
+      border-color: #444;
+      border-style: solid;
+    }
+  }
+
+  label {
+    display: block !important;
+  }
+}
+
+#selected-icon {
+  position: absolute;
+  right: 30px;
+  top: 100px;
+  // adds contrast and spacing so white icons can be previewed
+  .fas, .fab, .far,
+  [class*="icon-osu"] {
+    border: 10px solid transparent;
+
+    &.white {
+      background: #999;
+      border-color: #999;
+    }
+  }
+
+}
+
+.cke_reset_all {
+
+  .fab, .fa, .far, .fas, i {
+    &.fa-2x {
+      font-size: 2em;
+    }
+
+    &.fa-3x {
+      font-size: 3em;
+    }
+
+    &.fa-5x {
+      font-size: 5em;
+    }
+
+    &.fa-7x {
+      font-size: 7em;
+    }
+  }
+
+  .osu-icons {
+    height: 300px;
+    overflow: scroll;
+
+    i {
+      cursor: pointer;
+    }
+
+  }
+
+  .osu-sizes {
+    margin-bottom: 1rem;
+
+    p {
+      background: #eeeeee;
+      border-right: 5px solid #ffffff;
+      cursor: pointer;
+      display: table-cell;
+      height: 30px;
+      margin: 2px;
+      text-align: center;
+      vertical-align: middle;
+      width: 30px;
+
+      &.size-active {
+        background: #aaa;
+        font-weight: bold;
+      }
+    }
+
+    label {
+      display: block !important;
+    }
+  }
+
+  /* Sizes */
+  .icon_size-small {
+    font-size: 2em;
+  }
+
+  .icon_size-medium {
+    font-size: 3em;
+  }
+
+  .icon_size-large {
+    font-size: 5em;
+  }
+
+  .icon_size-xlarge {
+    font-size: 7em;
+  }
+
+  /* Colors */
+  .primary {
+    color: $osu;
+  }
+
+  .light {
+    color: $neutral-100;
+  }
+
+  .dark {
+    color: $paddletailblack;
+  }
+
+  .white {
+    color: $bucktoothwhite;
+  }
+
+  .pine {
+    color: $pine;
+  }
+
+  .luminance {
+    color: $luminance;
+  }
+
+  .rogue-wave {
+    color: $rogue_wave;
+  }
+
+  .stratosphere {
+    color: $stratosphere;
+  }
+}
+
+@import 'osu_font_icons';
+@import 'fontawesome';
+@import 'osu_fontawesome_ckeditor';
+@import 'osu_tab_interface';

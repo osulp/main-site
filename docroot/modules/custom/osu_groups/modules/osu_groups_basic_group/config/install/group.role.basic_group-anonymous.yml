@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.basic_group
+    - user.role.anonymous
+id: basic_group-anonymous
+label: Anonymous
+weight: -10
+admin: false
+scope: outsider
+global_role: anonymous
+group_type: basic_group
+permissions:
+  - 'view group'
+  - 'view group_node:page entity'

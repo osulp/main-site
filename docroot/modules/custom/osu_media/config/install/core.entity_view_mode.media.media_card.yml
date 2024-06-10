@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.media_card
+label: 'Media Card'
+targetEntityType: media
+cache: true

@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_node_og_group
+migration_tags:
+  - Drupal 7 OG
+  - OSU Groups Structure
+  - OSU Groups
+  - OSU
+migration_group: osu_groups
+label: 'Insert OG Group'
+source:
+  plugin: d7_node
+  node_type: group
+process:
+  type:
+    plugin: default_value
+    default_value: basic_group
+  id: nid
+  uid:
+    plugin: default_value
+    default_value: 1
+  label: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias: alias
+destination:
+  plugin: 'entity:group'
+migration_dependencies: { }

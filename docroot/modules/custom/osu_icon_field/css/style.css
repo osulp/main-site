@@ -1,0 +1,37 @@
+.autocomplete-wrapper {
+  background-color: #ffffff;
+  border: solid 1px #d1d1d1;
+  width: 100%;
+  top: 75px;
+  left: 0;
+  z-index: 2;
+}
+
+.autocomplete-wrapper ul.autocomplete-items {
+  margin: 0;
+  padding: 0;
+}
+
+.autocomplete-wrapper ul.autocomplete-items li {
+  list-style: none;
+}
+
+.autocomplete-wrapper ul.autocomplete-items li a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  padding-left: 10px;
+}
+
+.autocomplete-wrapper ul.autocomplete-items li a i {
+  margin-right: 10px;
+}
+
+.autocomplete-wrapper .osu-icon {
+  font-size: 24px;
+}
+
+a.autocomplete-hover, a.autocomplete-hover i {
+  background-color: black;
+  color: white !important;
+}

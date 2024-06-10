@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: pattern_for_user_account_page_paths
+label: 'Pattern for user account page paths'
+type: 'canonical_entities:user'
+pattern: 'people/[user:name]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }

@@ -1,0 +1,65 @@
+{
+    "name": "osu-wams/madrone",
+    "description": "Drupal Theme for OSU",
+    "minimum-stability": "stable",
+    "license": "GPL-2.0-or-later",
+    "type": "drupal-custom-theme",
+    "authors": [
+        {
+            "name": "Matthew Brabham",
+            "email": "matthew.brabham@oregonstate.edu"
+        }
+    ],
+    "scripts": {
+        "cs": "phpcs",
+        "cs-checkstyle": "phpcs -q --report=checkstyle",
+        "phpcs": "phpcs",
+        "cbf": "phpcbf",
+        "phpcbf": "phpcbf",
+        "twigcs": "twigcs --twig-version=2",
+        "post-install-cmd": [
+            "vendor/bin/cghooks add"
+        ],
+        "post-update-cmd": [
+            "vendor/bin/cghooks update"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts-descriptions": {
+        "cs": "Check code for Drupal Standards.",
+        "cbf": "Attempt to auto fix Drupal Code Standards.",
+        "twigcs": "Check Twig templates for Standards"
+    },
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "drupal/coder": "^8.3",
+        "friendsoftwig/twigcs": "^6.2",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "extra": {
+        "hooks": {
+            "config": {
+                "stop-on-failure": [
+                    "pre-commit",
+                    "pre-push"
+                ]
+            },
+            "pre-push": [
+                "vendor/bin/twigcs --twig-version=1",
+                "vendor/bin/phpcs -n"
+            ],
+            "pre-commit": [
+                "vendor/bin/twigcs --twig-version=2",
+                "vendor/bin/phpcbf",
+                "node_modules/gulp-cli/bin/gulp.js",
+                "git add dist"
+            ]
+        }
+    }
+}

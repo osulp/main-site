@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: cbc75e2c-f67b-4016-aff5-58b87beb7ae0
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: snowday-29.webp
+  uri:
+    - value: 'public://2022-09/snowday-29.webp'
+  filemime:
+    - value: image/webp
+  filesize:
+    - value: 362436
+  status:
+    - value: true
+  created:
+    - value: 1662074034

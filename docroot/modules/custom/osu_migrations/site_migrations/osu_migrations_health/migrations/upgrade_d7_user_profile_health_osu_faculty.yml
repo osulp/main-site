@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_health_osu_faculty
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - Health
+  - OSU
+label: 'Custom OSU Migration for Health OSU Faculty Profile Custom Fields.'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_faculty
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_c_career_links:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: career_links
+  field_c_career_interests:
+    - plugin: sub_process
+      source: career_interests
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_c_faculty_rank: rank
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_c_career_links
+      - field_c_career_interests
+      - field_c_faculty_rank
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

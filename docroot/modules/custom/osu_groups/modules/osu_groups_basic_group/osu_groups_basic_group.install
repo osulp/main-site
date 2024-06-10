@@ -1,0 +1,490 @@
+<?php
+
+/**
+ * @file
+ * Provides Install, Uninstall and Update functions.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\user\Entity\Role;
+use Drupal\views\Entity\View;
+
+/**
+ * Implements hook_install().
+ */
+function osu_groups_basic_group_install($is_syncing) {
+  $form_display = \Drupal::entityTypeManager()
+    ->getStorage('entity_form_display')
+    ->load('node.page.default');
+  $body_field = $form_display->getComponent('body');
+  // Set the field above body.
+  $form_display->setComponent('entitygroupfield', [
+    'type' => 'entitygroupfield_select_widget',
+    'weight' => $body_field['weight'] - 1,
+    'region' => 'content',
+    'settings' => [
+      'help_text' => 'Select a Group for this content.',
+      'label' => 'Group name',
+      'multiple' => FALSE,
+      'region' => FALSE,
+    ],
+    'third_party_settings' => [],
+  ])
+    ->save();
+
+  // Update views to use bootstrap classes.
+  $group_members_view = View::load('group_members');
+  $group_members_view_display = $group_members_view->get('display');
+  $group_members_view_display['default']['display_options']['css_class'] = 'container';
+  // Set view to use admin theme.
+  $group_members_view_display['page_1']['display_options']['use_admin_theme'] = TRUE;
+  $group_members_view->set('display', $group_members_view_display);
+  $group_members_view->save();
+
+  // VBO field information for this specific Group Nodes view.
+  $nodes_vbo_operations_field = [
+    "id" => "views_bulk_operations_bulk_form",
+    "table" => "views",
+    "field" => "views_bulk_operations_bulk_form",
+    "relationship" => "none",
+    "group_type" => "group",
+    "admin_label" => "",
+    "plugin_id" => "views_bulk_operations_bulk_form",
+    "label" => "Bulk Operations",
+    "exclude" => FALSE,
+    "alter" => [
+      "alter_text" => FALSE,
+      "text" => "",
+      "make_link" => FALSE,
+      "path" => "",
+      "absolute" => FALSE,
+      "external" => FALSE,
+      "replace_spaces" => FALSE,
+      "path_case" => "none",
+      "trim_whitespace" => FALSE,
+      "alt" => "",
+      "rel" => "",
+      "link_class" => "",
+      "prefix" => "",
+      "suffix" => "",
+      "target" => "",
+      "nl2br" => FALSE,
+      "max_length" => 0,
+      "word_boundary" => TRUE,
+      "ellipsis" => TRUE,
+      "more_link" => FALSE,
+      "more_link_text" => "",
+      "more_link_path" => "",
+      "strip_tags" => FALSE,
+      "trim" => FALSE,
+      "preserve_tags" => "",
+      "html" => FALSE,
+    ],
+    "element_type" => "",
+    "element_class" => "",
+    "element_label_type" => "",
+    "element_label_class" => "",
+    "element_label_colon" => TRUE,
+    "element_wrapper_type" => "",
+    "element_wrapper_class" => "",
+    "element_default_classes" => TRUE,
+    "empty" => "",
+    "hide_empty" => FALSE,
+    "empty_zero" => FALSE,
+    "hide_alter_empty" => TRUE,
+    "batch" => TRUE,
+    "batch_size" => 10,
+    "form_step" => TRUE,
+    "buttons" => FALSE,
+    "action_title" => "Action",
+    "clear_on_exposed" => TRUE,
+    "force_selection_info" => FALSE,
+    "selected_actions" => [
+      0 => [
+        "action_id" => "node_assign_owner_action",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      6 => [
+        "action_id" => "views_bulk_edit",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+          "get_bundles_from_results" => TRUE,
+        ],
+      ],
+      8 => [
+        "action_id" => "entity:publish_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      9 => [
+        "action_id" => "entity:save_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      10 => [
+        "action_id" => "entity:unpublish_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+    ],
+  ];
+
+  $group_nodes_view = View::load('group_nodes');
+  $group_nodes_view_display = $group_nodes_view->get('display');
+  $group_nodes_view_display['default']['display_options']['css_class'] = 'container';
+  // Set view to use admin theme.
+  $group_nodes_view_display['page_1']['display_options']['use_admin_theme'] = TRUE;
+  $group_nodes_view_fields = $group_nodes_view_display['default']['display_options']['fields'];
+  $group_nodes_view_fields = array_merge(['views_bulk_operations_bulk_form' => $nodes_vbo_operations_field], $group_nodes_view_fields);
+  $group_nodes_view_display['default']['display_options']['fields'] = $group_nodes_view_fields;
+  $group_nodes_view->set('display', $group_nodes_view_display);
+  $group_nodes_view->save();
+
+  // Grant Full Group Access to the Architect Role.
+  $architect_user_role = Role::load('architect');
+  _group_admin_permissions($architect_user_role);
+
+  // Grant Full Group Access to the Architect Role.
+  $dx_administrator_role = Role::load('dx_administrator');
+  _group_admin_permissions($dx_administrator_role);
+
+  $manage_content = Role::load('manage_content');
+  $manage_content->grantPermission('configure editable basic_group group layout overrides');
+
+  $manage_content->save();
+
+  $content_authors = Role::load('content_authors');
+  $content_authors->grantPermission('configure editable basic_group group layout overrides');
+
+  $content_authors->save();
+}
+
+/**
+ * Assign permissions to the role to manage groups.
+ *
+ * @param \Drupal\user\Entity\Role $role
+ *   The User Role Entity.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _group_admin_permissions(Role $role): void {
+  $role->grantPermission('access group overview');
+  $role->grantPermission('administer group');
+  $role->grantPermission('administer group display');
+  $role->grantPermission('administer group fields');
+  $role->grantPermission('administer group_content display');
+  $role->grantPermission('administer group_content fields');
+  $role->grantPermission('administer group_content form display');
+  $role->grantPermission('create basic_group group');
+  $role->grantPermission('configure all basic_group group layout overrides');
+  $role->grantPermission('configure editable basic_group group layout overrides');
+
+  $role->save();
+}
+
+/**
+ * Update with new hide_main_navigation field.
+ */
+function osu_groups_basic_group_update_9001() {
+  $source = get_module_source_path();
+
+  // Obtain the storage manager for field storage bases
+  // Create a new field from the yaml configuration and save.
+  \Drupal::entityTypeManager()->getStorage('field_storage_config')
+    ->create($source->read('field.storage.group.field_hide_global_navigation'))
+    ->save();
+
+  // Obtain the storage manager for field instances
+  // Create a new field instance from the yaml configuration and save.
+  \Drupal::entityTypeManager()->getStorage('field_config')
+    ->create($source->read('field.field.group.basic_group.field_hide_global_navigation'))
+    ->save();
+
+  // Update entity form display to show new field.
+  \Drupal::entityTypeManager()->getStorage('entity_form_display')
+    ->load('group.basic_group.default')
+    ->setComponent('field_hide_global_navigation', [
+      'weight' => 32,
+    ])->save();
+}
+
+/**
+ * Add VBO field to group node view.
+ */
+function osu_groups_basic_group_update_9002(&$sandbox) {
+  // VBO field information for this specific Group Nodes view.
+  $nodes_vbo_operations_field = [
+    "id" => "views_bulk_operations_bulk_form",
+    "table" => "views",
+    "field" => "views_bulk_operations_bulk_form",
+    "relationship" => "none",
+    "group_type" => "group",
+    "admin_label" => "",
+    "plugin_id" => "views_bulk_operations_bulk_form",
+    "label" => "Bulk Operations",
+    "exclude" => FALSE,
+    "alter" => [
+      "alter_text" => FALSE,
+      "text" => "",
+      "make_link" => FALSE,
+      "path" => "",
+      "absolute" => FALSE,
+      "external" => FALSE,
+      "replace_spaces" => FALSE,
+      "path_case" => "none",
+      "trim_whitespace" => FALSE,
+      "alt" => "",
+      "rel" => "",
+      "link_class" => "",
+      "prefix" => "",
+      "suffix" => "",
+      "target" => "",
+      "nl2br" => FALSE,
+      "max_length" => 0,
+      "word_boundary" => TRUE,
+      "ellipsis" => TRUE,
+      "more_link" => FALSE,
+      "more_link_text" => "",
+      "more_link_path" => "",
+      "strip_tags" => FALSE,
+      "trim" => FALSE,
+      "preserve_tags" => "",
+      "html" => FALSE,
+    ],
+    "element_type" => "",
+    "element_class" => "",
+    "element_label_type" => "",
+    "element_label_class" => "",
+    "element_label_colon" => TRUE,
+    "element_wrapper_type" => "",
+    "element_wrapper_class" => "",
+    "element_default_classes" => TRUE,
+    "empty" => "",
+    "hide_empty" => FALSE,
+    "empty_zero" => FALSE,
+    "hide_alter_empty" => TRUE,
+    "batch" => TRUE,
+    "batch_size" => 10,
+    "form_step" => TRUE,
+    "buttons" => FALSE,
+    "action_title" => "Action",
+    "clear_on_exposed" => TRUE,
+    "force_selection_info" => FALSE,
+    "selected_actions" => [
+      0 => [
+        "action_id" => "node_assign_owner_action",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      6 => [
+        "action_id" => "views_bulk_edit",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+          "get_bundles_from_results" => TRUE,
+        ],
+      ],
+      8 => [
+        "action_id" => "entity:publish_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      9 => [
+        "action_id" => "entity:save_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+      10 => [
+        "action_id" => "entity:unpublish_action:node",
+        "preconfiguration" => [
+          "add_confirmation" => TRUE,
+        ],
+      ],
+    ],
+  ];
+  $group_nodes_view = View::load('group_nodes');
+  $group_nodes_view_display = $group_nodes_view->get('display');
+  $group_nodes_view_fields = $group_nodes_view_display['default']['display_options']['fields'];
+  $group_nodes_view_fields = array_merge(['views_bulk_operations_bulk_form' => $nodes_vbo_operations_field], $group_nodes_view_fields);
+  $group_nodes_view_display['default']['display_options']['fields'] = $group_nodes_view_fields;
+  $group_nodes_view->set('display', $group_nodes_view_display);
+  $group_nodes_view->save();
+  return t('Group Node Views can now utilize VBO.');
+}
+
+/**
+ * Add use_admin_theme to group views.
+ */
+function osu_groups_basic_group_update_9003(&$sandbox) {
+  $group_nodes_view = View::load('group_nodes');
+  $group_nodes_view_display = $group_nodes_view->get('display');
+  $group_nodes_view_display['page_1']['display_options']['use_admin_theme'] = TRUE;
+  $group_nodes_view->set('display', $group_nodes_view_display);
+  $group_nodes_view->save();
+
+  $group_members_view = View::load('group_members');
+  $group_members_view_display = $group_members_view->get('display');
+  $group_members_view_display['page_1']['display_options']['use_admin_theme'] = TRUE;
+  $group_members_view->set('display', $group_members_view_display);
+  $group_members_view->save();
+
+  return t('Group Views now use admin theme.');
+}
+
+/**
+ * Get the File path to the module's configuration folder.
+ */
+function get_module_source_path(): FileStorage {
+  $install_profile_path = \Drupal::service('module_handler')
+    ->getModule('osu_groups_basic_group')
+    ->getPath();
+  $config_path = realpath($install_profile_path . '/config/install');
+  return new FileStorage($config_path);
+}
+
+/**
+ * Update field label and description for the global nav toggle.
+ */
+function osu_groups_basic_group_update_9004(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $use_toggle_label = $config_factory->getEditable('field.field.group.basic_group.field_hide_global_navigation');
+  $use_toggle_label->set('label', 'Use Group Menu');
+  $use_toggle_label->set('description', 'By default the <em>Group Menu</em> will render in-place of the site navigation.<br />Uncheck this to use the site navigation instead.');
+  $use_toggle_label->save();
+  return t('Update field configuration for hide_global_navigation');
+}
+
+/**
+ * Add Role group_content_author.
+ */
+function osu_groups_basic_group_update_9005(&$sandbox): void {
+  $install_path = get_module_source_path();
+  Role::create($install_path->read('user.role.group_content_author'))->save();
+}
+
+/**
+ * Add Permission to 'Group Content Author' global role to use contextual links.
+ */
+function osu_groups_basic_group_update_9006(&$sandbox): void {
+  $group_content_author = Role::load('group_content_author');
+  $group_content_author->grantPermission('access contextual links');
+  $group_content_author->save();
+}
+
+/**
+ * Add new roles for Groups.
+ */
+function osu_groups_basic_group_update_9007(&$sandbox) {
+  $module_config_path = get_module_source_path();
+  /** @var Drupal\group\Entity\Storage\GroupRoleStorage $group_role_storage */
+  $group_role_storage = \Drupal::entityTypeManager()->getStorage('group_role');
+  $group_role_storage->create($module_config_path->read('group.role.basic_group-dx_administrator'))
+    ->save();
+  $group_role_storage->create($module_config_path->read('group.role.basic_group-architect'))
+    ->save();
+  // Add permission to join groups to outsiders.
+  /** @var Drupal\group\Entity\GroupRole $group_role_outsider */
+  $group_role_outsider = $group_role_storage->load('basic_group-outsider');
+  $group_role_outsider_perms = $group_role_outsider->get('permissions');
+  $group_role_outsider_perms[] = 'join group';
+  $group_role_outsider->set('permissions', $group_role_outsider_perms);
+  $group_role_outsider->save();
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function osu_groups_basic_group_update_9008(&$sandbox) {
+  $module_config_path = get_module_source_path();
+
+  // Creating field storages.
+  try {
+    FieldStorageConfig::create($module_config_path->read('field.storage.group.field_osu_group_meta_description'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_groups_basic_group')->error($e->getMessage());
+  }
+  try {
+    FieldStorageConfig::create($module_config_path->read('field.storage.group.field_osu_group_meta_image'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_groups_basic_group')->error($e->getMessage());
+  }
+
+  // Attaching fields to Group nodes.
+  try {
+    FieldConfig::create($module_config_path->read('field.field.group.basic_group.field_osu_group_meta_description'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_groups_basic_group')->error($e->getMessage());
+  }
+  try {
+    FieldConfig::create($module_config_path->read('field.field.group.basic_group.field_osu_group_meta_image'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_groups_basic_group')->error($e->getMessage());
+  }
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $group_form_display = $config_storage->read('core.entity_form_display.group.basic_group.default');
+  $existing_group_form_display = $module_config_path->read('core.entity_form_display.group.basic_group.default');
+  $existing_group_form_display['content'] = array_merge($group_form_display['content'], $existing_group_form_display['content']);
+  $config_storage->write('core.entity_form_display.group.basic_group.default', $existing_group_form_display);
+  $existing_group_view_display = $config_storage->read('core.entity_view_display.group.basic_group.default');
+  unset($existing_group_view_display['content']['field_osu_group_meta_description']);
+  unset($existing_group_view_display['content']['field_osu_group_meta_image']);
+  $existing_group_view_display['hidden']['field_osu_group_meta_description'] = TRUE;
+  $existing_group_view_display['hidden']['field_osu_group_meta_image'] = TRUE;
+  $config_storage->write('core.entity_view_display.group.basic_group.default', $existing_group_view_display);
+
+  $group_metatag_defaults = $config_storage->read('metatag.metatag_defaults.group');
+  if ($group_metatag_defaults === FALSE) {
+    $config_storage->write('metatag.metatag_defaults.group', $module_config_path->read('metatag.metatag_defaults.group'));
+  }
+  else {
+    $new_metatag_defaults = $module_config_path->read('metatag.metatag_defaults.group');
+    $group_metatag_defaults['tags'] = array_merge($new_metatag_defaults['tags'], $group_metatag_defaults['tags']);
+    $config_storage->write('metatag.metatag_defaults.group', $group_metatag_defaults);
+  }
+  return t('Updated group entities to now have Meatag Fields.');
+}
+
+/**
+ * Set the new group global setting for auto node title.
+ */
+function osu_groups_basic_group_update_9009(&$sandbox) {
+  Drupal::configFactory()
+    ->getEditable('group.settings')
+    ->set('osu_groups_page_title', TRUE)
+    ->save();
+}
+
+/**
+ * Grant 'dropzone upload files' permission to 'group_content_author' role.
+ */
+function osu_groups_basic_group_update_9010(&$sandbox) {
+  $role_id = 'group_content_author';
+  // Check if the role exists before assigning permission to it.
+  if ($role = Role::load($role_id)) {
+    $role->grantPermission('dropzone upload files');
+    $role->save();
+
+    return t('Updated role %role_id and granted permission.', ['%role_id' => $role_id]);
+  }
+
+  return t('Role %role_id does not exist.', ['%role_id' => $role_id]);
+}

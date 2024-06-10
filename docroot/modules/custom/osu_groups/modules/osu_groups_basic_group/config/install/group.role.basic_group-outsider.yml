@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.basic_group
+    - user.role.authenticated
+id: basic_group-outsider
+label: Outsider
+weight: -9
+admin: false
+scope: outsider
+global_role: authenticated
+group_type: basic_group
+permissions:
+  - 'join group'
+  - 'view group'
+  - 'view group_node:page entity'

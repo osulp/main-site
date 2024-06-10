@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 2e9d0833-4758-4f5d-b651-f20a1ed33466
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: dji_0247_edit.webp
+  uri:
+    - value: 'public://2022-09/dji_0247_edit.webp'
+  filemime:
+    - value: image/webp
+  filesize:
+    - value: 565364
+  status:
+    - value: true
+  created:
+    - value: 1662074034

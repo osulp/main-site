@@ -1,0 +1,29 @@
+{
+  "name": "osu-wams/osu_roles",
+  "description": "Provides OSU EWS functionality to manage OSU Drupal",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "require-dev": {
+    "drupal/coder": "^8.3",
+    "friendsoftwig/twigcs": "^6.0",
+    "j13k/yaml-lint": "^1.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "cs": "phpcs",
+    "cbf": "phpcbf",
+    "twigcs": "twigcs --twig-version=2",
+    "yaml-lint": "yaml-lint *.yml"
+  }
+}

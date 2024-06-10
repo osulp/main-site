@@ -1,0 +1,38 @@
+@import "../abstracts/osu_variables";
+// Use only on thead for an orange table.
+@include table-variant('osuorange', $osuorange);
+.osu-table {
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-hover;
+  @extend .table-striped;
+
+  & > thead {
+    @extend .table-dark;
+
+    a {
+      color: $bucktoothwhite;
+      text-decoration-color: $bucktoothwhite;
+    }
+  }
+}
+
+.osu-table-orange {
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-hover;
+  @extend .table-striped;
+
+  & > thead {
+    @extend .table-osuorange;
+
+    a {
+      color: $bucktoothwhite;
+      text-decoration-color: $bucktoothwhite;
+    }
+  }
+}
+
+table:not(.table, .osu-table, .osu-table-orange) {
+  @extend .osu-table;
+}

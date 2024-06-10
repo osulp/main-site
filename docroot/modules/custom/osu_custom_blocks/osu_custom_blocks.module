@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for OSU Custom Blocks module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function osu_custom_blocks_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'osu_custom_blocks/osu-custom-blocks';
+}

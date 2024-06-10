@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 33912626-35d7-4abe-8836-1fa9efd7becc
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: lb_three_column_equal.jpg
+  uri:
+    - value: 'public://credentialing_providers/lb_three_column_equal.jpg'
+  filemime:
+    - value: image/jpeg
+  filesize:
+    - value: 16040
+  status:
+    - value: true
+  created:
+    - value: 1663019674

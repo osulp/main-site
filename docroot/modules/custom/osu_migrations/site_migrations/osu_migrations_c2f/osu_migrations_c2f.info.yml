@@ -1,0 +1,8 @@
+name: OSU Migrations - Coast to Forest Web Library
+type: module
+description: Contains migrations specifically for the Coast to Forest Web Library Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - drupal:osu_migrations

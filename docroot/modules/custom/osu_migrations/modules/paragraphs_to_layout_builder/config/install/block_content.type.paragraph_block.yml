@@ -1,0 +1,12 @@
+uuid: 981a66ac-ec9d-427c-a455-cbe48ea232f3
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - paragraphs_to_layout_builder
+      - osu_migrations
+id: paragraph_block
+label: 'Paragraph block'
+revision: 0
+description: 'Block used to migrate paragraphs from d7 site'

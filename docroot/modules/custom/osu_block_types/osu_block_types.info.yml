@@ -1,0 +1,13 @@
+name: OSU Block Types
+type: module
+description: Create Different Blocks types for use in OSU Drupal.
+package: OSU
+core_version_requirement: ^9 || ^10
+version: 1.0.14
+dependencies:
+  - core:block
+  - core:layout_builder
+  - linkit:linkit
+  - osu_media:osu_media
+  - osu_icon_field:osu_icon_field
+  - paragraphs:paragraphs

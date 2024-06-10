@@ -1,0 +1,42 @@
+langcode: en
+status: true
+id: upgrade_d7_early_learning_research_update
+label: 'Update Early Learning Research as we had the wrong migration lookup.'
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Health
+  - Content
+  - Layout content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: early_learning_research
+process:
+  nid: nid
+  field_early_learning_publication:
+    - plugin: sub_process
+      source: field_early_learning_publication
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  type:
+    plugin: default_value
+    default_value: early_learning_research
+    overwrite_properties:
+      - field_early_learning_publication
+destination:
+  plugin: 'entity:node'
+  bundle: early_learning_research
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

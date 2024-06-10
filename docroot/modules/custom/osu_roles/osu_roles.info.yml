@@ -1,0 +1,6 @@
+name: OSU Roles
+type: module
+description: Provides OSU EWS functionality to manage OSU Drupal.
+package: OSU
+version: 1.0.3
+core_version_requirement: ^9 || ^10

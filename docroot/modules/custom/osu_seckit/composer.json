@@ -1,0 +1,14 @@
+{
+    "name": "osu-wams/osu_seckit",
+    "description": "Provides Default Configuration to Security Kit module",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Matthew Brabham",
+            "email": "brabham.matthew@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

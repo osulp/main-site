@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.1"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.0",
+    "breakpoint-sass": "^2.7.1",
+    "normalize.css": "^8.0.1",
+    "parcel": "^2.0.1",
+    "postcss": "^8.4.4",
+    "sass": "^1.44.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn clean && parcel build sass/style.scss --no-cache --no-scope-hoist --public-url ./",
+    "watch": "yarn clean && parcel watch sass/style.scss --no-hmr --public-url ./"
+  }
+}

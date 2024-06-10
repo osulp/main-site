@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Theme override for a group edit form.
+ *
+ * Two column template for the group add/edit form.
+ *
+ * This template will be used when a group edit form specifies 'group_edit_form'
+ * as its #theme callback.  Otherwise, by default, group add/edit forms will be
+ * themed by form.html.twig.
+ *
+ * Available variables:
+ * - form: The group add/edit form.
+ *
+ * @see claro_form_group_form_alter()
+ */
+#}
+<div class="layout-group-form clearfix">
+  <div class="layout-region layout-region--group-main">
+    <div class="layout-region__content">
+      {{ form|without('advanced', 'footer', 'actions') }}
+    </div>
+  </div>
+  <div class="layout-region layout-region--group-secondary">
+    <div class="layout-region__content">
+      {{ form.advanced }}
+    </div>
+  </div>
+  <div class="layout-region layout-region--group-footer">
+    <div class="layout-region__content">
+      <div class="divider"></div>
+      {{ form.footer }}
+      {{ form.actions }}
+    </div>
+  </div>
+</div>

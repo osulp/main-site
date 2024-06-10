@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: 6a8709ab-01b0-49b0-9ce5-5b7ded53878b
+  bundle: image
+  default_langcode: en
+  depends:
+    cbc75e2c-f67b-4016-aff5-58b87beb7ae0: file
+default:
+  revision_user:
+    - entity: 1
+  status:
+    - value: true
+  uid:
+    - entity: 1
+  name:
+    - value: snowday-29.webp
+  created:
+    - value: 1662074009
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    - entity: cbc75e2c-f67b-4016-aff5-58b87beb7ae0
+      alt: 'Benton Hall with snow on the ground during the winter.'
+      title: ''
+      width: 1620
+      height: 1080

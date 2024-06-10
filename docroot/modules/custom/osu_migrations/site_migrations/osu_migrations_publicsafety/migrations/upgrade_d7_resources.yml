@@ -1,0 +1,81 @@
+langcode: en
+status: true
+id: upgrade_d7_resources
+label: 'Resources Content Migration'
+migration_group: content
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Public Safety
+  - Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: resources
+process:
+  type:
+    plugin: default_value
+    default_value: resources
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_parent_department:
+    - plugin: sub_process
+      source: field_parent_department
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_address:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_address
+  field_website:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_website
+#  field_email: email
+  field_email:
+    - plugin: sub_process
+      source: email
+      process:
+        value: email
+  field_phone_number: field_phone_number
+  field_tags:
+    - plugin: sub_process
+      source: field_tags
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+  bundle: resources
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

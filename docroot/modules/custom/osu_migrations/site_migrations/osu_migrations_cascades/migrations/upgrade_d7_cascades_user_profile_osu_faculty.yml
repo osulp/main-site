@@ -1,0 +1,102 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_cascades_user_profile_osu_faculty
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - Cascades
+  - OSU
+label: 'OSU Cascades User Faculty Profile Migration'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_faculty
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_c_profile_education:
+    - plugin: sub_process
+      source: osu_faculty_education
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_employment:
+    - plugin: sub_process
+      source: osu_faculty_employment
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_service:
+    - plugin: sub_process
+      source: osu_faculty_service
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_proceedings_pres:
+    - plugin: sub_process
+      source: osu_faculty_presentations
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_professional_aff:
+    - plugin: sub_process
+      source: osu_faculty_affiliations
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_honors_and_award:
+    - plugin: sub_process
+      source: osu_faculty_honors_and_awards
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_courses_taught:
+    - plugin: sub_process
+      source: osu_faculty_courses_taught
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_c_profile_additional_info:
+    - plugin: sub_process
+      source: osu_faculty_additional_info
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_c_profile_education
+      - field_c_profile_employment
+      - field_c_profile_service
+      - field_c_profile_proceedings_pres
+      - field_c_profile_professional_aff
+      - field_c_profile_honors_and_award
+      - field_c_profile_courses_taught
+      - field_c_profile_additional_info
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

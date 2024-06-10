@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * Primary module hooks for OSU Google Tag Manager module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Check if the current user has the administrator role and prevent anyone else
+ * from modifying the advanced options of the google_tag form.
+ */
+function osu_google_tag_form_google_tag_container_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\Core\Session\AccountProxy $curent_user */
+  $current_user = \Drupal::service('current_user');
+  $current_user_roles = $current_user->getRoles();
+  if (!in_array('administrator', $current_user_roles)) {
+    $form['advanced']['#disabled'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_google_tag_form_google_tag_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\Core\Session\AccountProxy $curent_user */
+  $current_user = \Drupal::service('current_user');
+  $current_user_roles = $current_user->getRoles();
+  if (!in_array('administrator', $current_user_roles)) {
+    $form['advanced']['#disabled'] = TRUE;
+  }
+}

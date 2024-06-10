@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_osu_retiree
+migration_tags:
+  - Leadership
+  - OSU Drupal Profile
+  - OSU
+label: 'OSU User Faculty Profile Migration'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_retiree
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_career_description:
+    - plugin: sub_process
+      source: field_career_description
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_career_description
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

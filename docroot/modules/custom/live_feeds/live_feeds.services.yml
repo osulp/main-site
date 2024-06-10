@@ -1,0 +1,6 @@
+services:
+  live_feeds.live_feed:
+    class: Drupal\live_feeds\GetFeed
+    arguments: [ '@http_client', '@logger.factory' ]
+  live_feeds.live_feeds_smart_trim:
+    class: Drupal\live_feeds\LiveFeedsSmartTrim

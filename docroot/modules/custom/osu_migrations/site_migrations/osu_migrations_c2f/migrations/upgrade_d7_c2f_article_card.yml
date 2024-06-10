@@ -1,0 +1,95 @@
+langcode: en
+status: true
+id: upgrade_d7_c2f_article_card
+label: 'C2F article card Content Migration'
+migration_group: content
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - C2F
+  - Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: c2f_article_card
+process:
+  type:
+    plugin: default_value
+    default_value: c2f_article_card
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  field_c2f_article_date:
+    plugin: sub_process
+    source: field_c2f_article_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_c2f_article_excerpt:
+    - plugin: sub_process
+      source: field_c2f_article_excerpt
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_c2f_article_image:
+    - plugin: sub_process
+      source: field_c2f_article_image
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+  field_c2f_article_source: field_c2f_article_source
+  field_c2f_article_origin:
+    - plugin: sub_process
+      source: field_c2f_article_origin
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_c2f_article_topic:
+    - plugin: sub_process
+      source: field_c2f_article_topic
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_c2f_article_url: field_c2f_article_url
+destination:
+  plugin: 'entity:node'
+  bundle: c2f_article_card
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_og_memberships
+migration_tags:
+  - Drupal 7 OG
+  - OSU Groups Users
+  - OSU Groups
+  - OSU
+migration_group: osu_groups
+label: 'Insert Group Membership'
+source:
+  # Suppose we only want a limited set of User memberships we can provide a roles_name and a list of roles to filter
+  # the list of users down to.
+  #
+  # plugin: d7_og_membership_user
+  # role_name:
+  #   - group manager
+  #   - group author
+  plugin: d7_og_membership_user
+process:
+  label: etid
+  type:
+    plugin: default_value
+    default_value: basic_group-group_membership
+  group_roles:
+    plugin: default_value
+    default_value: basic_group-content_author
+  gid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_node_og_group
+      no_stub: true
+      source: gid
+    - plugin: skip_on_empty
+      method: row
+      message: 'gid is missing'
+  entity_id:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      no_stub: true
+      source: etid
+    - plugin: skip_on_empty
+      method: row
+      message: 'uid is missing'
+destination:
+  plugin: 'entity:group_content'
+migration_dependencies:
+  required:
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_node_og_group

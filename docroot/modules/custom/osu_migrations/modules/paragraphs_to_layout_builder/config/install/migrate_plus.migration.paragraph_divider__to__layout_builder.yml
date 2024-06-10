@@ -1,0 +1,49 @@
+id: paragraph_divider__to__layout_builder
+label: Drupal 7 paragraph_divider Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies:
+  enforced:
+    module:
+      - osu_migrations
+      - paragraphs_to_layout_builder
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+source:
+  plugin: d7_paragraphs_item
+  bundle: paragraph_divider
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_block'
+  # concat divider size array into string
+  size:
+    plugin: class_list
+    source: field_p_divider_size
+  # concat divider color array into string
+  color:
+    plugin: class_list
+    source: field_p_divider_color
+  # concat size and color into one field on the block
+  field_styles:
+    plugin: concat
+    source:
+      - '@size'
+      - '@color'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_divider'
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required: [ ]
+  optional: [ ]

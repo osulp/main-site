@@ -1,0 +1,9 @@
+#drupal-off-canvas .field-min-height .fieldset-wrapper > div,
+#layout-builder-modal .field-min-height .fieldset-wrapper > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+#drupal-off-canvas .field-min-height .fieldset-wrapper > div > div,
+#layout-builder-modal .field-min-height .fieldset-wrapper > div > div {
+  flex: 1;
+}

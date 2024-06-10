@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 4dd64443-6287-469d-934e-19bd5d5ee0c3
+  bundle: publication_type
+  default_langcode: en
+default:
+  status:
+    - value: true
+  name:
+    - value: 'Conference Paper'
+  weight:
+    - value: 0
+  parent:
+    - target_id: 0
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: /publication-type/conference-paper
+      langcode: en
+      pathauto: 1

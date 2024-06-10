@@ -1,0 +1,269 @@
+<?php
+
+use Drupal\block_content\Entity\BlockContentType;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Add accordion block and paragraph fields.
+ */
+function osu_block_types_update_9001(&$sandbox): TranslatableMarkup {
+  Drupal::service('module_installer')->install([
+    'entity_reference_revisions',
+    'paragraphs',
+  ], TRUE);
+
+  $install_path = Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+
+  // Create block type.
+  BlockContentType::create($source->read('block_content.type.osu_accordion'))
+    ->save();
+
+  //Create Paragraphs Types.
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_item', $source->read('paragraphs.paragraphs_type.osu_accordion_item'));
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_section', $source->read('paragraphs.paragraphs_type.osu_accordion_section'));
+
+  // Create the field storage configs first.
+  FieldStorageConfig::create($source->read('field.storage.block_content.field_osu_paragraph_item'))
+    ->save();
+  FieldStorageConfig::create($source->read('field.storage.paragraph.field_osu_paragraph_item'))
+    ->save();
+  FieldStorageConfig::create($source->read('field.storage.paragraph.field_p_accordion_body'))
+    ->save();
+  FieldStorageConfig::create($source->read('field.storage.paragraph.field_p_accordion_heading'))
+    ->save();
+  FieldStorageConfig::create($source->read('field.storage.paragraph.field_p_accordion_title'))
+    ->save();
+
+  // Create the Field instances.
+  FieldConfig::create($source->read('field.field.block_content.osu_accordion.field_osu_paragraph_item'))
+    ->save();
+  FieldConfig::create($source->read('field.field.paragraph.osu_accordion_item.field_p_accordion_body'))
+    ->save();
+  FieldConfig::create($source->read('field.field.paragraph.osu_accordion_item.field_p_accordion_title'))
+    ->save();
+  FieldConfig::create($source->read('field.field.paragraph.osu_accordion_section.field_osu_paragraph_item'))
+    ->save();
+  FieldConfig::create($source->read('field.field.paragraph.osu_accordion_section.field_p_accordion_heading'))
+    ->save();
+
+  // Create the form displays.
+  $config_storage->write('core.entity_form_display.block_content.osu_accordion.default', $source->read('core.entity_form_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_item.default', $source->read('core.entity_form_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_section.default', $source->read('core.entity_form_display.paragraph.osu_accordion_section.default'));
+
+  // Create the view displays.
+  $config_storage->write('core.entity_view_display.block_content.osu_accordion.default', $source->read('core.entity_view_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_item.default', $source->read('core.entity_view_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_section.default', $source->read('core.entity_view_display.paragraph.osu_accordion_section.default'));
+  return t('Imported new configurations.');
+}
+
+/**
+ * Update OSU Card Display.
+ */
+function osu_block_types_update_9002(&$sandbox): TranslatableMarkup {
+  $install_path = Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $view_display_yml = 'core.entity_view_display.block_content.osu_card.default';
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+  $osu_card_view_display_yml = $source->read($view_display_yml);
+  $config_storage = Drupal::service('config.storage');
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $osu_card_view_display = $config_storage->read($view_display_yml);
+  $osu_card_view_display_update = array_merge($osu_card_view_display, $osu_card_view_display_yml);
+  $config_storage->write($view_display_yml, $osu_card_view_display_update);
+  return t('Updated the display of the OSU Card');
+}
+
+/**
+ * Remove OSU Wide Card block type.
+ */
+function osu_block_types_update_9003(&$sandbox): TranslatableMarkup {
+  // Load the block type config info.
+  $osu_wide_card = BlockContentType::load('osu_wide_card');
+  // Get the UUID of the block type, so we can use it to delete any copy.
+  if (!is_null($osu_wide_card)) {
+    $osu_wide_card_uuid = $osu_wide_card->get('uuid');
+    // Loop over all view displays and remove out custom block type.
+    $storage = Drupal::entityTypeManager()->getStorage('entity_view_display');
+    foreach ($storage->loadMultiple() as $display) {
+      foreach ($display->getSections() as $section) {
+        foreach ($section->getComponents() as $component) {
+          // Custom views block
+          // $to_delete_plugin_id = 'views_block:my_news-block_1';
+          // Custom block
+          // $to_delete_plugin_id = 'block_content:fb4ad848-0f3c-4296-a6ba-1a9da886335b';
+          $to_delete_plugin_id = "block_content:$osu_wide_card_uuid";
+          if ($component->getPluginId() == $to_delete_plugin_id) {
+            $section->removeComponent($component->getUuid());
+            $display->save();
+          }
+        }
+      }
+    }
+    // Finally delete the block type.
+    $osu_wide_card->delete();
+  }
+  return t('OSU Wide Card block type removed, you might need to remove layout overrides manually.');
+}
+
+/**
+ * Add new view mode for OSU Cards.
+ */
+function osu_block_types_update_9004(&$sandbox): void {
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+
+  $install_path = Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+
+  $osu_card_view_mode = 'core.entity_view_mode.block_content.full_image';
+  $osu_card_view_display = 'core.entity_view_display.block_content.osu_card.full_image';
+  $config_storage->write($osu_card_view_mode, $source->read($osu_card_view_mode));
+  $config_storage->write($osu_card_view_display, $source->read($osu_card_view_display));
+}
+
+
+/**
+ * Add new block type OSU Menu Bar Item.
+ */
+function osu_block_types_update_9005(&$sandbox): void {
+  /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
+  $module_installer_service = Drupal::service('module_installer');
+  $module_installer_service->install([
+    'osu_icon_field',
+  ]);
+
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+
+  $install_path = Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+
+  BlockContentType::create($source->read('block_content.type.osu_menu_bar_item'))
+    ->save();
+
+  FieldStorageConfig::create($source->read('field.storage.block_content.field_osu_menu_bar_item_icon'))
+    ->save();
+  FieldStorageConfig::create($source->read('field.storage.block_content.field_osu_menu_bar_item_link'))
+    ->save();
+
+  FieldConfig::create($source->read('field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_icon'))
+    ->save();
+  FieldConfig::create($source->read('field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_link'))
+    ->save();
+
+  $config_storage->write('core.entity_form_display.block_content.osu_menu_bar_item.default', $source->read('core.entity_form_display.block_content.osu_menu_bar_item.default'));
+  $config_storage->write('core.entity_view_display.block_content.osu_menu_bar_item.default', $source->read('core.entity_view_display.block_content.osu_menu_bar_item.default'));
+}
+
+/**
+ * Update field definitions.
+ */
+function osu_block_types_update_9006(&$sandbox): TranslatableMarkup {
+  $entity_type_manager = Drupal::entityTypeManager();
+  $entity_type_manager->clearCachedDefinitions();
+
+  $entity_type_ids = [];
+  $change_summary = Drupal::service('entity.definition_update_manager')
+    ->getChangeSummary();
+  foreach ($change_summary as $entity_type_id => $change_list) {
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    Drupal::entityDefinitionUpdateManager()->installEntityType($entity_type);
+    $entity_type_ids[] = $entity_type_id;
+  }
+  drupal_flush_all_caches();
+  return t("Installed/Updated the entity type(s): @entity_type_ids", [
+    '@entity_type_ids' => implode(', ', $entity_type_ids),
+  ]);
+}
+
+/**
+ * Update Link fields to use linkit.
+ */
+function osu_block_types_update_9007(&$sandbox): void {
+  /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
+  $config_factory = Drupal::service('config.factory');
+  $osu_card_form = $config_factory->getEditable('core.entity_form_display.block_content.osu_card.default');
+  $osu_card_form_content = $osu_card_form->get('content');
+  $osu_card_form_content['field_osu_card_link']['type'] = 'linkit';
+  $osu_card_form_content['field_osu_card_link']['settings']['linkit_profile'] = 'default';
+  $osu_card_form_content['field_osu_card_link']['settings']['linkit_auto_link_text'] = FALSE;
+  $osu_card_form->set('content', $osu_card_form_content);
+  $osu_card_form->save();
+
+  $osu_menu_bar_item = $config_factory->getEditable('core.entity_form_display.block_content.osu_menu_bar_item.default');
+  $osu_menu_bar_item_content = $osu_menu_bar_item->get('content');
+  $osu_menu_bar_item_content['field_osu_menu_bar_item_link']['type'] = 'linkit';
+  $osu_menu_bar_item_content['field_osu_menu_bar_item_link']['settings']['linkit_profile'] = 'default';
+  $osu_menu_bar_item_content['field_osu_menu_bar_item_link']['settings']['linkit_auto_link_text'] = FALSE;
+  $osu_menu_bar_item->set('content', $osu_menu_bar_item_content);
+  $osu_menu_bar_item->save();
+}
+
+/**
+ * Update View mode of Menu bar item and OSU Card to use LinkIt.
+ */
+function osu_block_types_update_10000(&$sandbox): TranslatableMarkup {
+  /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
+  $config_factory = Drupal::service('config.factory');
+  # Get view mode for Card Default.
+  $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.default');
+  $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
+  $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['5e3d59f0-e2f7-4585-85f3-5e35aa8c6aa9']['configuration'];
+  if ($osu_card_link_config['id'] === 'field_block:block_content:osu_card:field_osu_card_link') {
+    $osu_card_link_config['formatter']['type'] = 'linkit';
+    $osu_card_link_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['5e3d59f0-e2f7-4585-85f3-5e35aa8c6aa9']['configuration'] = $osu_card_link_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  # Get View mode for Card Full Image.
+  $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.full_image');
+  $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
+  $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['8b7fe3a9-a690-479e-852d-c83219449244']['configuration'];
+  if ($osu_card_link_config['id'] === 'field_block:block_content:osu_card:field_osu_card_link') {
+    $osu_card_link_config['formatter']['type'] = 'linkit';
+    $osu_card_link_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['8b7fe3a9-a690-479e-852d-c83219449244']['configuration'] = $osu_card_link_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  $osu_card_image_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['659e7c27-94e9-4a5f-b174-a65f76a89243']['configuration'];
+  if ($osu_card_image_config['id'] === 'field_block:block_content:osu_card:field_osu_card_image') {
+    $osu_card_image_config['formatter']['settings']['image_style'] = 'x_large_scale_crop';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['659e7c27-94e9-4a5f-b174-a65f76a89243']['configuration'] = $osu_card_image_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  # Get view mode for OSU Menu Bar Item.
+  $osu_menu_bar_item = $config_factory->getEditable('core.entity_view_display.block_content.osu_menu_bar_item.default');
+  $osu_menu_bar_item_third_party = $osu_menu_bar_item->get('third_party_settings');
+  $osu_menu_bar_item_config = $osu_menu_bar_item_third_party['layout_builder']['sections'][0]['components']['c9f74d7d-6ce1-4646-b23e-9464ba0b8d33']['configuration'];
+  if ($osu_menu_bar_item_config['id'] === 'field_block:block_content:osu_menu_bar_item:field_osu_card_link') {
+    $osu_menu_bar_item_config['formatter']['type'] = 'linkit';
+    $osu_menu_bar_item_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_menu_bar_item_third_party['layout_builder']['sections'][0]['components']['c9f74d7d-6ce1-4646-b23e-9464ba0b8d33']['configuration'] = $osu_menu_bar_item_config;
+    $osu_menu_bar_item->set('third_party_settings', $osu_menu_bar_item_third_party);
+    $osu_menu_bar_item->save();
+  }
+  return t('Updated view modes for OSU Card and Menu Block');
+}

@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: b710131e-0211-4212-b33d-35aa026d120a
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: lb_two_column_25_75_128_128.jpg
+  uri:
+    - value: 'public://credentialing_providers/lb_two_column_25_75_128_128.jpg'
+  filemime:
+    - value: image/jpeg
+  filesize:
+    - value: 21936
+  status:
+    - value: true
+  created:
+    - value: 1664571660

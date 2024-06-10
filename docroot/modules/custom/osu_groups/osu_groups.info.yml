@@ -1,0 +1,11 @@
+name: OSU Groups
+type: module
+description: Basic Configuration for OSU Groups
+package: OSU
+core_version_requirement: ^9 || ^10
+version: '2.1.1'
+dependencies:
+  - group:group
+  - group:gnode
+  - group:group_support_revisions
+  - group_content_menu:group_content_menu

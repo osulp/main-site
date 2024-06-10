@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_health_biblio_publication
+migration_tags:
+  - Drupal 7
+  - Health
+  - Publication
+  - OSU Content
+  - OSU
+source:
+  plugin: osu_biblio_reference
+  constants:
+    doi_base_url: 'https://dx.doi.org/'
+    pubmed_base_url: 'https://pubmed.ncbi.nlm.nih.gov/'
+process:
+  type:
+    plugin: default_value
+    default_value: c_publication
+  nid: nid
+  title: title
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_c_pub_abstract/value: biblio_abst_e
+  field_c_pub_abstract/format:
+    plugin: default_value
+    default_value: 'full_html'
+  field_c_pub_doi/title: biblio_doi
+  field_c_pub_doi/uri:
+    - plugin: concat
+      source:
+        - constants/doi_base_url
+        - biblio_doi
+      delimiter: ''
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_users_with_roles

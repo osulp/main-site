@@ -1,0 +1,7 @@
+osu-custom-blocks:
+  version: 1.x
+  css:
+    theme:
+      dist/style.css: {}
+  js:
+    js/scripts.js: {}

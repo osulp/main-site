@@ -1,0 +1,18 @@
+uuid: 4d3987b0-e396-4213-916a-e2271a14ef58
+langcode: en
+status: true
+dependencies:
+  module:
+    - captcha
+    - contextual
+    - honeypot
+    - system
+id: manage_menus
+label: 'Manage Menus'
+weight: -3
+is_admin: null
+permissions:
+  - 'access contextual links'
+  - 'administer menu'
+  - 'bypass honeypot protection'
+  - 'skip CAPTCHA'

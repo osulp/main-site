@@ -1,0 +1,12 @@
+{% extends "@madrone/block/block.html.twig" %}
+{#
+/**
+ * @file
+ * Theme overrides for page title.
+ */
+#}
+{% block content %}
+  <div{{ content_attributes.addClass('block__content') }}>
+    {{ content }}
+  </div>
+{% endblock %}

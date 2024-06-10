@@ -1,0 +1,30 @@
+# Core's migration file copied.
+id: upgrade_d7_custom_block
+label: Custom blocks
+audit: true
+migration_tags:
+  - Drupal 7
+  - Content
+  - OSU Blocks
+  - OSU Custom Blocks
+  - OSU
+source:
+  plugin: d7_block_custom
+process:
+  id: bid
+  info: info
+  'body/format':
+    plugin: default_value
+    default_value: 'full_html'
+  'body/value':
+    plugin: osu_media_wysiwyg_filter
+    source: body
+destination:
+  plugin: entity:block_content
+  default_bundle: basic
+  no_stub: true
+migration_dependencies:
+  required:
+    - upgrade_d7_block_content_body_field
+    - upgrade_d7_files
+    - upgrade_d7_media_images

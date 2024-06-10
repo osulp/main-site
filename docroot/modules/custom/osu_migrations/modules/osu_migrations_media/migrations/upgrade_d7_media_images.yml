@@ -1,0 +1,65 @@
+id: upgrade_d7_media_images
+label: Media Images
+audit: true
+migration_tags:
+  - Drupal 7
+  - OSU Media
+  - OSU
+source:
+  plugin: d7_file_by_type
+  scheme: public
+  type: image
+  get_alt: true
+  get_title: true
+  constants:
+    # The tool configuring this migration must set source_base_path. It
+    # represents the fully qualified path relative to which URIs in the files
+    # table are specified. This can be a local file directory containing the
+    # source site, e.g. /var/www/docroot, or the site address,
+    # e.g. https://example.com. This value will be concatenated with the file
+    # path (typically sites/default/files) and used as the source location for
+    # the files.
+    #
+    # Suppose that the source files have been moved by other means to a location
+    # on the destination site.
+    # Source site:
+    #   Location of files: /var/www/html/legacy/sites/default/files
+    #   Public scheme: sites/default/files
+    # In this example, source_base_path should be '/var/www/html/legacy'.
+    #
+    # Suppose that the source site is a multisite installation at
+    # https://example.com, and you plan to copy the files from there.
+    # Source site:
+    #   Location of files: https://example.com/sites/example.com/files
+    #   Public scheme: sites/example.com/files
+    # In this example, source_base_path should be 'https://example.com'.
+    #
+    # See the configuration for the source_full_path property in the process
+    # section below.
+    source_base_path: '/var/www/html/docroot'
+process:
+  field_media_image/target_id:
+    - plugin: migration_lookup
+      migration: upgrade_d7_files
+      source: fid
+    - plugin: skip_on_empty
+      method: row
+  thumbnail/target_id:
+    plugin: migration_lookup
+    migration: upgrade_d7_files
+    source: fid
+  field_media_image/alt: alt
+  field_media_image/title: title
+  status: status
+  created: timestamp
+  changed: timestamp
+  uid: uid
+destination:
+  plugin: entity:media
+  default_bundle: image
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+  optional:
+    - upgrade_d7_media_documents

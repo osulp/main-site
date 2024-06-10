@@ -1,0 +1,5 @@
+live_feeds_news:
+  version: 1.x
+  css:
+    theme:
+      css/live_feeds_news.css: {}

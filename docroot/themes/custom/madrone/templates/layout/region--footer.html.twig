@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Theme override to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+{% set classes = [
+  'region',
+  'region-' ~ region|clean_class,
+  'osu-bg-page-alt-2',
+  'osu-text-bucktoothwhite',
+  'osu-min-h-300',
+  'px-4',
+  'pt-5',
+  'pb-1',
+  'd-flex',
+  'flex-column',
+  'justify-content-between',
+] %}
+
+{% set region_id = 'madrone-' ~ region|clean_class ~ '-container' %}
+{% set region_class = [
+  'madrone-' ~ region|clean_class,
+  'mb-auto'
+] %}
+
+<div{{ attributes.addClass(classes) }}>
+  <div{{ attributes.setAttribute('id', region_id).addClass(region_class).removeClass(classes) }}>
+    {{ content }}
+  </div>
+  <div class="madrone-copyright align-self-center">
+    <p>
+      <a class="osu-link-white"
+         href="https://oregonstate.edu/copyright">{{ 'Copyright'|t }}</a> &#169; {{ 'now'|date('Y') }}
+      Oregon State University <span class="d-none d-sm-inline">|</span><span class="d-sm-none"><br/></span>
+      <a class="osu-link-white"
+         href="https://oregonstate.edu/official-web-disclaimer">{{ 'Privacy Disclaimer and Accessibility Information'|t }}</a>
+    </p>
+  </div>
+</div>

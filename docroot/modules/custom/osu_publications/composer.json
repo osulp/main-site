@@ -1,0 +1,23 @@
+{
+  "name": "osu-wams/osu_publications",
+  "description": "OSU Drupal module to provide Citations.",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "license",
+  "authors": [
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "squizlabs/php_codesniffer": "^3.7",
+    "drupal/coder": "^8.3"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

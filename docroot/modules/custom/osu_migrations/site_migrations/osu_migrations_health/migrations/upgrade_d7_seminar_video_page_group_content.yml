@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_seminar_video_page_group_content
+migration_tags:
+  - Drupal 7 OG
+  - Health
+  - OSU Groups Content
+  - OSU Groups
+  - OSU
+migration_group: osu_groups
+label: 'Migrate Seminar Video content from d7 into Group content'
+source:
+  plugin: d7_og_membership_content
+  node_type:
+    - seminar_video
+process:
+  label: etid
+  type:
+    plugin: default_value
+    default_value: group_content_type_4d437127eb042
+  gid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_node_og_group
+      no_stub: true
+      source: gid
+    - plugin: skip_on_empty
+      method: row
+      message: 'gid is missing'
+  entity_id:
+    - plugin: migration_lookup
+      migration: page_to_page
+      no_stub: true
+      source: etid
+    - plugin: skip_on_empty
+      method: row
+      message: 'node missing.'
+destination:
+  plugin: 'entity:group_content'
+migration_dependencies:
+  required:
+    - upgrade_d7_node_og_group
+    - upgrade_d7_seminar_video

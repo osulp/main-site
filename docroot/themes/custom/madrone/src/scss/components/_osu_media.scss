@@ -1,0 +1,103 @@
+@import '../abstracts/osu_variables';
+// Fix for image alignment center.
+.node {
+  .align-center.media--type-image {
+    .field--type-image {
+      float: none;
+    }
+  }
+}
+
+.align-center {
+  audio,
+  img,
+  video,
+  .media-oembed-content {
+    display: block;
+    margin-inline: auto;
+  }
+}
+
+// Ensure that how Documents are rendered that centering them actually works.
+article.align-center.media--type-document > .field {
+  display: flex;
+  justify-content: center;
+}
+
+.media--view-mode-media-card {
+  border-radius: 10px;
+  max-width: max-content;
+}
+
+article.media {
+  &.align-left {
+    float: none;
+    @media screen and (min-width: 768px) {
+      float: left;
+      margin-inline-end: 1rem !important;
+    }
+  }
+
+  &.align-right {
+    float: none;
+    @media screen and (min-width: 768px) {
+      float: right;
+      margin-inline-start: 1rem !important;
+    }
+  }
+}
+
+figure.figure {
+  &.align-left {
+    float: none;
+    @media screen and (min-width: 768px) {
+      float: left;
+      margin-inline-end: 1rem !important;
+    }
+  }
+
+  &.align-right {
+    float: none;
+    @media screen and (min-width: 768px) {
+      float: right;
+      margin-inline-start: 1rem !important;
+    }
+  }
+}
+
+.figure-caption {
+  .osu-text-bucktoothwhite & {
+    color: $bucktoothwhite-hsl;
+  }
+}
+
+.media--view-mode-media-card-caption {
+  .field--name-name {
+    color: $body-color !important;
+    padding-top: 1.5rem;
+
+    div.field__item::before {
+      content: '\2014';
+      padding-right: 1ch;
+    }
+  }
+}
+
+// Ensure that Video's maintain aspect ratio.
+article.media--view-mode-video-720 {
+  iframe:where(.media-oembed-content) {
+    aspect-ratio: 16 / 9;
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+}
+
+.osu-media-card {
+  background-color: $page-bg-default;
+  border-radius: 10px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 0.25);
+  margin-bottom: 0.5rem;
+  max-width: max-content;
+  padding: 1.5rem;
+}

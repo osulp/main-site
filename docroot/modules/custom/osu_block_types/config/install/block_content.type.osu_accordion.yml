@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: osu_accordion
+label: 'OSU Accordion'
+revision: 0
+description: ''

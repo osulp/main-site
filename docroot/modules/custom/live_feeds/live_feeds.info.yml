@@ -1,0 +1,9 @@
+name: Live Feeds
+type: module
+description: Display feeds on your drupal site from other locations
+core_version_requirement: ^9 || ^10
+version: 2.0.2
+package: Feeds
+dependencies:
+  - drupal:block
+  - date_ap_style:date_ap_style

@@ -1,0 +1,8 @@
+name: OSU Migrate Files
+type: module
+description: Migrate OSU Files.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations

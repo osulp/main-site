@@ -1,0 +1,15 @@
+{
+  "name": "osu-wams/osu_google_tag",
+  "description": "Drupal module for OSU and google_tag",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0-or-later",
+  "type": "drupal-custom-module",
+  "authors": [
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "require": {
+  }
+}

@@ -1,0 +1,33 @@
+id: upgrade_d7_context
+label: Drupal Context
+migration_tags:
+  - Drupal 7
+  - Configuration
+  - OSU Context
+  - OSU Blocks
+  - OSU
+source:
+  plugin: osu_d7_context
+process:
+  status:
+    plugin: skip_on_empty
+    method: row
+    source: status
+  id:
+    - plugin: machine_name
+      source: name
+  label: name
+  logic:
+    - plugin: default_value
+      default_value: 'and'
+  conditions:
+    - plugin: osu_block_visibility_group_conditions
+      source: conditions
+destination:
+  plugin: entity:block_visibility_group
+migration_dependencies:
+  required:
+    - upgrade_d7_custom_block
+    - upgrade_d7_menu
+  optional:
+    - d7_views_migration

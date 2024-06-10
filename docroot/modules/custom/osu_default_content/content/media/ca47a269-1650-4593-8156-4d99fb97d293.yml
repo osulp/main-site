@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: ca47a269-1650-4593-8156-4d99fb97d293
+  bundle: image
+  default_langcode: en
+  depends:
+    b6b0db00-7757-43dd-95c4-4a8dd178df97: file
+default:
+  revision_user:
+    - target_id: 1
+  status:
+    - value: true
+  uid:
+    - target_id: 1
+  name:
+    - value: 'Layout Library Placeholder'
+  created:
+    - value: 1698189408
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    - entity: b6b0db00-7757-43dd-95c4-4a8dd178df97
+      alt: 'A seamless pattern of the word image on a pink background.'
+      title: ''
+      width: 1900
+      height: 1080

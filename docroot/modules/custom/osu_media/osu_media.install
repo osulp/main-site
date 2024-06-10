@@ -1,0 +1,227 @@
+<?php
+
+/**
+ * @file
+ * Drupal module install file.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\media\Entity\MediaType;
+
+/**
+ * Import new image styles.
+ */
+function osu_media_update_9001(&$sandbox) {
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+  // Create new image styles.
+  if (is_null(ImageStyle::load('400x375'))) {
+    ImageStyle::create($config_source->read(('image.style.400x375')))->save();
+  }
+  if (is_null(ImageStyle::load('1400x900'))) {
+    ImageStyle::create($config_source->read(('image.style.1400x900')))->save();
+  }
+  /** @var \Drupal\Core\Config\StorageInterface $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  // Create new View modes for media.
+  $config_storage->write('core.entity_view_display.media.image.400x375', $config_source->read('core.entity_view_display.media.image.400x375'));
+  $config_storage->write('core.entity_view_display.media.image.1400x900', $config_source->read('core.entity_view_display.media.image.1400x900'));
+}
+
+/**
+ * Import missing view modes.
+ */
+function osu_media_update_9002(&$sandbox) {
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+  /** @var \Drupal\Core\Config\StorageInterface $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  $config_storage->write('core.entity_view_mode.media.400x375', $config_source->read('core.entity_view_mode.media.400x375'));
+  $config_storage->write('core.entity_view_mode.media.1400x900', $config_source->read('core.entity_view_mode.media.1400x900'));
+}
+
+/**
+ * Add xl image style.
+ */
+function osu_media_update_9003(&$sandbox) {
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+  if (is_null(ImageStyle::load('x_large'))) {
+    ImageStyle::create($config_source->read(('image.style.x_large')))->save();
+  }
+}
+
+/**
+ * Add image styles for Meta-tag Facebook and Twitter cards.
+ */
+function osu_media_update_9004(&$sandbox) {
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+  if (is_null(ImageStyle::load('facebook_1200x'))) {
+    ImageStyle::create($config_source->read(('image.style.facebook_1200x')))
+      ->save();
+  }
+  if (is_null(ImageStyle::load('twitter_300x157'))) {
+    ImageStyle::create($config_source->read(('image.style.twitter_300x157')))
+      ->save();
+  }
+}
+
+/**
+ * Add new Media View modes.
+ */
+function osu_media_update_9005(&$sandbox) {
+  $osu_media_module_config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($osu_media_module_config_path);
+
+  /** @var \Drupal\Core\Config\StorageInterface $config_storage */
+  $config_storage = Drupal::service('config.storage');
+
+  $config_storage->write('core.entity_view_mode.media.osu_orange_bottom', $config_source->read('core.entity_view_mode.media.osu_orange_bottom'));
+  $config_storage->write('core.entity_view_display.media.image.osu_orange_bottom', $config_source->read('core.entity_view_display.media.image.osu_orange_bottom'));
+}
+
+/**
+ * Update allowed documents and add audio type.
+ */
+function osu_media_update_9006(&$sandbox) {
+  $config_factory = Drupal::service('config.factory');
+  /** @var Drupal\Core\Config\Config $document_file_types */
+  $document_file_types = $config_factory->getEditable('field.field.media.document.field_media_file');
+  $document_field_settings = $document_file_types->get('settings');
+  $current_file_types = explode(' ', $document_field_settings['file_extensions']);
+  $new_file_types = [
+    "txt",
+    "tex",
+    "doc",
+    "docx",
+    "pdf",
+    "ppt",
+    "pptx",
+    "xls",
+    "xlsx",
+    "odt",
+    "odp",
+    "ods",
+  ];
+  $current_file_types = array_unique(array_merge($current_file_types, $new_file_types), SORT_REGULAR);
+  $document_field_settings['file_extensions'] = implode(' ', $current_file_types);
+  $document_file_types->set('settings', $document_field_settings);
+  $document_file_types->save();
+
+  if (is_null(MediaType::load('audio'))) {
+    /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+    $config_storage = Drupal::service('config.storage');
+
+    $config_path = osu_media_get_install_location();
+    $source = new FileStorage($config_path);
+    MediaType::create($source->read('media.type.audio'))->save();
+    FieldConfig::create($source->read('field.field.media.audio.field_media_file'))
+      ->save();
+    $config_storage->write('core.entity_form_display.media.audio.default', $source->read('core.entity_form_display.media.audio.default'));
+    $config_storage->write('core.entity_form_display.media.audio.media_library', $source->read('core.entity_form_display.media.audio.media_library'));
+    $config_storage->write('core.entity_view_display.media.audio.default', $source->read('core.entity_view_display.media.audio.default'));
+    $config_storage->write('core.entity_view_display.media.audio.media_library', $source->read('core.entity_view_display.media.audio.media_library'));
+  }
+
+  return t('Updated document type and possibly installed Audio media type');
+}
+
+/**
+ * Update 'max_filesize' setting to '10 MB' for Media Image Field.
+ */
+function osu_media_update_10000(&$sandbox) {
+  $config = \Drupal::configFactory()
+    ->getEditable('field.field.media.image.field_media_image');
+  $settings = $config->get('settings');
+  $settings['max_filesize'] = '10 MB';
+  $config->set('settings', $settings);
+  $config->save();
+}
+
+/**
+ * Change the image effect of x_large from scale and crop to just scale.
+ */
+function osu_media_update_10001(&$sandbox) {
+  $image_style = ImageStyle::load('x_large');
+  $effects = $image_style->getEffects();
+  foreach ($effects as $effect) {
+    if ($effect->getUuid() === '3b296c73-195a-40eb-9502-c26f6415fa40') {
+      $image_style->deleteImageEffect($effect);
+    }
+  }
+  $new_effect = [
+    'id' => 'image_scale',
+    'data' => [
+      'width' => 600,
+      'height' => 600,
+      'upscale' => FALSE,
+    ],
+    'weight' => 1,
+  ];
+  $image_style->addImageEffect($new_effect);
+  $image_style->save();
+}
+
+/**
+ * Add a new Image style to be used with Cards.
+ */
+function osu_media_update_10002(&$sandbox) {
+  $style_id = 'x_large_scale_crop';
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+  $style = ImageStyle::load($style_id);
+  if (!$style) {
+    ImageStyle::create($config_source->read('image.style.x_large_scale_crop'))
+      ->save();
+    return t('Image style XL Scale and Crop created');
+  }
+  return t('Image style XL Scale and Crop already exists');
+}
+
+/**
+ * Add Media Entity File Replace module and update form display.
+ */
+function osu_media_update_10003(&$sandbox) {
+  $replace_media_forms = [
+    'media.audio.default',
+    'media.document.default',
+    'media.image.default',
+    'media.local_video.default',
+  ];
+  \Drupal::service('module_installer')->install([
+    'media_entity_file_replace',
+  ], TRUE);
+
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityStorage $form_display */
+  $form_display = \Drupal::entityTypeManager()
+    ->getStorage('entity_form_display');
+
+  foreach ($replace_media_forms as $replace_media_form) {
+    $media_entity_form_default = $form_display->load($replace_media_form);
+    $media_entity_form_default->setComponent('replace_file', [
+      'region' => 'content',
+      'weight' => 5,
+      'settings' => [],
+      'third_party_settings' => [],
+    ]);
+    $media_entity_form_default->save();
+  }
+  return t('Updated media entity form display default');
+}
+
+/**
+ * Get the configuration path for this module.
+ *
+ * @return false|string
+ *   The path to the installation folder or false.
+ */
+function osu_media_get_install_location() {
+  /** @var string $osu_media_module_path */
+  $osu_media_module_path = Drupal::service('module_handler')
+    ->getModule('osu_media')
+    ->getPath();
+  return realpath($osu_media_module_path . '/config/install');
+}

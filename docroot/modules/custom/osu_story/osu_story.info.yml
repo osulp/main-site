@@ -1,0 +1,11 @@
+name: OSU Story
+description: 'Provides a story content type and views to be used as News articles, Featured stories etc.'
+type: module
+package: OSU
+version: 1.0.9
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:views
+  - date_ap_style:date_ap_style
+  - osu_media:osu_media
+  - views_bootstrap:views_bootstrap

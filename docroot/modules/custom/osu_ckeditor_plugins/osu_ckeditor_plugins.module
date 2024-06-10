@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_page_attachments().
+ */
+function osu_ckeditor_plugins_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'osu_ckeditor_plugins/osu_icons';
+  $page['#attached']['library'][] = 'osu_ckeditor_plugins/osu_buttons';
+}

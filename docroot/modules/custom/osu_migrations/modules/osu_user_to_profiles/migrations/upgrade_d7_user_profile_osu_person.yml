@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_osu_person
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+label: 'OSU Person Profile Migration'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_person
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_profile_first_name:
+    - plugin: get
+      source: first_name
+  field_profile_middle_name:
+    - plugin: get
+      source: middle_name
+  field_profile_last_name:
+    - plugin: get
+      source: last_name
+  field_profile_biography:
+    - plugin: sub_process
+      source: biography
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  field_profile_image:
+    - plugin: sub_process
+      source: image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt:
+          - plugin: default_value
+            source: alt
+            default_value: 'Profile headshot'
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_profile_first_name
+      - field_profile_middle_name
+      - field_profile_last_name
+      - field_profile_biography
+      - field_profile_image
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_user_to_profile

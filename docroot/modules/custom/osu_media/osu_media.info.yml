@@ -1,0 +1,12 @@
+name: OSU Media
+type: module
+description: Media related configs and settings.
+package: OSU
+version: 1.0.11
+core_version_requirement: ^9 || ^10
+dependencies:
+  - core:media
+  - dropzonejs:dropzonejs
+  - media_bulk_upload:media_bulk_upload
+  - media_bulk_upload:media_bulk_upload_dropzonejs
+  - media_entity_file_replace:media_entity_file_replace

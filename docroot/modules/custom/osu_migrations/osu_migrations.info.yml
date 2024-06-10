@@ -1,0 +1,10 @@
+name: OSU Migrations
+type: module
+description: Contains Migration related Configurations and code for OSU Drupal 7 Migrate.
+package: OSU
+core_version_requirement: ^9 || ^10
+version: 1.0.19
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_drupal
+  - migrate_plus:migrate_plus

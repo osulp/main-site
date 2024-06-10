@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_to_profile
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+migration_group: insert_users
+label: 'User Accounts'
+source:
+  plugin: d7_user
+process:
+  title: name
+  field_profile_email: mail
+  status: status
+  type:
+    plugin: default_value
+    default_value: osu_profile
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+destination:
+  plugin: 'entity:node'

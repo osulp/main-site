@@ -1,0 +1,35 @@
+id: paragraph_grid__to__layout_builder
+label: Drupal 7 paragraph_grid Paragraphs
+migration_group: paragraphs_to_layout_builder
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - Research
+source:
+  plugin: d7_paragraphs_item
+  bundle: grid
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_block'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_menu'
+  # menu item IDs are stored in this block which is later used to query the blocks for display
+  body:
+    plugin: grid_item
+    source: field_grid_item
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required: [ ]
+  optional: [ ]

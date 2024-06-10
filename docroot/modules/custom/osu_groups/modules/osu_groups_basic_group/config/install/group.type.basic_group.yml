@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - osu_groups_basic_group
+id: basic_group
+label: 'Basic Group'
+description: ''
+new_revision: true
+creator_membership: true
+creator_wizard: false
+creator_roles:
+  - basic_group-admin

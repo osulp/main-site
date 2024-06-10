@@ -1,0 +1,19 @@
+uuid: ff972e32-9a1f-4c77-ae33-fde2a3000769
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_pub_pubmed_id
+field_name: field_pub_pubmed_id
+entity_type: node
+type: link
+settings: { }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+persist_with_no_fields: false
+custom_storage: false

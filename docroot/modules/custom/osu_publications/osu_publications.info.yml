@@ -1,0 +1,10 @@
+name: 'OSU Publications'
+type: module
+description: 'Provides Bibliography/Citation support to OSU Drupal.'
+package: OSU
+core_version_requirement: ^10
+version: 1.0.1
+dependencies:
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:views

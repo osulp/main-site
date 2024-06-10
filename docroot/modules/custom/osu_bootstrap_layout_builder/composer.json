@@ -1,0 +1,17 @@
+{
+  "name": "osu-wams/osu_bootstrap_layout_builder",
+  "description": "Bootstrap layout builder modifications for OSU",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0-or-later",
+  "type": "drupal-custom-module",
+  "authors": [
+    {
+      "name": "Alex Ruef",
+      "email": "alex.ruef@oregonstate.edu"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+  }
+}

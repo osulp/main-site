@@ -1,0 +1,12 @@
+osu-icon:
+  version: 1.x
+  css:
+    layout:
+      css/style.css: {}
+  js:
+    js/bundle.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/drupalSettings

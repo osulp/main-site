@@ -1,0 +1,75 @@
+langcode: en
+status: true
+id: upgrade_d7_osu_jobs
+label: 'Resources Content Migration'
+migration_group: content
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Public Safety
+  - Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: osu_jobs
+process:
+  type:
+    plugin: default_value
+    default_value: osu_jobs
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_job_full_consideration:
+    plugin: sub_process
+    source: field_osu_job_full_consideration
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_osu_job_closing:
+    - plugin: sub_process
+      source: field_osu_job_closing
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_osu_job_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_osu_job_link
+  field_osu_job_appointment_type: field_osu_job_appointment_type
+  field_osu_job_classification_tit: field_osu_job_classification_tit
+  field_osu_job_title: field_osu_job_title
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+  bundle: osu_jobs
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

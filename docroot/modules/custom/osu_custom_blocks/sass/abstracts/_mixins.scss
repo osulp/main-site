@@ -1,0 +1,105 @@
+@import "../../node_modules/breakpoint-sass/stylesheets/breakpoint";
+@import "variables";
+@mixin heading {
+  font-family: $stratum;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+@mixin heading-large {
+  @include heading;
+  font-size: 2.5rem;
+  @include breakpoint($mobile) {
+    font-size: 3.5rem;
+  }
+  @include breakpoint($tablet) {
+    font-size: 4.5rem;
+  }
+}
+
+@mixin heading-medium {
+  @include heading;
+  font-size: 2rem;
+  @include breakpoint($mobile) {
+    font-size: 3rem;
+  }
+  @include breakpoint($tablet) {
+    font-size: 4rem;
+  }
+}
+
+@mixin heading-small {
+  @include heading;
+  font-size: 2rem;
+  @include breakpoint($mobile) {
+    font-size: 2.5rem;
+  }
+  @include breakpoint($tablet) {
+    font-size: 3.5rem;
+  }
+}
+
+@mixin heading-tiny {
+  @include heading;
+  font-size: 1.25rem;
+  font-weight: 400;
+  @include breakpoint($tablet) {
+    font-size: 1.75rem;
+  }
+}
+
+@mixin call-out-large {
+  font-family: $stratum;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  @include breakpoint($mobile) {
+    font-size: 3.5rem;
+  }
+  @include breakpoint($tablet) {
+    font-size: 4.25rem;
+  }
+  @include breakpoint(1200px) {
+    font-size: 5rem;
+  }
+}
+
+@mixin body-large {
+  font-family: $open-sans;
+  font-size: 1rem;
+  line-height: 1.5;
+  @include breakpoint($tablet) {
+    font-size: 1.25rem;
+  }
+}
+
+@mixin cta {
+  font-family: $stratum;
+  background-image: url("../images/arrow-right-red.svg");
+  background-position: right center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: $color-osu-orange;
+  }
+}
+
+@mixin cta-small {
+  @include cta;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  @include breakpoint($tablet) {
+    font-size: 1.25rem;
+  }
+}
+
+@mixin cta-large {
+  @include cta;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  @include breakpoint($tablet) {
+    font-size: 1.75rem;
+  }
+}

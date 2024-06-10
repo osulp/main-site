@@ -1,0 +1,8 @@
+name: OSU Migrate Content
+type: module
+description: Migrate OSU Basic Content types, no paragraphs to layout builder.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations

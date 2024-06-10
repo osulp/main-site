@@ -1,0 +1,164 @@
+@import '../abstracts/osu_variables';
+
+.madrone-hide-superfish {
+  display: none !important;
+}
+
+.madrone-primary-menu > .block-superfish {
+  .sf-accordion-toggle {
+    display: flex;
+    flex-direction: column;
+    height: 3.5rem;
+    justify-content: center;
+
+    & > a {
+      font-weight: 600;
+      line-height: 3rem;
+      padding-left: 1rem;
+      text-decoration: none;
+
+      &::before {
+        content: '\f0c9';
+        display: inline-block;
+        font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free';
+        font-weight: 900;
+        letter-spacing: 1rem;
+      }
+    }
+  }
+
+  ul {
+    &:not([class$="accordion"]) {
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    &.sf-menu {
+      line-height: 1.75rem;
+
+      &.sf-horizontal {
+        li {
+          a,
+          span {
+            --bs-nav-link-padding-x: 1rem;
+            --bs-nav-link-padding-y: 1rem;
+            padding: 1rem;
+          }
+
+          ul {
+            background-color: $bucktoothwhite-hsl;
+          }
+        }
+      }
+
+      &.sf-accordion {
+        display: flex;
+        flex-direction: column;
+        float: unset;
+
+        $sf-depth: 0;
+        @for $i from 1 through 9 {
+          li.sf-depth-#{$i} {
+            left: #{$sf-depth}rem;
+            $sf-depth: $sf-depth + 0.25;
+          }
+        }
+      }
+
+      li {
+        float: none;
+
+        &.sf-depth-1.menuparent {
+          &.sfHover,
+          &:hover {
+            & > ul {
+              opacity: 1;
+            }
+
+            & > a {
+              background-color: $bucktoothwhite-hsl;
+            }
+          }
+
+          // chevron top level
+          & > a::after,
+          & > span::after {
+            color: $neutral-700;
+            content: '\2000\f078';
+            display: inline-block;
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free';
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: normal;
+          }
+
+          // Push menu down on first child ul.
+          & > ul {
+            opacity: 0;
+            top: 3.5em;
+          }
+        }
+
+        // chevron lower levels
+        ul li:not(.sf-depth-1) {
+          &:hover,
+          &:active,
+          &:focus {
+            > a,
+            > span {
+              background-color: $osuorange-hsl;
+              color: $bucktoothwhite-hsl;
+              transition: none !important;
+            }
+
+            > a.menuparent::after,
+            > span.menuparent::after {
+              color: $bucktoothwhite-hsl;
+            }
+          }
+
+          a.menuparent::after,
+          span.menuparent::after {
+            color: $neutral-700;
+            content: '\2000\f054';
+            display: inline-block;
+            float: right;
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free';
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: normal;
+          }
+        }
+
+        a:not(.sf-depth-1),
+        span:not(.sf-depth-1) {
+          display: flex;
+          justify-content: space-between;
+
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: transparent;
+          }
+        }
+
+        a,
+        span {
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: $bucktoothwhite-hsl;
+            color: $neutral-700;
+          }
+
+          span.sf-sub-indicator {
+            display: none;
+            height: 0;
+            width: 0;
+          }
+        }
+      }
+    }
+  }
+}

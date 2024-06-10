@@ -1,0 +1,118 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_diversity_feature_story
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - Feature Story
+  - Diversity
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: feature_story
+  constants:
+    # map paragraph types on pages to their corresponding migration filenames
+    map:
+      paragraph_1_col_clean: 'paragraph_1_col_clean__to__layout_builder'
+      paragraph_1_col: 'paragraph_1_col__to__layout_builder'
+      paragraph_2_col_left: 'paragraph_2_col_left__to__layout_builder'
+      paragraph_2_col_right: 'paragraph_2_col_right__to__layout_builder'
+      paragraph_3_col_left: 'paragraph_3_col_left__to__layout_builder'
+      paragraph_3_col_center: 'paragraph_3_col_center__to__layout_builder'
+      paragraph_3_col_right: 'paragraph_3_col_right__to__layout_builder'
+      paragraph_menu: 'paragraph_menu__to__layout_builder'
+      paragraph_accordion: 'paragraph_accordion__to__layout_builder'
+process:
+  nid: nid
+  title: title
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_story_caption: field_caption
+  field_c_category:
+    - plugin: sub_process
+      source: field_category
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  field_osu_story_external_url:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_feature_story_alt_url
+  field_osu_story_cover_image:
+    plugin: sub_process
+    source: field_picture
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_media_images
+        source: fid
+  default_temp:
+    plugin: default_layout
+    bundle: page
+  paragraphs_temp:
+    plugin: paragraphs_layout
+    source_field: field_paragraph
+  layout_builder__layout:
+    plugin: get
+    source:
+      - '@paragraphs_temp'
+      - '@default_temp'
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: story
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - paragraph_1_col_clean__to__layout_builder
+    - paragraph_1_col__to__layout_builder
+    - paragraph_2_col_left__to__layout_builder
+    - paragraph_2_col_right__to__layout_builder
+    - paragraph_3_col_left__to__layout_builder
+    - paragraph_3_col_center__to__layout_builder
+    - paragraph_3_col_right__to__layout_builder
+    - paragraph_menu__to__layout_builder
+    - paragraph_accordion__to__layout_builder
+    - paragraph_alert__to__layout_builder
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

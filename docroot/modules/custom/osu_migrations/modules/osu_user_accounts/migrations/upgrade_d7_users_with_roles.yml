@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_users_with_roles
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - OSU Accounts
+  - OSU
+migration_group: insert_users
+label: 'Filtered User Accounts'
+source:
+  plugin: d7_user_filtered
+  role_names:
+    - architect
+    - author
+    - manager
+process:
+  uid: uid
+  name: name
+  pass: pass
+  mail: mail
+  created: created
+  access: access
+  login: login
+  status: status
+  timezone: timezone
+  langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: false
+  preferred_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  preferred_admin_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  init: init
+  roles:
+    plugin: osu_user_role_map
+    source: roles
+destination:
+  plugin: 'entity:user'

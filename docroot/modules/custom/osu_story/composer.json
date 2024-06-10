@@ -1,0 +1,15 @@
+{
+  "name": "osu-wams/osu_story",
+  "description": "Provides a story content type and views to be used as News articles, Featured stories etc.",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "require": {
+  }
+}

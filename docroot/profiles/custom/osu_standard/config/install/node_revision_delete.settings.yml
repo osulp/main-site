@@ -1,0 +1,13 @@
+defaults:
+  amount:
+    status: true
+    settings:
+      amount: 25
+  created:
+    status: true
+    settings:
+      age: 2
+  drafts:
+    status: false
+    settings:
+      age: 1

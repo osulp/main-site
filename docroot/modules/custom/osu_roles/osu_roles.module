@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Main module file for OSU Roles.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_roles_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::configFactory()->getEditable('');
+  /** @var \Drupal\user\Entity\User $user */
+  $user = User::load(\Drupal::currentUser()->id());
+  $user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role = _build_admin_role_array();
+  if ($user->id() !== '1' && !in_array($admin_role, $user_roles)) {
+    $form['account']['roles']['dx_administrator']['#disabled'] = TRUE;
+    $form['account']['roles']['administrator']['#disabled'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_roles_form_user_admin_permissions_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\user\Entity\User $user */
+  $user = User::load(\Drupal::currentUser()->id());
+  $user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role = _build_admin_role_array();
+  if ($user->id() !== '1' && count(array_intersect($admin_role, $user_roles)) === 0 && array_key_exists('administer modules', $form['permissions'])) {
+    foreach ($form['permissions']['administer modules'] as $role => $settings) {
+      if ($role !== 'description') {
+        $form['permissions']['administer modules'][$role]['#disabled'] = TRUE;
+        $form['permissions']['administer software updates'][$role]['#disabled'] = TRUE;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_roles_form_bulk_add_cas_users_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\user\Entity\User $user */
+  $user = User::load(\Drupal::currentUser()->id());
+  $user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role = _build_admin_role_array();
+  if ($user->id() !== '1' && !in_array($admin_role, $user_roles)) {
+    $form['roles']['administrator']['#disabled'] = TRUE;
+    $form['roles']['dx_administrator']['#disabled'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_roles_form_views_form_user_admin_people_page_1_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\user\Entity\User $user */
+  $user = User::load(\Drupal::currentUser()->id());
+  $user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role = _build_admin_role_array();
+  if ($user->id() !== '1' && !in_array($admin_role, $user_roles)) {
+    unset($form['header']['user_bulk_form']['action']['#options']['user_add_role_action.administrator']);
+    unset($form['header']['user_bulk_form']['action']['#options']['user_add_role_action.dx_administrator']);
+  }
+}
+
+/**
+ * Get the configured administrative role.
+ *
+ * @return array
+ *   The configured administrative role.
+ */
+function _build_admin_role_array() {
+  $roles = Role::loadMultiple();
+  $admin_roles = [];
+  foreach ($roles as $role_name => $value) {
+    if ($value->isAdmin()) {
+      $admin_roles[] = $role_name;
+    }
+    if ($role_name === 'dx_administrator') {
+      $admin_roles[] = $role_name;
+    }
+  }
+  return $admin_roles;
+}

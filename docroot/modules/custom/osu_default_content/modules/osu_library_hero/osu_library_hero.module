@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * The Main module file.
+ */
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Once the Default content is imported we need to update the media_id for the
+ * background image. This hook is called after every module is installed.
+ * By checking for the module type and to ensure we are not in configuration
+ * import step:
+ *   - Load the media entity by UUID and get its ID.
+ *   - Load the section library by UUID and update its settings by setting
+ *     the media_id and save it back to the database.
+ */
+function osu_library_hero_modules_installed($modules, $is_syncing) {
+  if (in_array('osu_library_hero', $modules) && !$is_syncing) {
+    \Drupal::service('osu_default_content.library_media_update')::updateSectionLibrarySectionBackground('93f31c1f-c230-4449-a8cd-f5918aeb2853');
+  }
+}

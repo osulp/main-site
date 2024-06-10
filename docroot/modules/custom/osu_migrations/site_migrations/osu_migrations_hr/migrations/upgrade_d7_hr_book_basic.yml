@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_hr_book_basic
+migration_tags:
+  - Drupal 7 OG
+  - HR
+  - OSU
+label: 'Update Book/Basic page migration to include missing fields.'
+source:
+  plugin: d7_node
+  node_type:
+    - book
+    - page
+process:
+  nid: nid
+  field_applicability: field_applicability
+  field_a_to_z_index: field_a_to_z_index
+  type:
+    plugin: default_value
+    default_value: page
+    overwrite_properties:
+      - field_applicability
+      - field_a_to_z_index
+destination:
+  plugin: 'entity:node'
+  bundle: page
+migration_dependencies:
+  required:
+    - upgrade_d7_node

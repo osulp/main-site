@@ -1,0 +1,14 @@
+{
+    "name": "osu-wams/osu_block_types",
+    "description": "OSU Drupal Module to create block types for use in OSU Drupal.",
+    "type": "drupal-custom-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Matthew Brabham",
+            "email": "matthew.brabham@oregonstate.edu"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

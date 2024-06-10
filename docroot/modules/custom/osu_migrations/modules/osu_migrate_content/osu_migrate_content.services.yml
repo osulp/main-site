@@ -1,0 +1,11 @@
+services:
+  osu_migrate_content.event_subscriber:
+    class: Drupal\osu_migrate_content\EventSubscriber\BlockVisibilityGroupsPostRowMigrate
+    arguments: [ '@entity_type.manager', '@migrate.lookup' ]
+    tags:
+      - { name: event_subscriber }
+  osu_migrate_content.node_body_migration:
+    class: Drupal\osu_migrate_content\EventSubscriber\TextAreaFormatValueMigrate
+    arguments: [ ]
+    tags:
+      - { name: event_subscriber }

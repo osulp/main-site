@@ -1,0 +1,4 @@
+services:
+  osu_default_content.library_media_update:
+    class: Drupal\osu_default_content\LibraryMediaUpdate
+    arguments: [ ]

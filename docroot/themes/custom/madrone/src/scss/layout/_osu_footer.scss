@@ -1,0 +1,19 @@
+@import "../abstracts/osu_variables";
+footer {
+  .region-footer {
+    a {
+      color: $bucktoothwhite-hsl;
+      text-decoration-color: $bucktoothwhite-hsl;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      &:active {
+        background-color: $bucktoothwhite-hsl;
+        color: $paddletailblack-hsl;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: default_path_pattern_applies_to_all_content_types_with_blank_patterns_below
+label: 'Default path pattern (applies to all content types with blank patterns below)'
+type: 'canonical_entities:node'
+pattern: '[node:content-type]/[node:title]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }

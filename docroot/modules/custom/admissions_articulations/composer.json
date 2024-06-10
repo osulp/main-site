@@ -1,0 +1,27 @@
+{
+  "name": "osu-wams/admissions_articulations",
+  "description": "Provides a Field to load Articulations tables from external source.",
+  "minimum-stability": "stable",
+  "type": "drupal-custom-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Matthew Brahbam",
+      "email": "matthew.brabham@oreognstate.edu"
+    }
+  ],
+  "scripts": {
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf"
+  },
+  "require-dev": {
+    "drupal/coder": "^8.3",
+    "squizlabs/php_codesniffer": "^3.7",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

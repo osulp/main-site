@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_cascades_user_profile_osu_person
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - Cascades
+  - OSU
+label: 'Cascades Person Profile Migration'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_person
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_c_profile_personal_links:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: personal_links
+  field_c_profile_personal_interes:
+    - plugin: sub_process
+      source: personal_interests
+      process:
+        value: value
+        format:
+          - plugin: default_value
+            default_value: full_html
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_c_profile_personal_interes
+      - field_c_profile_personal_links
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_user_to_profile

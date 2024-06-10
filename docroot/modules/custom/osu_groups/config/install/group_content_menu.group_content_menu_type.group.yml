@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - osu_groups
+id: group
+label: 'Group Menu'

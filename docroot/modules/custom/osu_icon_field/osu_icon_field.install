@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the OSU Icon Field module.
+ */
+
+use Drupal\Core\Entity\SQL\SqlContentEntityStorage;
+
+/**
+ * Add a new column for size to all icon fields.
+ */
+function osu_icon_field_update_9001(&$sandbox) {
+  // Add the size column to all existing fields.
+  osu_icon_field_add_helper('osu_icon', 'size');
+}
+
+/**
+ * Helper function to add new field properties to existing fields.
+ *
+ * Got the code from
+ * https://www.drupal.org/project/drupal/issues/937442#comment-12586376 and
+ * will no longer be needed when
+ * https://www.drupal.org/project/drupal/issues/937442 is merged in.
+ *
+ * @param string $field_type
+ *   The Field type.
+ * @param string $new_property
+ *   The Name of the new column to add.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function osu_icon_field_add_helper($field_type, $new_property) {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $field_map = \Drupal::service('entity_field.manager')
+    ->getFieldMapByFieldType($field_type);
+  foreach ($field_map as $entity_type_id => $fields) {
+    foreach (array_keys($fields) as $field_name) {
+      $field_storage_definition = $manager->getFieldStorageDefinition($field_name, $entity_type_id);
+      $storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+
+      if ($storage instanceof SqlContentEntityStorage) {
+        $table_mapping = $storage->getTableMapping([$field_name => $field_storage_definition]);
+        $tables_names = $table_mapping->getDedicatedTableNames();
+        $columns = $table_mapping->getColumnNames($field_name);
+
+        foreach ($tables_names as $tables_name) {
+          $field_schema = $field_storage_definition->getSchema();
+          $schema = \Drupal::database()->schema();
+          $field_exists = $schema->fieldExists($tables_name, $columns[$new_property]);
+          $table_exists = $schema->tableExists($tables_name);
+          if (!$field_exists && $table_exists) {
+            $schema->addField($tables_name, $columns[$new_property], $field_schema['columns'][$new_property]);
+          }
+        }
+      }
+      $manager->updateFieldStorageDefinition($field_storage_definition);
+    }
+  }
+}

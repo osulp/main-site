@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 56471fc0-66cd-40f2-8d5d-67d68d9b9b48
+  default_langcode: en
+  depends: [ ]
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: 5070-osuath-0283.webp
+  uri:
+    - value: 'public://2022-09/5070-osuath-0283.webp'
+  filemime:
+    - value: image/webp
+  filesize:
+    - value: 171874
+  status:
+    - value: true
+  created:
+    - value: 1662074034

@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_osu_employee
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+label: 'OSU Employee Profile Migration'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_employee
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_profile_office_phone: phone_office
+  field_profile_primary_title: position
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_profile_office_phone
+      - field_profile_primary_title
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_user_to_profile

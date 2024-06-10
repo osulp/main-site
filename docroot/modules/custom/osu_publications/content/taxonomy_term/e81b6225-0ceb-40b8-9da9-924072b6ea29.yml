@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: e81b6225-0ceb-40b8-9da9-924072b6ea29
+  bundle: publication_type
+  default_langcode: en
+default:
+  status:
+    - value: true
+  name:
+    - value: 'Conference Proceedings'
+  weight:
+    - value: 0
+  parent:
+    - target_id: 0
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: /publication-type/conference-proceedings
+      langcode: en
+      pathauto: 1

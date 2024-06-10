@@ -1,0 +1,20 @@
+{
+  "name": "osu-wams/live_feeds",
+  "type": "drupal-custom-module",
+  "description": "Allows showing RSS feeds from OSU sources in a site.",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Matthew Brabham",
+      "email": "matthew.brabham@oregonstate.edu"
+    }
+  ],
+  "require": {
+    "ext-dom": "*",
+    "ext-simplexml": "*",
+    "ext-tidy": "*",
+    "ext-libxml": "*",
+    "drupal/date_ap_style": "^1.0 | ^2.0"
+  }
+}

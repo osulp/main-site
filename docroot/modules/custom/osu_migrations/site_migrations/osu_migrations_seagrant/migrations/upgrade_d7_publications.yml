@@ -1,0 +1,140 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_publications
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - SeaGrant
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: publications
+process:
+  nid: nid
+  title: title
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_pub_ja_abstract: field_pub_ja_abstract
+  field_access_materials:
+    plugin: field_link
+    uri_scheme: 'https://'
+    source: field_access_materials
+  field_extension_cms: field_extension_cms
+  field_authors: field_authors
+  field_categories:
+    plugin: sub_process
+    source: field_categories
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_taxonomy_terms
+        source: target_id
+  field_pub_theses_degree: field_pub_theses_degree
+  field_pub_theses_dept: field_pub_theses_dept
+  field_pub_ja_doi_num: field_pub_ja_doi_num
+  field_pub_date:
+    plugin: sub_process
+    source: field_pub_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_featured_publication: field_featured_publication
+  field_hero_image:
+    plugin: sub_process
+    source: field_hero_image
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_files
+        source: fid
+      alt: alt
+  field_pub_how_to_order: field_pub_how_to_order
+  field_bilingual: field_bilingual
+  field_pub_length: field_pub_length
+  field_pub_misc: field_pub_misc
+  field_alt_language_versions:
+    plugin: sub_process
+    source: field_alt_language_versions
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_taxonomy_terms
+        source: target_id
+  field_pub_price: field_pub_price
+  field_catalog_number: field_catalog_number
+  field_publication_types:
+    plugin: sub_process
+    source: field_publication_types
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_taxonomy_terms
+        source: target_id
+  field_archive_link:
+    plugin: field_link
+    uri_scheme: 'https://'
+    source: field_archive_link
+  field_pub_ship: field_pub_ship
+  field_pub_description_short: field_pub_description_short
+  field_pub_size_and_format: field_pub_size_and_format
+  field_pub_ja_source: field_pub_ja_source
+  field_year_of_publication:
+    plugin: sub_process
+    source: field_year_of_publication
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: publications
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

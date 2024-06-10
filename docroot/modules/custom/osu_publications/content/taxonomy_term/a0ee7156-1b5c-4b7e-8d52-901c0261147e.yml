@@ -1,0 +1,21 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: a0ee7156-1b5c-4b7e-8d52-901c0261147e
+  bundle: publication_type
+  default_langcode: en
+default:
+  status:
+    - value: true
+  name:
+    - value: Thesis
+  weight:
+    - value: 0
+  parent:
+    - target_id: 0
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: /publication-type/thesis
+      langcode: en
+      pathauto: 1

@@ -1,0 +1,8 @@
+name: 'OSU Default Content'
+type: module
+description: 'Default content for OSU distributions'
+package: OSU
+core_version_requirement: ^9 || ^10
+version: 1.0.3
+dependencies:
+  - default_content:default_content

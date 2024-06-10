@@ -1,0 +1,60 @@
+@import "../abstracts/osu_variables";
+
+.block-group-operations {
+  margin-bottom: 1rem;
+
+  .dropbutton-single,
+  .dropbutton-multiple {
+    .dropbutton-widget {
+      background-color: transparent;
+      color: $body-color;
+
+      .dropbutton {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        @media screen and (min-width: 768px) {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+
+        .dropbutton-toggle {
+          display: none;
+        }
+
+        .dropbutton-action {
+          &:first-child {
+            background: unset;
+            margin-inline: unset;
+            padding-inline: unset;
+
+            a {
+              text-decoration: underline;
+              text-decoration-color: $osuorange-hsl;
+              text-decoration-thickness: 13%;
+
+              &:hover,
+              &:focus {
+                background-color: unset;
+                box-shadow: none;
+                text-decoration: none;
+              }
+            }
+
+          }
+
+          & a {
+            color: $body-color;
+            padding-inline: 0;
+          }
+        }
+
+        .secondary-action {
+          display: block;
+          margin: unset;
+          padding: unset;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name: OSU Migrate Users
+type: module
+description: Migrate OSU Users.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations

@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for OSU Groups.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function osu_groups_install($is_syncing) {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')
+    ->getEditable('linkit.linkit_profile.default');
+  $linkit_matchers = $config->get('matchers');
+  $uuid_service = \Drupal::service('uuid');
+  $uuid = $uuid_service->generate();
+  $linkit_group_matcher = [
+    "id" => "entity:group",
+    "uuid" => $uuid,
+    "settings" => [
+      "metadata" => "by [group:author:account-name] | [group:author:created:medium]",
+      "bundles" => [],
+      "group_by_bundle" => TRUE,
+      "substitution_type" => "canonical",
+      "limit" => 100,
+    ],
+    "weight" => 0,
+  ];
+  $linkit_matchers[$uuid] = $linkit_group_matcher;
+  $config->set('matchers', $linkit_matchers);
+  $config->save();
+}
+
+/**
+ * Add linkit profile for groups.
+ */
+function osu_groups_update_9001(&$sandbox) {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')
+    ->getEditable('linkit.linkit_profile.default');
+  $linkit_matchers = $config->get('matchers');
+  $uuid_service = \Drupal::service('uuid');
+  $uuid = $uuid_service->generate();
+  $linkit_group_matcher = [
+    "id" => "entity:group",
+    "uuid" => $uuid,
+    "settings" => [
+      "metadata" => "by [group:author:account-name] | [group:author:created:medium]",
+      "bundles" => [],
+      "group_by_bundle" => TRUE,
+      "substitution_type" => "canonical",
+      "limit" => 100,
+    ],
+    "weight" => 0,
+  ];
+  $linkit_matchers[$uuid] = $linkit_group_matcher;
+  $config->set('matchers', $linkit_matchers);
+  $config->save();
+}
+
+/**
+ * Add Group Revision Module.
+ */
+function osu_groups_update_9002(&$sandbox) {
+  \Drupal::service('module_installer')->install([
+    'group_support_revisions',
+  ], TRUE);
+}

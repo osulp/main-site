@@ -1,0 +1,44 @@
+// overwrite CKeditor so we can see our fonts
+.cke_reset_all {
+  .fab {
+    font-family: Font Awesome\ 6 Brands !important;
+  }
+
+  .fa, .far, .fas {
+    font-family: Font Awesome\ 6 Free !important;
+  }
+
+  .fa, .fas {
+    font-weight: 900 !important;
+  }
+
+  .fab, .fa, .far, .fas {
+    font-size: 20px;
+  }
+
+  .fontawesome-icons-wrapper {
+    padding-top: .6rem;
+  }
+
+  #fontawesome-search-box {
+    border: 1px solid #ccc;
+    margin-left: 5px;
+    font-size: 16px;
+    padding: 0 4px;
+  }
+
+  .fontawesome-icons {
+    white-space: pre-wrap;
+    height: 300px;
+    overflow: scroll;
+    i {
+      font-size: 24px;
+      padding: 4px;
+      cursor: pointer;
+    }
+  }
+
+
+}
+
+

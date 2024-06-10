@@ -1,0 +1,4 @@
+services:
+  osu_groups_basic_group.group_handler:
+    class: Drupal\osu_groups_basic_group\OsuGroupsBasicGroupHandler
+    arguments: [ '@entity_type.bundle.info', '@entity_field.manager' ]

@@ -1,0 +1,9 @@
+name: OSU Migrate OG to Group
+type: module
+description: Migrate OG to Group.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations
+  - osu_migrations:osu_user_accounts

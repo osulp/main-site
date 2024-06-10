@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: file
+  uuid: 0c8267db-853d-44b1-87f0-3d1097891494
+  default_langcode: en
+default:
+  uid:
+    - entity: 1
+  filename:
+    - value: lb_hero_128_128.jpg
+  uri:
+    - value: 'public://credentialing_providers/lb_hero_128_128.jpg'
+  filemime:
+    - value: image/jpeg
+  filesize:
+    - value: 24199
+  status:
+    - value: true
+  created:
+    - value: 1662591054

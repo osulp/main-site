@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: media
+  uuid: f1060420-ab18-4878-9bea-99a821f4be25
+  bundle: image
+  default_langcode: en
+  depends:
+    56471fc0-66cd-40f2-8d5d-67d68d9b9b48: file
+default:
+  revision_user:
+    - entity: 1
+  status:
+    - value: true
+  uid:
+    - entity: 1
+  name:
+    - value: 5070-osuath-0283.webp
+  created:
+    - value: 1662074009
+  revision_translation_affected:
+    - value: true
+  path:
+    - alias: ''
+      langcode: en
+      pathauto: 0
+  field_media_image:
+    - entity: 56471fc0-66cd-40f2-8d5d-67d68d9b9b48
+      alt: 'Oregon State University Reeser Stadium Score Board Backside.'
+      title: ''
+      width: 1620
+      height: 1080

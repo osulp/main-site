@@ -1,0 +1,40 @@
+id: upgrade_d7_node_type
+label: Node type configuration
+migration_tags:
+  - Drupal 7
+  - Configuration
+  - OSU Configuration
+  - OSU
+source:
+  plugin: osu_d7_node_type
+  exclude_bundle:
+    - article
+    - biblio
+    - book
+    - feature_story
+    - feed
+    - group
+    - navigation_grid
+    - page
+    - parent_unit
+    - simple_tab
+    - stylesheet_overlay
+    - video
+    - webform
+  constants:
+    preview: 1 # DRUPAL_OPTIONAL
+process:
+  type: type
+  name: name
+  description: description
+  help: help
+  title_label: title_label
+  preview_mode: 'constants/preview'
+  display_submitted: display_submitted
+  new_revision: 'options/revision'
+  create_body: create_body
+  create_body_label: body_label
+  'third_party_settings/menu_ui/available_menus': available_menus
+  'third_party_settings/menu_ui/parent': parent
+destination:
+  plugin: entity:node_type

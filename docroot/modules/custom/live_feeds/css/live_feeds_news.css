@@ -1,0 +1,50 @@
+/**
+ * @file news.css
+ *  Provide style for the News plugin for the Live Feeds module.
+ */
+
+.live-feeds-news .news-item {
+  border-bottom: 1px dotted #888;
+  margin-bottom: 1.5em;
+  overflow: auto;
+  padding-bottom: 1em;
+}
+.live-feeds-news .news-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.live-feeds-news .news-item h3.news-item__title {
+  color: #000;
+  display: inline;
+  font-size: 0.93em;
+  margin: 0;
+  padding: 0;
+}
+
+.live-feeds-news .news-item .news-item__image {
+  clear: left;
+  float: left;
+  margin-right: .5rem;
+  margin-top: .5rem;
+}
+
+.live-feeds-news .news-item .news-item__image img {
+  aspect-ratio: 1 / 1;
+  border-radius: .25rem;
+  object-fit: cover;
+  width: 75px;
+}
+
+.live-feeds-news .news-item .news-item__date {
+  color: #565656;
+  display: inline;
+  font-size: 0.93em;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.live-feeds-news .news-item .news-item__body {
+  font-size: 0.93em;
+  margin-top: .2em;
+}

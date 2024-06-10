@@ -1,0 +1,12 @@
+name: OSU Library Three Column Cards
+type: module
+description: Provide Layout Library Item for a three column OSU Card blocks with an alternative view mode.
+package: OSU
+core_version_requirement: ^9 || ^10
+dependencies:
+  - default_content:default_content
+  - section_library:section_library
+  - bootstrap_layout_builder:bootstrap_layout_builder
+  - bootstrap_styles:bootstrap_styles
+  - osu_media:osu_media
+  - osu_block_types:osu_block_types

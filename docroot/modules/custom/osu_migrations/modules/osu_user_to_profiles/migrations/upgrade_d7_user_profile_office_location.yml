@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_office_location
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+label: 'Address and Organization Migrations.'
+source:
+  plugin: d7_user_profile_osu_employee
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_profile_address/address_line1:
+    - plugin: get
+      source: location_address_one_value
+  field_profile_address/address_line2:
+    - plugin: get
+      source: location_address_two_value
+  field_profile_address/administrative_area:
+    - plugin: get
+      source: location_state_value
+  field_profile_address/locality:
+    - plugin: get
+      source: location_city_value
+  field_profile_address/postal_code:
+    - plugin: get
+      source: location_zip_value
+  field_profile_address/country_code:
+    - plugin: default_value
+      default_value: 'US'
+  field_osu_organizations:
+    - plugin: skip_on_empty
+      source: department
+      method: process
+      message: 'No Department Set.'
+    - plugin: entity_generate
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: osu_organization
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_profile_address
+      - field_osu_organizations
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

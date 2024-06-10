@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: osu_card
+label: 'OSU Card'
+revision: 1
+description: 'Create a Vertical card like element with a link field.'

@@ -1,0 +1,13 @@
+.field--name-field-tags,
+.field--name-field-osu-organizations {
+  &.field--label-inline {
+    .field__items {
+      flex-direction: row;
+    }
+  }
+
+  &.field__items,
+  .field__items {
+    flex-direction: column;
+  }
+}

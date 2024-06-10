@@ -1,0 +1,19 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.black-topographical-section {
+  background-color: $color-paddletail-black;
+  background-image: url('../images/topographical-map.svg');
+  background-position: calc(50% - 240px) 260px;
+  background-repeat: no-repeat;
+  color: $color-white;
+
+  .block--type-content-with-image .field--name-field-content-with-image-cta a {
+    background-image: url('../images/arrow-right-yellow.svg');
+    color: $color-yellow;
+
+    &:hover {
+      text-decoration-color: $color-yellow;
+    }
+  }
+}

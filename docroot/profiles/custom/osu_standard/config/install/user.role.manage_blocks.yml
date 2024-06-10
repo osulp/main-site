@@ -1,0 +1,30 @@
+uuid: ae5a3fac-557e-45d2-b17d-9c15467424f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - block
+    - block_class
+    - block_content
+    - block_visibility_groups
+    - captcha
+    - contextual
+    - exclude_node_title
+    - honeypot
+    - simple_popup_blocks
+id: manage_blocks
+label: 'Manage Blocks'
+weight: -5
+is_admin: null
+permissions:
+  - 'access block library'
+  - 'access contextual links'
+  - 'administer block classes'
+  - 'administer block content'
+  - 'administer block types'
+  - 'administer block visibility groups'
+  - 'administer blocks'
+  - 'administer simple_popup_blocks'
+  - 'bypass honeypot protection'
+  - 'skip CAPTCHA'
+  - 'use exclude node title'

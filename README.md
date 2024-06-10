@@ -1,130 +1,127 @@
-# Docker-based Drupal stack
+# Oregon State University Drupal
 
-[![Build Status](https://github.com/wodby/docker4drupal/workflows/Run%20tests/badge.svg)](https://github.com/wodby/docker4drupal/actions)
+This is the main OSU Drupal Distribution.
 
-## Introduction
+## Update and deploy to Acquia
 
-Docker4Drupal is a set of docker images optimized for Drupal. Use `compose.yml` file from the [latest stable release](https://github.com/wodby/docker4drupal/releases) to spin up local environment on Linux, Mac OS X and Windows. 
+[Acquia Pipelines](https://docs.acquia.com/cloud-platform/pipelines/) will watch, build, and deploy versions when
+changes are detected.
 
-* Read the docs on [**how to use**](https://wodby.com/docs/stacks/drupal/local#usage)
-* Ask questions on [Discord](http://discord.wodby.com/)
-* Ask questions on [Slack](http://slack.wodby.com/)
-* Follow [@wodbycloud](https://twitter.com/wodbycloud) for future announcements
+- The develop branch will build and deploy to Acquia Cloud Development environment
+- The master branch will build and deploy the Acquia Cloud Stage environment.
+- For Acquia Cloud Production an Acquia Cloud administrator will need to manually deploy code from the Stage environment
+  to Production.
 
-## Stack
+### Update workflow
 
-The Drupal stack consist of the following containers:
+1. Start in the development branch
+1. ```git pull && composer install```
+2. Check for updates ```composer outdated drupal/\*```
+1. If you want to only check for packages that have minor version updates
+1. ```composer outdated -m drupal/\*```
+2. To check for only updates that are required by this distribution's composer.json
+1. ```composer outdated -D drupal/\*```
+3. Get updates
+1. To update a specific package only
+1. ```composer update vendor/package```
+1. eg ```composer update drupal/my_module```
+2. Update only core and it's dependencies
+1. ```composer update drupal/core-composer-scaffold drupal/core-recommended drupal/core-dev --with-all-dependencies```
+3. Get all updates
+1. ```composer update```
+4. Commit the changed composer.json and composer.lock and push
+5. Checkout the master branch
+1. ```git pull && composer install```
+2. Merge the development branch in
+3. Commit and push
+6. Log into Acquia Cloud
+1. Navigate to the Acquia Cloud Application and deploy the latest changes to prod from the Stage environment.
 
-| Container       | Versions                    | Image                              | ARM64 support | Enabled by default |
-|-----------------|-----------------------------|------------------------------------|---------------|--------------------|
-| [Nginx]         | 1.26, 1.25                  | [wodby/nginx]                      | ✓             | ✓                  |
-| [Apache]        | 2.4                         | [wodby/apache]                     | ✓             |                    |
-| [Drupal]        | 10, 7                       | [wodby/drupal]                     | ✓             | ✓                  |
-| [PHP]           | 8.3, 8.2, 8.1               | [wodby/drupal-php]                 | ✓             |                    |
-| Crond           |                             | [wodby/drupal-php]                 | ✓             | ✓                  |
-| [MariaDB]       | 11, 10.11, 10.6, 10.5, 10.4 | [wodby/mariadb]                    | ✓             | ✓                  |
-| [PostgreSQL]    | 16, 15, 14, 13, 12          | [wodby/postgres]                   | ✓             |                    |
-| [Valkey]        | 7                           | [wodby/valkey]                     | ✓             |                    |
-| [Memcached]     | 1                           | [wodby/memcached]                  |               |                    |
-| [Varnish]       | 6.0                         | [wodby/varnish]                    | ✓             |                    |
-| [Node.js]       | 20, 18                      | [wodby/node]                       |               |                    |
-| [Drupal node]   | 1.0                         | [wodby/drupal-node]                |               |                    |
-| [Solr]          | 8, 7, 6, 5                  | [wodby/solr]                       |               |                    |
-| Zookeeper       | 3.8                         | [zookeeper]                        |               |                    |
-| [Elasticsearch] | 7                           | [wodby/elasticsearch]              |               |                    |
-| [Kibana]        | 7                           | [wodby/kibana]                     |               |                    |
-| [OpenSMTPD]     | 6.0                         | [wodby/opensmtpd]                  |               |                    |
-| [Mailhog]       | latest                      | [mailhog/mailhog]                  |               | ✓                  |
-| [AthenaPDF]     | 2.16.0                      | [arachnysdocker/athenapdf-service] |               |                    |
-| [Rsyslog]       | latest                      | [wodby/rsyslog]                    |               |                    |
-| [Webgrind]      | 1                           | [wodby/webgrind]                   |               |                    |
-| [Xhprof viewer] | latest                      | [wodby/xhprof]                     |               |                    |
-| Adminer         | 4.6                         | [wodby/adminer]                    |               |                    |
-| phpMyAdmin      | latest                      | [phpmyadmin/phpmyadmin]            |               |                    |
-| Selenium chrome | 3.141                       | [selenium/standalone-chrome]       |               |                    |
-| Traefik         | latest                      | [_/traefik]                        | ✓             | ✓                  |
- 
-Supported Drupal versions: 10 / 7
+## Create New Acquia Cloud Site
 
-## Documentation
+1. To create a new site in OSU Drupal for Acquia Cloud run ```composer generate-site```
+2. This will ask you for the Production FQDN of the site to use and will create the sites' directory, populate the
+   settings.php and the memcache file for acquia cloud.
+3. Follow the Post Install steps to Create the Database and Domains.
 
-Full documentation is available at https://wodby.com/docs/stacks/drupal/local.
+## Local Development
 
-## Image's tags
+You can build the container locally or pull form the registry.
 
-Images' tags format is `[VERSION]-[STABILITY_TAG]` where:
+### Building Container
 
-`[VERSION]` is the _version of an application_ (without patch version) running in a container, e.g. `wodby/nginx:1.15-x.x.x` where Nginx version is `1.15` and `x.x.x` is a stability tag. For some images we include both major and minor version like PHP `7.2`, for others we include only major like Valkey `7`. 
+We have a multi-stage Docker file to build. Most of the time the Development version will be used.
 
-`[STABILITY_TAG]` is the _version of an image_ that corresponds to a git tag of the image repository, e.g. `wodby/mariadb:10.2-3.3.8` has MariaDB `10.2` and stability tag [`3.3.8`](https://github.com/wodby/mariadb/releases/tag/3.3.8). New stability tags include patch updates for applications and image's fixes/improvements (new env vars, orchestration actions fixes, etc). Stability tag changes described in the corresponding a git tag description. Stability tags follow [semantic versioning](https://semver.org/).
+- For the development version of the container:
+  - ```docker build --target=development --tag=osuwams/drupal:9-apache-dev .```
+- For the Production version
+  - ```docker build --target=production --tag=osuwams/drupal:9-apache .```
 
-We highly encourage to use images only with stability tags.
+## Environment Variables that can be set
 
-## Maintenance
+### The Main variable for the Drupal Site.
 
-We regularly update images used in this stack and release them together, see [releases page](https://github.com/wodby/docker4drupal/releases) for full changelog and update instructions. Most of routine updates for images and this project performed by [the bot](https://github.com/wodbot) via scripts located at [wodby/images](https://github.com/wodby/images).
+- DRUPAL_DBNAME
+  - The Database Name to use
+- DRUPAL_DBUSER
+  - The Database User with permissions to that Database.
+- DRUPAL_DBPASS
+  - The Password to the Database User.
 
-## Beyond local environment
+#### Optional Parameters
 
-Docker4Drupal is a project designed to help you spin up local environment with Docker Compose. If you want to deploy a consistent stack with orchestrations to your own server, check out [Drupal stack](https://wodby.com/stacks/drupal) on Wodby ![](https://www.google.com/s2/favicons?domain=wodby.com).
+- DRUPAL_DBHOST
+  - The Host name that the Database Server is running on
+    - Default: localhost
+- DRUPAL_DBPORT
+  - The Port the Database Server is running on
+    - Default: 3306
 
-## Other Docker4x projects
+### Environment Variables For Migrations
 
-* [docker4php](https://github.com/wodby/docker4php)
-* [docker4laravel](https://github.com/wodby/docker4laravel)
-* [docker4wordpress](https://github.com/wodby/docker4wordpress)
-* [docker4ruby](https://github.com/wodby/docker4ruby)
-* [docker4python](https://github.com/wodby/docker4python)
-  
+- DRUPAL_MIGRATE_DBNAME
+  - The Database Name that contains the Source Data for the Migration
+- DRUPAL_MIGRATE_DBUSER
+  - The Database user with permissions to that Database
+- DRUPAL_MIGRATE_DBPASS
+  - The Password for the Database User
 
-## License
+#### Optional Parameters
 
-This project is licensed under the MIT open source license.
+- DRUPAL_MIGRATE_DBHOST
+  - The Host name that the Database Server is running on
+    - Default: localhost
+- DRUPAL_MIGRATE_DBPORT
+  - The Port the Database Server is running on
+    - Default: 3306
 
-[Apache]: https://wodby.com/docs/stacks/drupal/containers#apache
-[AthenaPDF]: https://wodby.com/docs/stacks/drupal/containers#athenapdf
-[Drupal node]: https://wodby.com/docs/stacks/drupal/containers#drupal-nodejs
-[Drupal]: https://wodby.com/docs/stacks/drupal/containers#php
-[Elasticsearch]: https://wodby.com/docs/stacks/elasticsearch
-[Kibana]: https://wodby.com/docs/stacks/elasticsearch
-[Mailhog]: https://wodby.com/docs/stacks/drupal/containers#mailhog
-[MariaDB]: https://wodby.com/docs/stacks/drupal/containers#mariadb
-[Memcached]: https://wodby.com/docs/stacks/drupal/containers#memcached
-[Nginx]: https://wodby.com/docs/stacks/drupal/containers#nginx
-[Node.js]: https://wodby.com/docs/stacks/drupal/containers#nodejs
-[OpenSMTPD]: https://wodby.com/docs/stacks/drupal/containers#opensmtpd
-[PHP]: https://wodby.com/docs/stacks/drupal/containers#php
-[PostgreSQL]: https://wodby.com/docs/stacks/drupal/containers#postgresql
-[Redis]: https://wodby.com/docs/stacks/drupal/containers#redis
-[Valkey]: https://wodby.com/docs/stacks/valkey/containers#valkey
-[Rsyslog]: https://wodby.com/docs/stacks/drupal/containers#rsyslog
-[Solr]: https://wodby.com/docs/stacks/drupal/containers#solr
-[Varnish]: https://wodby.com/docs/stacks/drupal/containers#varnish
-[Webgrind]: https://wodby.com/docs/stacks/drupal/containers#webgrind
-[XHProf viewer]: https://wodby.com/docs/stacks/php/containers#xhprof-viewer
+## Setting Up the Migration Database
 
-[_/traefik]: https://hub.docker.com/_/traefik
-[arachnysdocker/athenapdf-service]: https://hub.docker.com/r/arachnysdocker/athenapdf-service
-[mailhog/mailhog]: https://hub.docker.com/r/mailhog/mailhog
-[phpmyadmin/phpmyadmin]: https://hub.docker.com/r/phpmyadmin/phpmyadmin
-[selenium/standalone-chrome]: https://hub.docker.com/r/selenium/standalone-chrome
-[wodby/adminer]: https://hub.docker.com/r/wodby/adminer
-[wodby/apache]: https://github.com/wodby/apache
-[wodby/drupal-node]: https://github.com/wodby/drupal-node
-[wodby/drupal-php]: https://github.com/wodby/drupal-php
-[wodby/drupal]: https://github.com/wodby/drupal
-[wodby/elasticsearch]: https://github.com/wodby/elasticsearch
-[wodby/kibana]: https://github.com/wodby/kibana
-[wodby/mariadb]: https://github.com/wodby/mariadb
-[wodby/memcached]: https://github.com/wodby/memcached
-[wodby/nginx]: https://github.com/wodby/nginx
-[wodby/node]: https://github.com/wodby/node
-[wodby/opensmtpd]: https://github.com/wodby/opensmtpd
-[wodby/postgres]: https://github.com/wodby/postgres
-[wodby/valkey]: https://github.com/wodby/valkey
-[wodby/rsyslog]: https://hub.docker.com/r/wodby/rsyslog
-[wodby/solr]: https://github.com/wodby/solr
-[wodby/varnish]: https://github.com/wodby/varnish
-[wodby/webgrind]: https://hub.docker.com/r/wodby/webgrind
-[wodby/xhprof]: https://hub.docker.com/r/wodby/xhprof
-[zookeeper]: https://hub.docker.com/_/zookeeper
+If you are running migrations locally after copying Down the database and files from the servers. Exec into the Database
+Container and create a new database and assign the same user to have access
+You can set the database name to what you will use in your Docker Compose environment variables.
+
+For this example lets
+assume we want to migrate from drupal.oregonstate.edu and our Database user we used when we set up our Database
+container
+is 'drupal'.
+
+```sql
+CREATE DATABASE drupal_oregonstate_edu CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+GRANT ALL PRIVILEGES ON `drupal_oregonstate_edu`.* TO `drupal`@`%`;
+```
+
+Copy the Database file into the Drupal Container. This assumes the Drupal service is defined as `drupal`
+```shell
+docker compose cp drupal_oregonstate_edu.sql drupal:/var/www/
+```
+Import the Migrate source Database into the newly created Database. This assumes the Database service is defined as `database`
+```shell
+mysql -u drupal -p -h database drupal_oregonstate_edu < drupal_oregonstate_edu.sql
+```
+
+To place all files from the source drupal site for Files migration copy them to:
+
+```shell
+docker compose cp drupal.oregonstate.edu drupal:/var/www/html/docroot/sites/
+```

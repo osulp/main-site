@@ -1,0 +1,158 @@
+<?php
+
+/**
+ * @file
+ * Main file for OSU Groups: Basic Group.
+ */
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\osu_groups_basic_group\OsuGroupsBasicGroupSystemBrandingBlockAlter;
+use Drupal\pathauto\PathautoPatternInterface;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function osu_groups_basic_group_preprocess_html(&$variables) {
+  if ($node = Drupal::routeMatch()->getParameter('node')) {
+    /** @var \Drupal\osu_groups\OsuGroupsHandler $osu_groups */
+    $osu_groups = Drupal::service('osu_groups.group_handler');
+
+    $group_content = $osu_groups->getGroupContentFromNode($node);
+    $group_node_auto_title = Drupal::configFactory()
+      ->getEditable('group.settings')->get('osu_groups_page_title');
+    if ($group_content && $group_node_auto_title) {
+      /** @var \Drupal\group\Entity\Group $group */
+      $group = $group_content->getGroup();
+      // On Group Content Pages insert Group name after node name.
+      $group_name = $osu_groups->getGroupnameFromGroup($group);
+      $page_title_array = explode(' | ', $variables['head_title']['title']);
+      array_splice($page_title_array, 1, 0, $group_name);
+      $variables['head_title']['title'] = implode(' | ', $page_title_array);
+    }
+
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function osu_groups_basic_group_preprocess_menu__group_menu(&$variables) {
+  // Add an ID to the menu ul.
+  $variables['attributes']['id'] = 'group-content-menu';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function osu_groups_basic_group_preprocess_page_title(&$variables) {
+  // If we are on a group entity and on the display of it, hide the title.
+  if (Drupal::routeMatch()->getParameter('group') && Drupal::routeMatch()
+    ->getRouteName() === 'entity.group.canonical') {
+    $variables['title_attributes']['class'][] = "hidden";
+  }
+}
+
+/**
+ * Implements hook_pathauto_pattern_alter().
+ *
+ * Using Patch from https://www.drupal.org/project/group/issues/2774827
+ *
+ * Update pages added to a group not in a menu with
+ *   "/[node:group:url:path]/[node:title]"
+ *
+ * Update pages that are in the Group menu and are the top level link with
+ *   "/[node:group:url:path]/[node:title]"
+ */
+function osu_groups_basic_group_pathauto_pattern_alter(PathautoPatternInterface $pattern, array $context) {
+  if ($context['module'] === 'node' && $context['op'] == 'update') {
+    $node = $context['data']['node'];
+    /** @var \Drupal\osu_groups\OsuGroupsHandler $group_handler */
+    $group_handler = Drupal::service('osu_groups.group_handler');
+    $group_content = $group_handler->getGroupContentFromNode($node);
+    if ($group_content) {
+      $menu_link_manager = Drupal::service('plugin.manager.menu.link');
+      $menu_links = $menu_link_manager->loadLinksByRoute('entity.node.canonical', ['node' => $node->id()]);
+      if (empty($menu_links)) {
+        $pattern->setPattern("/[node:group:url:path]/[node:title]");
+      }
+      else {
+        $menu_link = reset($menu_links);
+        $parent = $menu_link->getParent();
+        if (empty($parent)) {
+          $pattern->setPattern("/[node:group:url:path]/[node:title]");
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_block_view_BASE_BLOCK_ID_alter().
+ */
+function osu_groups_basic_group_block_view_system_branding_block_alter(array &$build, BlockPluginInterface $block) {
+  $build['#pre_render'][] = [
+    OsuGroupsBasicGroupSystemBrandingBlockAlter::class,
+    'preRender',
+  ];
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function osu_groups_basic_group_form_node_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $form_state->getFormObject()->getEntity();
+  // If node is new and created in group context
+  // OR node is a group page and does not have a normal menu entry.
+  if (($form_state->get('group') && $node->isNew())
+    || (!menu_ui_get_menu_link_defaults($node)['id'] && osu_groups_basic_group_is_group())) {
+    $form['menu']['link']['menu_parent']['#default_value'] = 'Group Menu:';
+  }
+}
+
+/**
+ * Determines if existing page is a group page.
+ *
+ * @return bool
+ *   True if current page is a group page.
+ */
+function osu_groups_basic_group_is_group(): bool {
+  $is_group = FALSE;
+
+  if ($node = Drupal::routeMatch()->getParameter('node')) {
+    $osu_groups = Drupal::service('osu_groups.group_handler');
+    $group_content = $osu_groups->getGroupContentFromNode($node);
+    if ($group_content) {
+      $is_group = TRUE;
+    }
+  }
+
+  return $is_group;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function osu_groups_basic_group_form_group_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['osu_groups_page_title'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Automatically add the Group name to the Page title'),
+    '#default_value' => Drupal::config('group.settings')
+      ->get('osu_groups_page_title'),
+    '#description' => t('Automatically have the group name added to the Page title.'),
+  ];
+  // Add a custom submit handler to save the setting.
+  $form['#submit'][] = 'osu_groups_basic_group_group_settings_submit';
+  return $form;
+}
+
+/**
+ * Submit handler for the form.
+ */
+function osu_groups_basic_group_group_settings_submit($form, FormStateInterface $form_state) {
+  Drupal::configFactory()
+    ->getEditable('group.settings')
+    ->set('osu_groups_page_title', $form_state->getValue('osu_groups_page_title'))
+    ->save();
+}

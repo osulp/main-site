@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * The Module Install File.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function osu_simple_tabs_install($is_syncing) {
+  $exclude_node_titles = \Drupal::configFactory()
+    ->getEditable('exclude_node_title.settings');
+  $content_types = $exclude_node_titles->get('content_types');
+  $content_types['osu_simple_tabs'] = 'all';
+  $exclude_node_titles->set('content_types', $content_types);
+
+  $content_type_modes = $exclude_node_titles->get('content_type_modes');
+  $content_type_modes['osu_simple_tabs'] = ['simple_tab_content'];
+  $exclude_node_titles->set('content_type_modes', $content_type_modes);
+
+  $exclude_node_titles->save();
+}

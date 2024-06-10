@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function osu_seckit_install($is_syncing) {
+  // Load default module config and update.
+  $osu_seckit = \Drupal::configFactory()->getEditable('seckit.settings');
+  $osu_seckit_xss = $osu_seckit->get('seckit_xss');
+  $osu_seckit_xss['csp']['checkbox'] = TRUE;
+  $osu_seckit_xss['csp']['upgrade-req'] = TRUE;
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
+
+  $osu_seckit->set('seckit_xss', $osu_seckit_xss);
+
+  $osu_seckit_ssl = $osu_seckit->get('seckit_ssl');
+  $osu_seckit_ssl['hsts'] = TRUE;
+  $osu_seckit_ssl['hsts_max_age'] = 10368000;
+
+  $osu_seckit->set('seckit_ssl', $osu_seckit_ssl);
+  $osu_seckit->save(TRUE);
+}
+
+/**
+ * Update the csp to include 'blob:'
+ */
+function osu_seckit_update_9001(&$sandbox) {
+  $osu_seckit = \Drupal::configFactory()->getEditable('seckit.settings');
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
+  $osu_seckit->set('seckit_xss', $osu_seckit_xss);
+  $osu_seckit->save(TRUE);
+}

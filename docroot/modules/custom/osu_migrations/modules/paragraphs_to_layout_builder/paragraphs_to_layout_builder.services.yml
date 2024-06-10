@@ -1,0 +1,6 @@
+services:
+  paragraphs_to_layout_builder.subscriber.pre_row_save:
+    class: Drupal\paragraphs_to_layout_builder\EventSubscriber\PreRowSaveSubscriber
+    arguments: []
+    tags:
+      - {name: event_subscriber}

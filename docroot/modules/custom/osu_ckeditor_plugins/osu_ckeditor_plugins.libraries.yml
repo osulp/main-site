@@ -1,0 +1,11 @@
+osu_buttons:
+  version: VERSION
+  css:
+    theme:
+      js/plugins/osu_buttons/styles/osu_buttons.css: { }
+
+osu_icons:
+  version: VERSION
+  css:
+    theme:
+      js/plugins/osu_icons/styles/osu_icons.css: { }

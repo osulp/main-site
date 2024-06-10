@@ -1,0 +1,30 @@
+name: Madrone
+description: 'OSU Theme of the future'
+core_version_requirement: ^9 || ^10
+type: theme
+dependencies:
+version: '1.2.41'
+base theme: stable9
+logo: logo.svg
+screenshot: madrone.png
+regions:
+  header: Header
+  primary_menu: Primary menu
+  full_top: Full width below Primary menu
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  page_top: Page Top
+  content: Content
+  sidebar: Sidebar
+  page_bottom: Page Bottom
+  pre_footer: Full width above the Footer
+  footer: Footer
+regions_hidden:
+  - header
+ckeditor_stylesheets:
+  - dist/madrone.css
+libraries:
+  - madrone/fonts
+  - madrone/bootstrap
+  - madrone/global-styling

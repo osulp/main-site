@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * The Main module file.
+ */
+
+/**
+ * Implements hook_modules_installed().
+ */
+function osu_library_three_column_cards_modules_installed($modules, $is_syncing) {
+  if (in_array('osu_library_three_column_cards', $modules) && !$is_syncing) {
+    $media_items_uuid = [
+      '26ea7202-9b8d-4bd1-833d-31f9d371c631',
+      'f1060420-ab18-4878-9bea-99a821f4be25',
+      '6a8709ab-01b0-49b0-9ce5-5b7ded53878b',
+    ];
+    /** @var \Drupal\media\MediaStorage $media_storage */
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    /** @var array $media_item_arr */
+    $media_item_arr = $media_storage->loadByProperties(['uuid' => $media_items_uuid]);
+    // Initialize the variables to be used for the media_id later.
+    $media_id_left = $media_id_center = $media_id_right = '';
+    foreach ($media_item_arr as $mid => $media_item) {
+      $media_id_uuid_loaded = $media_item->get('uuid')
+        ->first()
+        ->getValue()['value'];
+      switch ($media_id_uuid_loaded) {
+        case '26ea7202-9b8d-4bd1-833d-31f9d371c631':
+          $media_id_left = $mid;
+          break;
+
+        case 'f1060420-ab18-4878-9bea-99a821f4be25':
+          $media_id_center = $mid;
+          break;
+
+        case '6a8709ab-01b0-49b0-9ce5-5b7ded53878b':
+          $media_id_right = $mid;
+          break;
+      }
+    }
+
+    /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $section_storage */
+    $section_storage = \Drupal::entityTypeManager()
+      ->getStorage('section_library_template');
+    /** @var array $three_col_cards_section_arr */
+    $three_col_cards_section_arr = $section_storage->loadByProperties(['uuid' => 'd139bfe9-8a30-4f08-9c4a-b442cf82b8c7']);
+    /** @var \Drupal\section_library\Entity\SectionLibraryTemplate $three_col_cards_section */
+    $three_col_cards_section = reset($three_col_cards_section_arr);
+    /** @var Drupal\layout_builder\Plugin\Field\FieldType\LayoutSectionItem $layouts */
+    $layouts = $three_col_cards_section->get('layout_section')->first();
+    /** @var \Drupal\layout_builder\Section $layout_section */
+    $layout_section = $layouts->getValue()['section'];
+    $layout_components = $layout_section->getComponents();
+
+    foreach ($layout_components as $layout_uuid => $section_component) {
+      $block_configuration = $section_component->get('configuration');
+      /** @var \Drupal\block_content\Entity\BlockContent $block_data */
+      $block_data = unserialize($block_configuration['block_serialized'], ['allowed_classes' => ['Drupal\block_content\Entity\BlockContent']]);
+      /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $card_image_field */
+      $card_image_field = $block_data->get('field_osu_card_image')->first();
+      switch ($layout_uuid) {
+        // Left block.
+        case '62ecebeb-81aa-4ce0-a4b4-d4bc386e5df3';
+          $card_image_field->setValue(['target_id' => $media_id_left]);
+          break;
+
+        // Center block.
+        case 'fb449a6e-2624-4408-be6c-81b16ee88c79';
+          $card_image_field->setValue(['target_id' => $media_id_center]);
+          break;
+
+        // Right block.
+        case '653326d7-6c42-4961-a6d9-2172a3694ef2';
+          $card_image_field->setValue(['target_id' => $media_id_right]);
+          break;
+      }
+      $block_configuration['block_serialized'] = serialize($block_data);
+      $section_component->set('configuration', $block_configuration);
+    }
+    $three_col_cards_section->save();
+  }
+}

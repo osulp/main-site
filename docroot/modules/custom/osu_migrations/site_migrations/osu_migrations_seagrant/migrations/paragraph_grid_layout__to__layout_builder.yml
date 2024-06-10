@@ -1,0 +1,36 @@
+id: paragraph_grid_layout__to__layout_builder
+label: Drupal 7 paragraph_grid_layout Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - SeaGrant
+source:
+  plugin: d7_paragraphs_item
+  bundle: grid_layout
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_block'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_grid_layout'
+  body:
+    - plugin: grid_layout
+      source: field_add_an_item
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required: [ ]
+  optional:
+    - paragraph_grid_item__to__layout_builder

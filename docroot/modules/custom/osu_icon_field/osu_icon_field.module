@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Module for integration of osu icons.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function osu_icon_field_theme() {
+  return [
+    'osu_icon_field_formatter' => [
+      'variables' => ['icon' => NULL, 'size' => NULL],
+      'template' => 'osu-icon-formatter',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function osu_icon_field_page_attachments(array &$page) {
+  // Attach library osu-iconpicker.
+  $page['#attached']['library'][] = 'osu_icon_field/osu-icon';
+}

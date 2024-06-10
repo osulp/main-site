@@ -1,0 +1,100 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_news_card
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Drupal 7
+  - Health
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: news_card
+process:
+  nid: nid
+  title: title
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_news_card_date:
+    plugin: sub_process
+    source: field_news_card_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_news_card_excerpt: field_news_card_excerpt
+  field_news_card_faculty:
+    - plugin: sub_process
+      source: field_news_card_faculty
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_user_to_profile
+          source: target_id
+  field_news_card_unit:
+    plugin: sub_process
+    source: field_news_card_unit
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: upgrade_d7_taxonomy_terms
+        source: tid
+  field_news_card_image:
+    plugin: sub_process
+    source: field_news_card_image
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+      alt: alt
+  field_news_card_url: field_news_card_url
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: news_card
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

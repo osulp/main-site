@@ -1,0 +1,6 @@
+services:
+  osu_user_to_profiles.event_subscriber:
+    class: Drupal\osu_user_to_profiles\EventSubscriber\OsuUserToProfilesSubscriber
+    arguments: [ '@osu_migrations.migrate_db', '@entity_type.manager', '@language_manager', '@redirect.repository' ]
+    tags:
+      - { name: event_subscriber }

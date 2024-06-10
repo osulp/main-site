@@ -1,0 +1,81 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_public_health
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - OSU Drupal Profile
+  - Health
+  - OSU
+label: 'Custom OSU Migration for Health Profile Public Health.'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: public_health
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_nih_biosketch:
+    - plugin: sub_process
+      source: field_nih_biosketch
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_media_documents
+            source: fid
+  field_pronouns: field_pronouns
+  field_c_in_the_news:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_in_the_news
+  field_c_research_area:
+    - plugin: sub_process
+      source: field_research_area
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_c_spotlight:
+    - plugin: sub_process
+      source: field_spotlight
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_c_seo_interests:
+    - plugin: sub_process
+      source: field_seo_interests
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_nih_biosketch
+      - field_pronouns
+      - field_in_the_news
+      - field_research_area
+      - field_spotlight
+      - field_seo_interests
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_documents
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_node_og_organization

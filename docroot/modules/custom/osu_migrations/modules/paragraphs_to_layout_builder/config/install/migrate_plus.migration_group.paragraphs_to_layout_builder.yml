@@ -1,0 +1,13 @@
+langcode: en
+status: true
+id: paragraphs_to_layout_builder
+label: 'Paragraphs to layout builder'
+description: 'Migration Group for OSU Migrations'
+dependencies:
+  enforced:
+    module:
+      - paragraphs_to_layout_builder
+      - osu_migrations
+source_type: 'Drupal 7'
+module: null
+shared_configuration: null
