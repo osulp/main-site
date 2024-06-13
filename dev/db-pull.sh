@@ -3,7 +3,7 @@
 # Find pod to pull files from
 POD=`kubectl get pods -n drupal-prod --no-headers -o custom-columns=":metadata.name" | grep -G ^library-php | head -n 1`
 # Local database dump file
-OUT_FILE="dev/mariadb-init/mariadb/live_dump.sql"
+OUT_FILE="dev/mariadb-init/live_dump.sql"
 # Offending COLLATE text
 TO_REPLACE="COLLATE=utf8mb4_0900_ai_ci"
 # Script path

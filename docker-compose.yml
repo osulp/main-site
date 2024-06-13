@@ -13,12 +13,14 @@ services:
       - mariadb:/var/lib/mysql # Use bind mount
 
   apache:
-    image: osuwams/drupal:9-apache-dev
+    build:
+      context: .
+      target: development
     platform: linux/amd64
     depends_on:
     - mariadb
     ports:
-    - 81:80
+    - 3000:80
     environment:
       # By default xdebug extension also disabled.
       PHP_EXTENSIONS_DISABLE: xhprof,spx
@@ -55,9 +57,5 @@ services:
     image: memcached:1.6-alpine
 
 volumes:
-## For macOS users (Mutagen)
-#  drupal:
-# For Xdebug profiler
-  files:
   solr:
   mariadb:

@@ -5,7 +5,7 @@ index 4031da475c..484db3366b 100644
 @@ -22,6 +22,9 @@ DirectoryIndex index.php index.html index.htm
  AddType image/svg+xml svg svgz
  AddEncoding gzip svgz
- 
+
 +# Add webp MIME type so that Apache knows how to handle WebP images
 +AddType image/webp .webp
 +
@@ -15,7 +15,7 @@ index 4031da475c..484db3366b 100644
 @@ -113,6 +116,64 @@ AddEncoding gzip svgz
    # uncomment the following line:
    # RewriteBase /
- 
+
 +  # use a noindex robots on any env not prod
 +  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} !prod
 +  RewriteRule ^robots\.txt$ robots_noindex.txt [L]
@@ -72,7 +72,7 @@ index 4031da475c..484db3366b 100644
 +  RewriteCond %{HTTP:X-Forwarded-Proto} !https
 +  RewriteCond %{HTTP_HOST} !(.*)\.?localhost [NC]
 +  RewriteCond %{HTTP_HOST} !^osuwams\.ews\.oregonstate\.edu$ [NC]
-+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [NE,L,R=301]
++  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [NC]
 +
    # Redirect common PHP files to their new locations.
    RewriteCond %{REQUEST_URI} ^(.*)?/(install\.php) [OR]

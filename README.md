@@ -1,63 +1,56 @@
-# Oregon State University Drupal
+# Oregon State University Libraries Drupal
 
-This is the main OSU Drupal Distribution.
-
-## Update and deploy to Acquia
-
-[Acquia Pipelines](https://docs.acquia.com/cloud-platform/pipelines/) will watch, build, and deploy versions when
-changes are detected.
-
-- The develop branch will build and deploy to Acquia Cloud Development environment
-- The master branch will build and deploy the Acquia Cloud Stage environment.
-- For Acquia Cloud Production an Acquia Cloud administrator will need to manually deploy code from the Stage environment
-  to Production.
+This is based on the main OSU Drupal Distribution.
 
 ### Update workflow
 
-1. Start in the development branch
-1. ```git pull && composer install```
-2. Check for updates ```composer outdated drupal/\*```
+1. Get the latest code `git pull`
+1. Enter the container `docker compose exec apache bash`
+1. Check for Drupal library & modules updates `composer outdated drupal/\*`
 1. If you want to only check for packages that have minor version updates
-1. ```composer outdated -m drupal/\*```
-2. To check for only updates that are required by this distribution's composer.json
-1. ```composer outdated -D drupal/\*```
-3. Get updates
-1. To update a specific package only
-1. ```composer update vendor/package```
-1. eg ```composer update drupal/my_module```
-2. Update only core and it's dependencies
-1. ```composer update drupal/core-composer-scaffold drupal/core-recommended drupal/core-dev --with-all-dependencies```
-3. Get all updates
-1. ```composer update```
-4. Commit the changed composer.json and composer.lock and push
-5. Checkout the master branch
-1. ```git pull && composer install```
-2. Merge the development branch in
-3. Commit and push
-6. Log into Acquia Cloud
-1. Navigate to the Acquia Cloud Application and deploy the latest changes to prod from the Stage environment.
+1. `composer outdated -m drupal/\*`
+1. To check for only updates that are required by this distribution's composer.json
+1. `composer outdated -D drupal/\*`
+1. Get updates
 
-## Create New Acquia Cloud Site
+- To update a specific package only
+  - `composer update vendor/package`
+  - eg `composer update drupal/my_module`
+- Update only core and it's dependencies
+  - `composer update drupal/core-composer-scaffold drupal/core-recommended drupal/core-dev --with-all-dependencies`
+- Get all updates
+  - `composer update`
 
-1. To create a new site in OSU Drupal for Acquia Cloud run ```composer generate-site```
-2. This will ask you for the Production FQDN of the site to use and will create the sites' directory, populate the
-   settings.php and the memcache file for acquia cloud.
-3. Follow the Post Install steps to Create the Database and Domains.
+9. Commit the changed composer.json and composer.lock and push
 
 ## Local Development
 
-You can build the container locally or pull form the registry.
+Build the container locally:
 
-### Building Container
+- Easy: `docker compose build`
+- Advanced:
+  - For the development version of the container:
+    - `docker build --target=development --tag=osuwams/drupal:9-apache-dev .`
+  - For the Production version
+    - `docker build --target=production --tag=osuwams/drupal:9-apache .`
 
-We have a multi-stage Docker file to build. Most of the time the Development version will be used.
+Start the containers:
 
-- For the development version of the container:
-  - ```docker build --target=development --tag=osuwams/drupal:9-apache-dev .```
-- For the Production version
-  - ```docker build --target=production --tag=osuwams/drupal:9-apache .```
+- `docker compose up -d`
 
-## Environment Variables that can be set
+View the logs:
+
+- `docker compose logs -f apache`
+
+Stop the containers:
+
+- `docker compose down`
+
+Stop the containers and remove any database config and solr data:
+
+- `docker compose down -v`
+
+## Environment Variables
 
 ### The Main variable for the Drupal Site.
 
@@ -76,6 +69,16 @@ We have a multi-stage Docker file to build. Most of the time the Development ver
 - DRUPAL_DBPORT
   - The Port the Database Server is running on
     - Default: 3306
+- PRIVATE_FILE_PATH
+  - The absolute file path to where private files are stored. This should NOT be in webroot
+    - Default: '' (undefined & unused in drupal)
+
+### Memcache Variables
+
+- DRUPAL_MEMCACHE
+  - The use of Memcache is enabled/disabled
+- DRUPAL_MEMCACHEHOST
+  - The host location for the memcache server. Default port will be used (11211)
 
 ### Environment Variables For Migrations
 
@@ -95,33 +98,12 @@ We have a multi-stage Docker file to build. Most of the time the Development ver
   - The Port the Database Server is running on
     - Default: 3306
 
-## Setting Up the Migration Database
+## Importing the production database
 
-If you are running migrations locally after copying Down the database and files from the servers. Exec into the Database
-Container and create a new database and assign the same user to have access
-You can set the database name to what you will use in your Docker Compose environment variables.
-
-For this example lets
-assume we want to migrate from drupal.oregonstate.edu and our Database user we used when we set up our Database
-container
-is 'drupal'.
-
-```sql
-CREATE DATABASE drupal_oregonstate_edu CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-GRANT ALL PRIVILEGES ON `drupal_oregonstate_edu`.* TO `drupal`@`%`;
-```
-
-Copy the Database file into the Drupal Container. This assumes the Drupal service is defined as `drupal`
-```shell
-docker compose cp drupal_oregonstate_edu.sql drupal:/var/www/
-```
-Import the Migrate source Database into the newly created Database. This assumes the Database service is defined as `database`
-```shell
-mysql -u drupal -p -h database drupal_oregonstate_edu < drupal_oregonstate_edu.sql
-```
-
-To place all files from the source drupal site for Files migration copy them to:
-
-```shell
-docker compose cp drupal.oregonstate.edu drupal:/var/www/html/docroot/sites/
-```
+- Rename the existing default database (`dev/mariadb-init/default.sql`) such that it's not a sql file (`default.sql.tmp`)
+- Run the `dev/db-pull.sh` script to dump and pull the live database into `dev/mariadb-init/live_dump.sql`
+- Delete the existing `mariadb` database: `docker compose down -v` (This will also delete the Solr index)
+- Stop and start all containers
+- Wait for `mariadb` to finish importing the database (`docker compose logs -f mariadb`)
+- Visit local site and confirm import
+- You will be missing all public & private files from production. This can later be fixed with a new scipt or the `stage_file_proxy` module
