@@ -76,7 +76,14 @@ function osu_standard_update_default_configuration(array &$install_state) {
   // Set Google CSE as default search.
   $google_search_settings = $config_factory->getEditable('search.page.google_cse_search');
   $google_search_config = $google_search_settings->get('configuration');
-  $google_search_config['limit_domain'] = $site_host;
+  $google_search_config['data_attributes'][] = [
+    'key' => 'data-as_sitesearch',
+    'value' => $site_host,
+  ];
+  $google_search_config['data_attributes'][] = [
+    'key' => 'data-safeSearch',
+    'value' => 'off',
+  ];
   $google_search_settings->set('configuration', $google_search_config);
   $google_search_settings->save();
 

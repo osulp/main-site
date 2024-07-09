@@ -1,3 +1,4 @@
+uuid: a152a426-7ab0-445d-95f1-777ffe74ada1
 langcode: en
 status: true
 dependencies:
@@ -13,9 +14,11 @@ dependencies:
   module:
     - contextual
     - dropzonejs
+    - editoria11y
     - filter
     - layout_builder
     - media
+    - system
 id: group_content_author
 label: 'Group Content Author'
 weight: -7
@@ -23,6 +26,7 @@ is_admin: null
 permissions:
   - 'access contextual links'
   - 'access media overview'
+  - 'access site reports'
   - 'configure editable basic_group group layout overrides'
   - 'configure editable page node layout overrides'
   - 'configure editable story node layout overrides'
@@ -40,5 +44,9 @@ permissions:
   - 'edit own image media'
   - 'edit own kaltura media'
   - 'edit own remote_video media'
+  - 'manage editoria11y results'
+  - 'mark as hidden in editoria11y'
+  - 'mark as ok in editoria11y'
   - 'use text format full_html'
   - 'view all media revisions'
+  - 'view editoria11y checker'

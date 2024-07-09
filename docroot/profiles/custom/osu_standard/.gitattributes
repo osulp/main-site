@@ -1,0 +1,4 @@
+*.theme linguist-language=PHP
+*.module linguist-language=PHP
+*.install linguist-language=PHP
+*.profile linguist-language=PHP

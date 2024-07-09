@@ -16,6 +16,7 @@ dependencies:
     - captcha
     - contextual
     - dropzonejs
+    - editoria11y
     - exclude_node_title
     - file
     - filter
@@ -27,6 +28,7 @@ dependencies:
     - node
     - path
     - redirect
+    - system
     - toc_js_per_node
     - views_bulk_edit
 id: manage_content
@@ -38,6 +40,7 @@ permissions:
   - 'access contextual links'
   - 'access files overview'
   - 'access media overview'
+  - 'access site reports'
   - 'administer content types'
   - 'administer nodes'
   - 'administer redirects'
@@ -89,7 +92,10 @@ permissions:
   - 'edit own page content'
   - 'edit own remote_video media'
   - 'exclude any node title'
+  - 'manage editoria11y results'
   - 'manage layout builder component attributes'
+  - 'mark as hidden in editoria11y'
+  - 'mark as ok in editoria11y'
   - 'revert all revisions'
   - 'revert page revisions'
   - 'skip CAPTCHA'
@@ -101,6 +107,7 @@ permissions:
   - 'use views bulk edit'
   - 'view all media revisions'
   - 'view all revisions'
+  - 'view editoria11y checker'
   - 'view media'
   - 'view own unpublished content'
   - 'view own unpublished media'

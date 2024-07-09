@@ -11,6 +11,8 @@ dependencies:
     - easy_breadcrumb
     - google_tag
     - honeypot
+    - linkit
+    - linkpurpose
     - path
     - pathauto
     - redirect
@@ -37,6 +39,8 @@ permissions:
   - 'administer google analytics'
   - 'administer google tag manager'
   - 'administer honeypot'
+  - 'administer linkit profiles'
+  - 'administer linkpurpose'
   - 'administer menu'
   - 'administer node_revision_delete'
   - 'administer pathauto'

@@ -45,5 +45,5 @@ data_key: aos
 scroll_effects_attr_type: true
 scroll_effects_data_key: data-aos
 scroll_effects_library_type: external
+items_alignment: "osu-align-items-stretch|Stretch\r\nosu-align-items-start|Top\r\nosu-align-items-center|Center\r\nosu-align-items-end|Bottom"
 min_height: "osu-min-h-100|100px\r\nosu-min-h-200|200px\r\nosu-min-h-300|300px\r\nosu-min-h-400|400px\r\nosu-min-h-500|500px\r\nosu-min-h-600|600px\r\nosu-min-h-700|700px\r\nosu-min-h-800|800px"
-items_alignment: "osu-align-items-start|Top\r\nosu-align-items-center|Center\r\nosu-align-items-end|Bottom"

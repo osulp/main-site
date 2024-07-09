@@ -1,0 +1,8 @@
+name: OSU Migrations - Honors
+type: module
+description: Contains migrations specifically for the Honors College Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - drupal:osu_migrations

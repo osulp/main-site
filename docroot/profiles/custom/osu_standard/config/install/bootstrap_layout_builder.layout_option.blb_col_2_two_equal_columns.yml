@@ -10,10 +10,10 @@ breakpoints:
   desktop: desktop
   tablet: tablet
   mobile: mobile
-  wide_desktop: 0
+  wide_desktop: '0'
 default_breakpoints:
   extra_wide_desktop: extra_wide_desktop
   desktop: desktop
   tablet: tablet
   mobile: '0'
-weight: '-10'
+weight: -10

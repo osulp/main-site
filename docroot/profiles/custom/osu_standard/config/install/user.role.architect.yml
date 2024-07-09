@@ -46,6 +46,7 @@ dependencies:
     - layout_builder_component_attributes
     - layout_builder_restrictions
     - linkit
+    - linkpurpose
     - media
     - media_bulk_upload
     - metatag
@@ -132,6 +133,7 @@ permissions:
   - 'administer js assets injector'
   - 'administer layout builder component attributes'
   - 'administer linkit profiles'
+  - 'administer linkpurpose'
   - 'administer media'
   - 'administer media display'
   - 'administer media fields'
@@ -278,6 +280,7 @@ permissions:
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use text format restricted_html'
+  - 'use text format webform_default'
   - 'use views bulk edit'
   - 'view all media revisions'
   - 'view all revisions'

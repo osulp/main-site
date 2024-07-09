@@ -2,6 +2,7 @@
 
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\shortcut\Entity\Shortcut;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -11,7 +12,7 @@ use Drupal\user\Entity\User;
 /**
  * Implements hook_install().
  */
-function osu_standard_install($is_syncing) {
+function osu_standard_install($is_syncing): void {
   // Assign user 1 the "administrator" role.
   /** @var \Drupal\user\Entity\User $user */
   $user = User::load(1);
@@ -44,13 +45,12 @@ function osu_standard_install($is_syncing) {
     'name' => 'Organization',
     'description' => 'A set of tags to represent the structure of your organization. e.g. Schools and/or Units',
   ])->save();
-
 }
 
 /**
  * Update CAS Settings on existing sites.
  */
-function osu_standard_update_8001() {
+function osu_standard_update_8001(): void {
   $config_factory = Drupal::configFactory();
   $cas_settings = $config_factory->getEditable('cas.settings');
   $cas_server_settings = $cas_settings->get('server');
@@ -81,13 +81,12 @@ function osu_standard_update_8001() {
   }
   $cas_attributes->set('role', $cas_attributes_roles);
   $cas_attributes->save(TRUE);
-
 }
 
 /**
  * Enable OSU Seckit module.
  */
-function osu_standard_update_8002() {
+function osu_standard_update_8002(): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'seckit',
     'osu_seckit',
@@ -98,7 +97,7 @@ function osu_standard_update_8002() {
 /**
  * Install and Configure metatag.
  */
-function osu_standard_update_8003() {
+function osu_standard_update_8003(): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'metatag',
     'metatag_google_cse',
@@ -124,7 +123,7 @@ function osu_standard_update_8003() {
 /**
  * Add new roles to existing sites.
  */
-function osu_standard_update_8004(&$sandbox) {
+function osu_standard_update_8004(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'better_exposed_filters',
     'admin_toolbar_links_access_filter',
@@ -172,7 +171,7 @@ function osu_standard_update_8004(&$sandbox) {
 /**
  * Add Dropzone permission to architect role.
  */
-function osu_standard_update_8005(&$sandbox) {
+function osu_standard_update_8005(&$sandbox): TranslatableMarkup {
   $architect = Role::load('architect');
   $architect->grantPermission('dropzone upload files');
   $architect->save();
@@ -182,7 +181,7 @@ function osu_standard_update_8005(&$sandbox) {
 /**
  * Update permissions for different roles.
  */
-function osu_standard_update_9001(&$sandbox) {
+function osu_standard_update_9001(&$sandbox): TranslatableMarkup {
   $architect = Role::load('architect');
   $architect->grantPermission('add section library templates');
   $architect->grantPermission('delete section library templates');
@@ -210,7 +209,7 @@ function osu_standard_update_9001(&$sandbox) {
 /**
  * Enable views_conditional module.
  */
-function osu_standard_update_9002(&$sandbox) {
+function osu_standard_update_9002(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'views_conditional',
   ], TRUE);
@@ -220,7 +219,7 @@ function osu_standard_update_9002(&$sandbox) {
 /**
  * Re-order text format default.
  */
-function osu_standard_update_9003(&$sandbox) {
+function osu_standard_update_9003(&$sandbox): void {
   $full_html = Drupal::configFactory();
   $filter_weight = $full_html->getEditable('filter.format.full_html');
   $filter_weight->set('weight', -50);
@@ -230,7 +229,7 @@ function osu_standard_update_9003(&$sandbox) {
 /**
  * Uninstall fontawesome_menu_icons module.
  */
-function osu_standard_update_9004(&$sandbox) {
+function osu_standard_update_9004(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->uninstall(['fontawesome_menu_icons']);
   return t('fontawesome_menu_icons has been uninstalled');
 }
@@ -238,7 +237,7 @@ function osu_standard_update_9004(&$sandbox) {
 /**
  * Delete the Article content type.
  */
-function osu_standard_update_9005(&$sandbox) {
+function osu_standard_update_9005(&$sandbox): TranslatableMarkup {
   // Get all article nodes and delete.
   $storage_handler = Drupal::entityTypeManager()->getStorage('node');
   $articles = $storage_handler->loadByProperties(['type' => 'article']);
@@ -268,7 +267,7 @@ function osu_standard_update_9005(&$sandbox) {
 /**
  * Update Linkit Profiles
  */
-function osu_standard_update_9006(&$sandbox) {
+function osu_standard_update_9006(&$sandbox): void {
   /** @var \Drupal\Core\Config\Config $config */
   $config = Drupal::service('config.factory')
     ->getEditable('linkit.linkit_profile.default');
@@ -294,7 +293,7 @@ function osu_standard_update_9006(&$sandbox) {
  * Update Bootstrap Styles for alignment, effects border widths and border
  * style.
  */
-function osu_standard_update_9007(&$sandbox) {
+function osu_standard_update_9007(&$sandbox): void {
   $bootstrap_style_updates = [
     'items_alignment' => "osu-align-items-start|Top\r\nosu-align-items-center|Center\r\nosu-align-items-end|Bottom",
     'border_style' => "bs-border-style-solid|Solid",
@@ -320,7 +319,7 @@ function osu_standard_update_9007(&$sandbox) {
 /**
  * Add OSU minimum height classes to bootstrap styles alignment setting.
  */
-function osu_standard_update_9008(&$sandbox) {
+function osu_standard_update_9008(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'osu_bootstrap_layout_builder',
   ], TRUE);
@@ -334,7 +333,7 @@ function osu_standard_update_9008(&$sandbox) {
 /**
  * Updates for osu_profiles module
  */
-function osu_standard_update_9009(&$sandbox) {
+function osu_standard_update_9009(&$sandbox): TranslatableMarkup {
   // Ensure dependencies are installed first.
   Drupal::service('module_installer')->install([
     'field_group',
@@ -368,7 +367,7 @@ function osu_standard_update_9009(&$sandbox) {
 /**
  * Remove media_card_caption from embed options.
  */
-function osu_standard_update_9010(&$sandbox) {
+function osu_standard_update_9010(&$sandbox): void {
   /** @var  \Drupal\Core\Config\Config $full_html */
   $full_html = Drupal::service('config.factory')
     ->getEditable('filter.format.full_html');
@@ -384,7 +383,7 @@ function osu_standard_update_9010(&$sandbox) {
 /**
  * Add font size styles to full_html editor
  */
-function osu_standard_update_9011(&$sandbox) {
+function osu_standard_update_9011(&$sandbox): void {
   $config = Drupal::configFactory();
   $full_html = $config->getEditable('editor.editor.full_html');
   $full_html->set(
@@ -397,7 +396,7 @@ function osu_standard_update_9011(&$sandbox) {
 /**
  * Enable easy_breadcrumb
  */
-function osu_standard_update_9012(&$sandbox) {
+function osu_standard_update_9012(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'easy_breadcrumb',
   ], TRUE);
@@ -408,7 +407,7 @@ function osu_standard_update_9012(&$sandbox) {
 /**
  * Setup sticky toc
  */
-function osu_standard_update_9013(&$sandbox) {
+function osu_standard_update_9013(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'toc_js',
     'toc_js_per_node',
@@ -468,7 +467,7 @@ function osu_standard_update_9013(&$sandbox) {
 /**
  * Ensure that our paths have updated.
  */
-function osu_standard_update_9014(&$sandbox) {
+function osu_standard_update_9014(&$sandbox): void {
   $config = Drupal::configFactory();
   $path_auto_pattern = $config->getEditable('pathauto.pattern.pattern_for_all_basic_page_paths');
   $selection_criteria = $path_auto_pattern->get('selection_criteria');
@@ -480,11 +479,10 @@ function osu_standard_update_9014(&$sandbox) {
   $path_auto_pattern->save();
 }
 
-
 /**
  * Install new modules.
  */
-function osu_standard_update_9015(&$sandbox) {
+function osu_standard_update_9015(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'field_group',
     'paragraphs',
@@ -496,7 +494,7 @@ function osu_standard_update_9015(&$sandbox) {
 /**
  * Add vocabulary to existing sites.
  */
-function osu_standard_update_9016(&$sandbox) {
+function osu_standard_update_9016(&$sandbox): void {
   Vocabulary::create([
     'vid' => 'osu_organization',
     'name' => 'Organization',
@@ -507,7 +505,7 @@ function osu_standard_update_9016(&$sandbox) {
 /**
  * Add date_ap_style module.
  */
-function osu_standard_update_9017(&$sandbox) {
+function osu_standard_update_9017(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'date_ap_style',
   ], TRUE);
@@ -519,13 +517,12 @@ function osu_standard_update_9017(&$sandbox) {
   $manage_site_configuration = Role::load('manage_site_configuration');
   $manage_site_configuration->grantPermission('administer ap style settings');
   $manage_site_configuration->save();
-
 }
 
 /**
  * Add module layout_builder_operation_link.
  */
-function osu_standard_update_9018(&$sandbox) {
+function osu_standard_update_9018(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'layout_builder_operation_link',
   ], TRUE);
@@ -534,7 +531,7 @@ function osu_standard_update_9018(&$sandbox) {
 /**
  * Install OSU Story module.
  */
-function osu_standard_update_9019(&$sandbox) {
+function osu_standard_update_9019(&$sandbox): void {
   $install_profile_path = Drupal::service('module_handler')
     ->getModule('osu_standard')
     ->getPath();
@@ -556,7 +553,7 @@ function osu_standard_update_9019(&$sandbox) {
 /**
  * Update Bootstrap Styles configuration.
  */
-function osu_standard_update_9020(&$sandbox) {
+function osu_standard_update_9020(&$sandbox): void {
   $install_profile_path = Drupal::service('module_handler')
     ->getModule('osu_standard')
     ->getPath();
@@ -575,7 +572,7 @@ function osu_standard_update_9020(&$sandbox) {
 /**
  * Install Feeds, Feeds Tamper, & update Architect role with Feeds permissions.
  */
-function osu_standard_update_9021(&$sandbox) {
+function osu_standard_update_9021(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'feeds',
     'feeds_ex',
@@ -588,13 +585,12 @@ function osu_standard_update_9021(&$sandbox) {
   $architect->grantPermission('administer feeds');
   $architect->grantPermission('administer feeds_tamper');
   $architect->save();
-
 }
 
 /**
  * Add new breakpoints for two column.
  */
-function osu_standard_update_9022(&$sandbox) {
+function osu_standard_update_9022(&$sandbox): TranslatableMarkup {
   $bootstrap_layout_builder_updates = [
     'bootstrap_layout_builder.breakpoint.extra_wide_desktop',
     'bootstrap_layout_builder.breakpoint.wide_desktop',
@@ -619,7 +615,7 @@ function osu_standard_update_9022(&$sandbox) {
 /**
  * Force the two new breakpoints to be at the top of all lists.
  */
-function osu_standard_update_9023(&$sandbox) {
+function osu_standard_update_9023(&$sandbox): void {
   /** @var Drupal\Core\Config\ConfigFactory $config */
   $config = Drupal::service('config.factory');
   $wide_desktop = $config->getEditable('bootstrap_layout_builder.breakpoint.wide_desktop');
@@ -634,7 +630,7 @@ function osu_standard_update_9023(&$sandbox) {
 /**
  * Update Easy Breadcrumb Configuration to hide Front page if it's the only one.
  */
-function osu_standard_update_9024(&$sandbox) {
+function osu_standard_update_9024(&$sandbox): void {
   /** @var Drupal\Core\Config\ConfigFactory $config */
   $config = Drupal::service('config.factory');
   $easy_breadcrumb = $config->getEditable('easy_breadcrumb.settings');
@@ -645,7 +641,7 @@ function osu_standard_update_9024(&$sandbox) {
 /**
  * Install new modules for Library items and block_class.
  */
-function osu_standard_update_9025(&$sandbox) {
+function osu_standard_update_9025(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'block_class',
     'osu_library_hero',
@@ -659,7 +655,7 @@ function osu_standard_update_9025(&$sandbox) {
 /**
  * Install XMLSitemap and update Architect role permissions.
  */
-function osu_standard_update_9026(&$sandbox) {
+function osu_standard_update_9026(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'xmlsitemap',
   ], TRUE);
@@ -668,13 +664,12 @@ function osu_standard_update_9026(&$sandbox) {
   $architect->grantPermission('administer xmlsitemap');
   $architect->grantPermission('override xmlsitemap link settings');
   $architect->save();
-
 }
 
 /**
  * Add oembed module with kaltura media type
  */
-function osu_standard_update_9027(&$sandbox) {
+function osu_standard_update_9027(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'oembed_providers',
   ], TRUE);
@@ -707,7 +702,7 @@ function osu_standard_update_9027(&$sandbox) {
 /**
  * Enable extra ctools modules.
  */
-function osu_standard_update_9028(&$sandbox) {
+function osu_standard_update_9028(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'ctools_block',
     'ctools_views',
@@ -718,7 +713,7 @@ function osu_standard_update_9028(&$sandbox) {
 /**
  * Install new Modules, ckeditor_liststyle, .
  */
-function osu_standard_update_9029(&$sandbox) {
+function osu_standard_update_9029(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'ckeditor_liststyle',
   ], TRUE);
@@ -727,7 +722,7 @@ function osu_standard_update_9029(&$sandbox) {
 /**
  * Add google tag manager module.
  */
-function osu_standard_update_9030(&$sandbox) {
+function osu_standard_update_9030(&$sandbox): void {
   /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
   $module_installer_service = Drupal::service('module_installer');
   $module_installer_service->install([
@@ -765,8 +760,7 @@ function osu_standard_update_9030(&$sandbox) {
 /**
  * Configure google cse for all sites.
  */
-function osu_standard_update_9031(&$sandbox) {
-
+function osu_standard_update_9031(&$sandbox): void {
   $site_host = Drupal::request()->getHost();
   $site_host = str_replace(['dev.', 'stage.'], '', $site_host);
 
@@ -788,7 +782,7 @@ function osu_standard_update_9031(&$sandbox) {
 /**
  * Add CAPTCHA, reCAPTCHA, and Honeypot module.
  */
-function osu_standard_update_9032(&$sandbox) {
+function osu_standard_update_9032(&$sandbox): void {
   /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
   $module_installer_service = Drupal::service('module_installer');
   $module_installer_service->install([
@@ -873,7 +867,7 @@ function osu_standard_update_9032(&$sandbox) {
 /**
  * Configure CAPTCHA, reCAPTCHA, and Honeypot for all sites.
  */
-function osu_standard_update_9033(&$sandbox) {
+function osu_standard_update_9033(&$sandbox): void {
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
   $config_storage = Drupal::service('config.storage');
 
@@ -905,7 +899,7 @@ function osu_standard_update_9033(&$sandbox) {
 /**
  * Add Google Analytics.
  */
-function osu_standard_update_9034(&$sandbox) {
+function osu_standard_update_9034(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'google_analytics',
   ], TRUE);
@@ -924,7 +918,7 @@ function osu_standard_update_9034(&$sandbox) {
 /**
  * Add node_revision_delete module and configurations.
  */
-function osu_standard_update_9035(&$sandbox) {
+function osu_standard_update_9035(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'node_revision_delete',
   ], TRUE);
@@ -949,7 +943,7 @@ function osu_standard_update_9035(&$sandbox) {
 /**
  * Update bootstrap layout builder options.
  */
-function osu_standard_update_9036(&$sandbox) {
+function osu_standard_update_9036(&$sandbox): TranslatableMarkup {
   $bootstrap_layout_builder_updates = [
     'bootstrap_layout_builder.layout_option.blb_col_1_full_width',
     'bootstrap_layout_builder.layout_option.blb_col_2_full_width',
@@ -987,7 +981,7 @@ function osu_standard_update_9036(&$sandbox) {
 /**
  * Disable live preview option for bootstrap layout builder.
  */
-function osu_standard_update_9037(&$sandbox) {
+function osu_standard_update_9037(&$sandbox): void {
   /** @var Drupal\Core\Config\Config $bootstrap_layout_builder_settings */
   $bootstrap_layout_builder_settings = Drupal::service('config.factory')
     ->getEditable('bootstrap_layout_builder.settings');
@@ -998,7 +992,7 @@ function osu_standard_update_9037(&$sandbox) {
 /**
  * Add text_field_formatter module.
  */
-function osu_standard_update_9038(&$sandbox) {
+function osu_standard_update_9038(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'text_field_formatter',
   ], TRUE);
@@ -1008,7 +1002,7 @@ function osu_standard_update_9038(&$sandbox) {
 /**
  * Add extra xml sitemap modules.
  */
-function osu_standard_update_9039(&$sandbox) {
+function osu_standard_update_9039(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'xmlsitemap_custom',
     'xmlsitemap_engines',
@@ -1019,7 +1013,7 @@ function osu_standard_update_9039(&$sandbox) {
 /**
  * Update oembed provider for alternate kaltura format.
  */
-function osu_standard_update_9040(&$sandbox) {
+function osu_standard_update_9040(&$sandbox): void {
   /** @var \Drupal\Core\Config\Config $kaltura_obembed_provider */
   $kaltura_obembed_provider = Drupal::service('config.factory')
     ->getEditable('oembed_providers.provider.osu_mediaspace');
@@ -1032,7 +1026,7 @@ function osu_standard_update_9040(&$sandbox) {
 /**
  * Install Search 404 module.
  */
-function osu_standard_update_9041(&$sandbox) {
+function osu_standard_update_9041(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'search404',
   ], TRUE);
@@ -1051,13 +1045,12 @@ function osu_standard_update_9041(&$sandbox) {
 /**
  * Set config for Search 404 module.
  */
-function osu_standard_update_9042(&$sandbox) {
-}
+function osu_standard_update_9042(&$sandbox) {}
 
 /**
  * Add new role for DX Admin and update cas attributes.
  */
-function osu_standard_update_9043(&$sandbox) {
+function osu_standard_update_9043(&$sandbox): void {
   $install_profile_path = Drupal::service('module_handler')
     ->getModule('osu_standard')
     ->getPath();
@@ -1079,7 +1072,7 @@ function osu_standard_update_9043(&$sandbox) {
 /**
  * Update version of Font Awesome.
  */
-function osu_standard_update_9044(&$sandbox) {
+function osu_standard_update_9044(&$sandbox): void {
   /** @var Drupal\Core\Config\Config $font_awesome_settings */
   $font_awesome_settings = Drupal::service('config.factory')
     ->getEditable('fontawesome.settings');
@@ -1091,7 +1084,7 @@ function osu_standard_update_9044(&$sandbox) {
 /**
  * Install Simple Popup Blocks.
  */
-function osu_standard_update_9045(&$sandbox) {
+function osu_standard_update_9045(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'osu_simple_popup_blocks',
     'simple_popup_blocks',
@@ -1116,7 +1109,7 @@ function osu_standard_update_9045(&$sandbox) {
 /**
  * Add new modules and Update CKEditor.
  */
-function osu_standard_update_9046(&$sandbox) {
+function osu_standard_update_9046(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'admin_toolbar_search',
     'image_effects',
@@ -1145,7 +1138,7 @@ function osu_standard_update_9046(&$sandbox) {
 /**
  * Add new module(s) to existing sites.
  */
-function osu_standard_update_9047(&$sandbox) {
+function osu_standard_update_9047(&$sandbox): void {
   Drupal::service('module_installer')->install([
     'views_taxonomy_term_name_depth',
   ], TRUE);
@@ -1154,7 +1147,7 @@ function osu_standard_update_9047(&$sandbox) {
 /**
  * Add Colorbox, Smart Date and Date Popup
  */
-function osu_standard_update_9048(&$sandbox) {
+function osu_standard_update_9048(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'colorbox',
     'date_popup',
@@ -1178,7 +1171,7 @@ function osu_standard_update_9048(&$sandbox) {
 /**
  * Remove Date Popup.
  */
-function osu_standard_update_9049(&$sandbox) {
+function osu_standard_update_9049(&$sandbox): void {
   Drupal::service('module_installer')->uninstall([
     'date_popup',
   ]);
@@ -1187,7 +1180,7 @@ function osu_standard_update_9049(&$sandbox) {
 /**
  * Updating paddings and margins.
  */
-function osu_standard_update_10000(&$sandbox) {
+function osu_standard_update_10000(&$sandbox): void {
   $padding = "p-1|Padding 1\r\np-2|Padding 2\r\np-2-5|Padding 2.5\r\np-3|Padding 3\r\np-4|Padding 4\r\np-4-5|Padding 4_5\r\np-5|Padding 5\r\np-6|Padding 6\r\np-7|Padding 7";
   $padding_left = "ps-1|Padding Left 1\r\nps-2|Padding Left 2\r\nps-2-5|Padding Left 2.5\r\nps-3|Padding Left 3\r\nps-4|Padding Left 4\r\nps-4-5|Padding Left 4_5\r\nps-5|Padding Left 5\r\nps-6|Padding Left 6\r\nps-7|Padding 7";
   $padding_top = "pt-1|Padding Top 1\r\npt-2|Padding Top 2\r\npt-2-5|Padding Top 2.5\r\npt-3|Padding Top 3\r\npt-4|Padding Top 4\r\npt-4-5|Padding Top 4_5\r\npt-5|Padding Top 5\r\npt-6|Padding Top 6\r\npt-7|Padding 7";
@@ -1216,7 +1209,7 @@ function osu_standard_update_10000(&$sandbox) {
 /**
  * Update Roles to now manage Block Content.
  */
-function osu_standard_update_10001(&$sandbox) {
+function osu_standard_update_10001(&$sandbox): void {
   $dx_administrator = Role::load('dx_administrator');
   $dx_administrator->grantPermission('access block library');
   $dx_administrator->grantPermission('administer block content');
@@ -1240,7 +1233,7 @@ function osu_standard_update_10001(&$sandbox) {
 /**
  * Update Editoria11y to wait for our custom tests.
  */
-function osu_standard_update_10002(&$sandbox) {
+function osu_standard_update_10002(&$sandbox): void {
   /** @var Drupal\Core\Config\Config $editoria11y_settings */
   $editoria11y_settings = Drupal::service('config.factory')
     ->getEditable('editoria11y.settings');
@@ -1251,7 +1244,7 @@ function osu_standard_update_10002(&$sandbox) {
 /**
  * Update permissions to allow users to delete files.
  */
-function osu_standard_update_10003(&$sandbox) {
+function osu_standard_update_10003(&$sandbox): void {
   $dx_administrator = Role::load('dx_administrator');
   $dx_administrator->grantPermission('delete any file');
   $dx_administrator->grantPermission('delete own files');
@@ -1281,7 +1274,7 @@ function osu_standard_update_10003(&$sandbox) {
 /**
  * Rollback Search404 configuration setting.
  */
-function osu_standard_update_10004(&$sandbox) {
+function osu_standard_update_10004(&$sandbox): void {
   \Drupal::configFactory()
     ->getEditable('system.site')
     ->set('page.404', '')
@@ -1291,11 +1284,122 @@ function osu_standard_update_10004(&$sandbox) {
 /**
  * Set the Default option for Madrone Theme 404 page.
  */
-function osu_standard_update_10005(&$sandbox) {
+function osu_standard_update_10005(&$sandbox): void {
   $config_factory = \Drupal::configFactory();
   $editable_config = $config_factory->getEditable('system.theme');
   $default_theme = $editable_config->get('default');
   $theme_config = $config_factory->getEditable("{$default_theme}.settings");
   $theme_config->set('madrone_use_default_404', TRUE);
   $theme_config->save();
+}
+
+/**
+ * Setup Linkpurpose module.
+ */
+function osu_standard_update_10006(&$sandbox): TranslatableMarkup {
+  Drupal::service('module_installer')->install([
+    'linkpurpose',
+  ]);
+  $install_profile_path = Drupal::service('module_handler')
+    ->getModule('osu_standard')
+    ->getPath();
+
+  $config_path = realpath($install_profile_path . '/config/install');
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  $file_source = new FileStorage($config_path);
+  $config_storage->write('linkpurpose.settings', $file_source->read('linkpurpose.settings'));
+
+  $dx_administrator = Role::load('dx_administrator');
+  $dx_administrator->grantPermission('administer linkpurpose');
+  $dx_administrator->save();
+
+  $architect = Role::load('architect');
+  $architect->grantPermission('administer linkpurpose');
+  $architect->save();
+
+  $manage_site_config = Role::load('manage_site_configuration');
+  $manage_site_config->grantPermission('administer linkit profiles');
+  $manage_site_config->grantPermission('administer linkpurpose');
+  $manage_site_config->save();
+
+  return t('Installed module and imported configuration');
+}
+
+/**
+ * Add two new options for layout builder 2 column.
+ */
+function osu_standard_update_10007(&$sandbox): TranslatableMarkup {
+  $bootstrap_layout_builder_updates = [
+    'bootstrap_layout_builder.layout_option.blb_col_2_33_67',
+    'bootstrap_layout_builder.layout_option.blb_col_2_67_33',
+  ];
+  $install_profile_path = Drupal::service('module_handler')
+    ->getModule('osu_standard')
+    ->getPath();
+  $config_path = realpath($install_profile_path . '/config/install');
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  $file_source = new FileStorage($config_path);
+
+  foreach ($bootstrap_layout_builder_updates as $bootstrap_layout_builder_update) {
+    $config_storage->write($bootstrap_layout_builder_update, $file_source->read($bootstrap_layout_builder_update));
+  }
+
+  return t('Added 33%/67% and 67%/33% layout options to the two column layout builder');
+}
+
+/**
+ * Add osu-align-items-stretch option back into Bootstrap Styles.
+ */
+function osu_standard_update_10008(&$sandbox): TranslatableMarkup {
+  $bootstrap_style_updates = [
+    "items_alignment" => "osu-align-items-stretch|Stretch\r\nosu-align-items-start|Top\r\nosu-align-items-center|Center\r\nosu-align-items-end|Bottom",
+  ];
+  $config = Drupal::service('config.factory')
+    ->getEditable('bootstrap_styles.settings');
+  foreach ($bootstrap_style_updates as $bootstrap_style_key => $bootstrap_style_update) {
+    $config->set($bootstrap_style_key, $bootstrap_style_update);
+  }
+  $config->save();
+  return t('Updated Alignment options for Bootstrap Styles.');
+}
+
+/**
+ * Give DX, Architect and manage Webform the permission to use the Webform
+ * filter format.
+ */
+function osu_standard_update_10009(&$sandbox): TranslatableMarkup {
+  $user_roles = [
+    'dx_administrator',
+    'architect',
+    'manage_webforms',
+  ];
+  foreach ($user_roles as $user_role) {
+    $role = Role::load($user_role);
+    $role->grantPermission('use text format webform_default');
+    $role->save();
+  }
+  return t('Granted permissions for DX Administrators, Architects and Manage Webforms the access to use the webform filter format.');
+}
+
+/**
+ * Grant the ability to view and see editoria11y results to our content authors.
+ */
+function osu_standard_update_10010(&$sandbox): TranslatableMarkup {
+  $user_roles = [
+    'content_authors',
+    'manage_blocks',
+    'manage_content',
+  ];
+  foreach ($user_roles as $user_role) {
+    $role = Role::load($user_role);
+    $role->grantPermission('access site reports');
+    $role->grantPermission('manage editoria11y results');
+    $role->grantPermission('mark as hidden in editoria11y');
+    $role->grantPermission('mark as ok in editoria11y');
+    $role->grantPermission('view editoria11y checker');
+    $role->save();
+  }
+  return t('Granted the ability to see and use Editoria11y results to content author roles.');
 }

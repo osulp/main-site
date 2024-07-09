@@ -1,4 +1,3 @@
-
 uuid: 440be9f9-9eba-474b-bb44-902a90b83c59
 langcode: en
 status: true
@@ -37,6 +36,7 @@ permissions:
   - 'edit webform twig'
   - 'edit webform variants'
   - 'skip CAPTCHA'
+  - 'use text format webform_default'
   - 'view any webform submission'
   - 'view own webform submission'
   - 'view webform submissions own node'
