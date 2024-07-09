@@ -6,15 +6,21 @@ package: Custom
 core_version_requirement: ^10
 libraries:
   - osulp/global
+  - madrone/fonts
+  - madrone/bootstrap
+  - madrone/global-styling
 regions:
-  header: 'Header'
-  primary_menu: 'Primary menu'
-  secondary_menu: 'Secondary menu'
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
-  featured: 'Featured'
-  breadcrumb: 'Breadcrumb'
-  content: 'Content'
-  sidebar_first: 'Sidebar first'
-  sidebar_second: 'Sidebar second'
-  footer: 'Footer'
+  header: Header
+  primary_menu: Primary menu
+  full_top: Full width below Primary menu
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  page_top: Page Top
+  content: Content
+  sidebar: Sidebar
+  page_bottom: Page Bottom
+  pre_footer: Full width above the Footer
+  footer: Footer
+ckeditor_stylesheets:
+  - dist/madrone.css
