@@ -1,0 +1,47 @@
+id: paragraph_1_column_no_margin__to__layout_builder
+label: Drupal 7 paragraph_1_column_no_margin Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - CLA
+source:
+  plugin: d7_paragraphs_item
+  bundle: 1_column_no_margin
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_1_column_no_margin_ima'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_1_column_no_margin'
+  field_media:
+    - plugin: sub_process
+      source: field_1_col_no_marg
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_media_images
+          source: fid
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

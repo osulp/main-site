@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies: { }
+id: d7_shurly
+migration_tags:
+  - Drupal 7
+  - ShURLy
+label: "Migrate ShURLy shortened URL's"
+source:
+  plugin: d7_shurly
+process:
+  rid: rid
+  destination: destination
+  hash: hash
+  custom: custom
+  created: created
+  source: source
+  uid: uid
+  count: count
+  last_used: last_used
+  active: active
+destination:
+  plugin: 'shurly'
+migration_dependencies: { }

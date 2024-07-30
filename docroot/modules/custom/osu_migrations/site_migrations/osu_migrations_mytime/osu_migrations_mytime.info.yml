@@ -1,0 +1,9 @@
+name: OSU Migrations - MyTime
+type: module
+description: Contains migrations specifically for the MyTime Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations
+  - osu_migrations:og_to_group

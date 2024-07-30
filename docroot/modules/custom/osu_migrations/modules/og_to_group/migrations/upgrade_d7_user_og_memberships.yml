@@ -28,7 +28,9 @@ process:
     default_value: basic_group-content_author
   gid:
     - plugin: migration_lookup
-      migration: upgrade_d7_node_og_group
+      migration:
+        - upgrade_d7_node_og_group
+        - upgrade_d7_node_parent_unit_group
       no_stub: true
       source: gid
     - plugin: skip_on_empty
@@ -48,3 +50,4 @@ migration_dependencies:
   required:
     - upgrade_d7_users_with_roles
     - upgrade_d7_node_og_group
+    - upgrade_d7_node_parent_unit_group

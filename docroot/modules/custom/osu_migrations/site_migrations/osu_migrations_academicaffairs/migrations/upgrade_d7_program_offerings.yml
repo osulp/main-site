@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_program_offerings
+migration_tags:
+  - Drupal 7
+  - Academic Affairs
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: program_offerings
+process:
+  nid: nid
+  title: title
+  uid: node_uid
+  vid: vid
+  langcode:
+    plugin: static_map
+    bypass: true
+    source: language
+    map:
+      und: en
+  field_program_info_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_info_link
+  field_program_photo:
+    plugin: sub_process
+    source: field_program_photo
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+      alt: alt
+  field_meta_tags:
+    - plugin: d7_metatag_entities
+      source: pseudo_metatag_entities
+  type:
+    plugin: default_value
+    default_value: program_offerings
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

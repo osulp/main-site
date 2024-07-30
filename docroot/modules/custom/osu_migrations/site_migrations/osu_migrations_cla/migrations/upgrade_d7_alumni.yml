@@ -1,0 +1,91 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_alumni
+migration_group: CLA
+migration_tags:
+  - Drupal 7
+  - CLA
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: alumni
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_alumni_details:
+    - plugin: sub_process
+      source: field_alumni_details
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_degree: field_degree
+  field_firest_name: field_firest_name
+  field_graduating_year:
+    - plugin: sub_process
+      source: field_graduating_year
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_last_name: field_last_name
+  field_osu_organizations:
+    - plugin: og_entity_lookup
+      field_name: field_alumni_school_or_group
+      source: nid
+    - plugin: entity_lookup
+      value_key: name
+      entity_type: taxonomy_term
+      bundle_key: vid
+      bundle: osu_organization
+  field_photo:
+    - plugin: sub_process
+      source: field_photo
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  field_program: field_program
+  field_program_2: field_program_2
+  type:
+    plugin: default_value
+    default_value: alumni
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

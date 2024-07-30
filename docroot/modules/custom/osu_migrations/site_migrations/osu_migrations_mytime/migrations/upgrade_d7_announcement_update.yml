@@ -1,0 +1,53 @@
+langcode: en
+status: true
+id: upgrade_d7_announcement_update
+label: 'Update Announcement for missing fields.'
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: announcement
+process:
+  nid: nid
+  field_no_expire: no_expire
+  field_expiration_date:
+    plugin: sub_process
+    source: expiration_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  field_publish_date:
+    plugin: sub_process
+    source: publish_date
+    process:
+      value:
+        plugin: format_date
+        from_format: 'Y-m-d H:i:s'
+        to_format: 'Y-m-d'
+        source: value
+  type:
+    plugin: default_value
+    default_value: announcement
+    overwrite_properties:
+      - field_publish_date
+      - field_expiration_date
+      - field_no_expire
+destination:
+  plugin: 'entity:node'
+  bundle: announcement
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+  optional:
+    - upgrade_d7_user_to_profile
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_remote_video

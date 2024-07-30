@@ -1,0 +1,62 @@
+# College of Liberal Arts migrations
+
+- [x] Migrate all users
+- migrate all menus, this includes all book-toc- menus
+- Need to use Paragraphs for the Program Field Collections
+    - two field collections are configured for the program content type:
+        - field_program_options: has 26 entries on 15 nodes.
+        - field_program_concentrations: has 2 entries on 1 node
+- By the numbers Paragraph can be ignored the rest should be migrated
+    - Paragraph Fields live on
+        - Parent Unit
+        - Program
+- Parent Units need to be migrated
+
+
+- Node type Migrations
+    - [X] Alumni
+        - Has image
+        - ~~Alumni School or Group => Organizations~~
+            - Wrote an og lookup plugin to get the Group title.
+    - [X] Academic Program
+        - ~~School or Group => Organizations~~
+            - Used the OG Lookup Plugin
+    - [X] Honors Student FAQ, image
+    - [X] Emergency Student, Image
+    - [X] Fellows, Image
+    - [ ] Program, lots of shit
+        - Paragraphs need to be migrated as well for layout.
+        - Node 568, 674, 566 have program_options that did not migrate
+    - [X] Book
+      - Custom paragraph Migrations required
+    - [X] Page
+      - Custom paragraph Migrations required
+    - [X] News, Image
+    - [X] SPS Lab, Image
+    - [x] Parent Unit
+      - Migrated them as groups, only have the titles to start, not many Parent units, so we'll remake the layout by hand.
+- Paragraph Bundles need migrations
+  - [x] Combo
+    - Views
+    - Text area
+  - [x] 1 Column no margin Image
+    - Only has image field
+  - [x] 2 Column Combo
+    - References the Combo paragraph
+  - [x] 3 Column Image
+    - Media image
+    - Text Area
+  - [ ] 3 Column Views
+    - References Views
+  - [X] par_view
+    - References Views
+    - Just migrating as plain text and we can embed the views later
+- Group nodes
+    - [ ] News
+        - Migration made not ran
+    - [ ] Program
+        - Migration made not ran
+    - [ ] Emergency Student
+        - Migration made not ran
+- Menus
+  - ALl Menus

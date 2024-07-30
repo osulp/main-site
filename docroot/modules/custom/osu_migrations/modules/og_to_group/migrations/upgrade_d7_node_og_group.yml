@@ -16,6 +16,7 @@ process:
   type:
     plugin: default_value
     default_value: basic_group
+  # Leave as we use the ID for menus
   id: nid
   uid:
     plugin: default_value

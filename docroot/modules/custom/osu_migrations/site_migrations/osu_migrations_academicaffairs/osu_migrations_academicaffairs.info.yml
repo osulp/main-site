@@ -1,0 +1,8 @@
+name: OSU Migrations - Division of Academic Affairs
+type: module
+description: Contains migrations specifically for the Division of Academic Affairs Site.
+package: OSU Migrations - Sites
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations

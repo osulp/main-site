@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_cla_osu_faculty
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+  - CLA
+label: 'Custom OSU Migration for CLA OSU Faculty Profile Custom Fields.'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_faculty
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_web_support: field_web_support
+  field_school_leader_list: field_school_leader_list_
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_web_support
+      - field_school_leader_list
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

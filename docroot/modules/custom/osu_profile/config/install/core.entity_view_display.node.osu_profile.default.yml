@@ -829,9 +829,7 @@ third_party_settings:
                 label: hidden
                 settings:
                   link: false
-                third_party_settings:
-                  field_delimiter:
-                    delimiter: ''
+                third_party_settings: {  }
             weight: 4
             additional:
               bootstrap_styles:

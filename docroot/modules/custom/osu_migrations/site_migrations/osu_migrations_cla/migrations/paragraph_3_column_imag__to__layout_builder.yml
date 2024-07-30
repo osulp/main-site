@@ -1,0 +1,59 @@
+id: paragraph_3_column_imag__to__layout_builder
+label: Drupal 7 paragraph_3_column_imag Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - CLA
+source:
+  plugin: d7_paragraphs_item
+  bundle: 3_column_imag
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_text_image'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_3_column_imag'
+  field_image:
+    - plugin: sub_process
+      source: field_3image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  body:
+    - plugin: sub_process
+      source: field_3text
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+  optional:
+    - upgrade_d7_media_images
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

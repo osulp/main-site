@@ -1,0 +1,73 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_grad_student_faq
+migration_group: CLA
+migration_tags:
+  - Drupal 7
+  - CLA
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: grad_student_faq
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_headshot:
+    - plugin: sub_process
+      source: field_headshot
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  field_gsfaq_last_name: field_gsfaq_last_name
+  field_major: field_major
+  field_major_2: field_major_2
+  field_major_3: field_major_3
+  type:
+    plugin: default_value
+    default_value: grad_student_faq
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

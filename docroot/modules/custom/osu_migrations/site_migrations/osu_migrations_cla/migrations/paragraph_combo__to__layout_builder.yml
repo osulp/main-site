@@ -1,0 +1,43 @@
+id: paragraph_combo__to__layout_builder
+label: Drupal 7 paragraph_combo Paragraphs
+migration_group: paragraphs_to_layout_builder
+dependencies: { }
+migration_tags:
+  - Drupal 7
+  - Content
+  - Layout content
+  - OSU Paragraphs
+  - OSU
+  - CLA
+source:
+  plugin: d7_paragraphs_item
+  bundle: combo
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: 'paragraph_block'
+  info:
+    plugin: default_value
+    default_value: 'Migrated d7 paragraph paragraph_combo'
+  body:
+    - plugin: sub_process
+      source: field_combo_body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  reusable:
+    plugin: default_value
+    default_value: 0
+
+destination:
+  plugin: entity:block_content
+
+migration_dependencies:
+  required: [ ]
+  optional: [ ]

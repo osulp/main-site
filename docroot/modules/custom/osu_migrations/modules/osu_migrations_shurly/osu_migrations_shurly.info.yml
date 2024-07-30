@@ -1,0 +1,8 @@
+name: OSU Migrate ShURLy
+type: module
+description: Migrate OSU ShURLy Shortened URL's.
+package: OSU Migrations
+core_version_requirement: ^9 || ^10
+
+dependencies:
+  - osu_migrations:osu_migrations

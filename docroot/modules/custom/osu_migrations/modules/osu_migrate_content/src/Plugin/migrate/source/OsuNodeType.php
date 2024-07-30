@@ -4,6 +4,7 @@ namespace Drupal\osu_migrate_content\Plugin\migrate\source;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\migrate\Annotation\MigrateSource;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\node\Plugin\migrate\source\d7\NodeType;
 
@@ -39,7 +40,7 @@ class OsuNodeType extends NodeType {
   }
 
   /**
-   *
+   * {@inheritDoc}
    */
   public function query() {
     $query = parent::query();

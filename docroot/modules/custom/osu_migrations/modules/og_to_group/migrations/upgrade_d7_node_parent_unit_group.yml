@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_node_parent_unit_group
+migration_tags:
+  - Drupal 7 OG
+  - OSU Groups Structure
+  - OSU Groups
+  - OSU
+migration_group: osu_groups
+label: 'Create Groups that were Parent Units'
+source:
+  plugin: d7_node
+  node_type: parent_unit
+process:
+  type:
+    plugin: default_value
+    default_value: basic_group
+  # Leave as we use the ID for menus
+  id: nid
+  uid:
+    plugin: default_value
+    default_value: 1
+  label: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias: alias
+destination:
+  plugin: 'entity:group'
+migration_dependencies: { }

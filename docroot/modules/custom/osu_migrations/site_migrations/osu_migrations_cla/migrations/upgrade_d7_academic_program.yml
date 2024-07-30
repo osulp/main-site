@@ -1,0 +1,93 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_academic_program
+migration_group: CLA
+migration_tags:
+  - Drupal 7
+  - CLA
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: academic_program
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_bend_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_bend_link
+  field_program_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_link
+  field_osu_organizations:
+    - plugin: og_entity_lookup
+      field_name: field_schools2
+      source: nid
+    - plugin: entity_lookup
+      value_key: name
+      entity_type: taxonomy_term
+      bundle_key: vid
+      bundle: osu_organization
+  field_program_description:
+    - plugin: sub_process
+      source: field_program_description
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_location:
+    - plugin: sub_process
+      source: field_program_location
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  field_program_type2:
+    - plugin: sub_process
+      source: field_program_type2
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  type:
+    plugin: default_value
+    default_value: academic_program
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

@@ -101,10 +101,7 @@ class ParagraphsLayout extends LayoutBase {
               $menu_section_settings = $this->setMenuBgClass($menu_bg_color);
               $section = $this->createSection('bootstrap_layout_builder:blb_col_' . count($components), [], $menu_section_settings);
             }
-
-            foreach ($components as $component) {
-              $section->appendComponent($component);
-            }
+            $this->appendComponentsToSection($components, $section);
           }
 
           $sections[] = $section;
@@ -197,6 +194,20 @@ class ParagraphsLayout extends LayoutBase {
         break;
     }
     return $menu_section_settings;
+  }
+
+  /**
+   * Append components to a section.
+   *
+   * @param array $components
+   *   The components to append.
+   * @param mixed $section
+   *   The section to append the components to.
+   */
+  public function appendComponentsToSection($components, $section) {
+    foreach ($components as $component) {
+      $section->appendComponent($component);
+    }
   }
 
 }
