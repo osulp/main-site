@@ -1,15 +1,8 @@
 version: 2.1
 orbs:
-  docker: circleci/docker@1.2.1
+  docker: circleci/docker@2.6.0
 jobs:
   build_and_push:
-    parameters:
-      php_version:
-        type: string
-        default: "8.1"
-      image_version:
-        type: string
-        default: "4.43.2"
     executor:
       name: "docker/docker"
     environment:
@@ -28,14 +21,13 @@ jobs:
             echo "export GIT_BRANCH_NAME=$GIT_BRANCH_NAME" >> /tmp/workspace/env-vars
             echo export TAG="${GIT_BRANCH_NAME}-$DATETIME-${APP_VERSION}-${GIT_SHORT_HASH}" >> /tmp/workspace/env-vars
             cat /tmp/workspace/env-vars >> $BASH_ENV
-      - setup_remote_docker:
-          version: 20.10.2
+      - setup_remote_docker
       - docker/check:
           registry: registry.library.oregonstate.edu
       - docker/build:
           registry: registry.library.oregonstate.edu
-          extra_build_args: --build-arg PHP_TAG=<< parameters.php_version >>-<< parameters.image_version >>
           image: osulp_library
+          extra_build_args: "--target=production"
           tag: $TAG,${GIT_BRANCH_NAME}-latest
       - docker/push:
           registry: registry.library.oregonstate.edu
@@ -48,7 +40,7 @@ jobs:
 workflows:
   ci:
     jobs:
-      - build_and_push
+      - build_and_push:
           filters:
             branches:
               only:
