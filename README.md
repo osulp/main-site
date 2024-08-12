@@ -2,7 +2,9 @@
 
 This is based on the main OSU Drupal Distribution.
 
-### Update workflow
+## Update workflow
+
+### Manual
 
 1. Get the latest code `git pull`
 1. Enter the container `docker compose exec apache bash`
@@ -11,17 +13,33 @@ This is based on the main OSU Drupal Distribution.
 1. `composer outdated -m drupal/\*`
 1. To check for only updates that are required by this distribution's composer.json
 1. `composer outdated -D drupal/\*`
-1. Get updates
+1. Get updates:
+   - To update a specific package only
+     - `composer update vendor/package`
+     - eg `composer update drupal/my_module`
+   - Update only core and it's dependencies
+     - `composer update drupal/core-composer-scaffold drupal/core-recommended drupal/core-dev --with-all-dependencies`
+   - Get all updates
+     - `composer update`
+1. Commit the changed composer.json and composer.lock and push
 
-- To update a specific package only
-  - `composer update vendor/package`
-  - eg `composer update drupal/my_module`
-- Update only core and it's dependencies
-  - `composer update drupal/core-composer-scaffold drupal/core-recommended drupal/core-dev --with-all-dependencies`
-- Get all updates
-  - `composer update`
+### Automated
 
-9. Commit the changed composer.json and composer.lock and push
+Requirements:
+
+1. Local `composer` install
+1. Github [Personal Access Token](https://github.com/settings/tokens) for composer to access custom repositories.
+1. Composer auth tokens in default install location: `~/.composer/auth.json`. Otherwise update `docker-compose.yml`
+
+Process:
+
+1. Run `dev/update.sh`
+1. You will several update options:
+   - Dry-run: run `compose update -o --dry-run` to see which modules that needs updates
+   - Dev: run `compose update -o --dev` to install updates for the development environment
+   - Prod: run `compose update -o --no-dev` to install updates for the production environment
+1. Your `composer.lock` file will update according to your `composer.json` file and selection
+1. Then you can commit the changed `composer.json` and `composer.lock` and push
 
 ## Local Development
 
