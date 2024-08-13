@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-docker compose exec apache drush sql:dump > dev/mariadb-init/default.sql
+docker compose run --rm apache drush sql:dump > dev/mariadb-init/default.sql
