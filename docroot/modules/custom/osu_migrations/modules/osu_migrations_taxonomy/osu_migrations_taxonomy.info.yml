@@ -2,7 +2,7 @@ name: OSU Migrate Taxonomy
 type: module
 description: Migrate OSU Taxonomies.
 package: OSU Migrations
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 
 dependencies:
   - osu_migrations:osu_migrations

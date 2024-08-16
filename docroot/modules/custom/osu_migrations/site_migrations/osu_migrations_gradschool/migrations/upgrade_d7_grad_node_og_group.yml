@@ -1,0 +1,105 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_grad_node_og_group
+migration_tags:
+  - Drupal 7 OG
+  - OSU Groups Structure
+  - OSU Groups
+  - OSU
+  - GradSchool
+migration_group: osu_groups
+label: 'Insert OG Group'
+source:
+  plugin: d7_node
+  node_type: group
+  constants:
+    # map paragraph types on pages to their corresponding migration filenames
+    map:
+      paragraph_1_col_clean: 'paragraph_1_col_clean__to__layout_builder'
+      paragraph_1_col: 'paragraph_1_col__to__layout_builder'
+      paragraph_2_col_left: 'paragraph_2_col_left__to__layout_builder'
+      paragraph_2_col_right: 'paragraph_2_col_right__to__layout_builder'
+      paragraph_3_col_left: 'paragraph_3_col_left__to__layout_builder'
+      paragraph_3_col_center: 'paragraph_3_col_center__to__layout_builder'
+      paragraph_3_col_right: 'paragraph_3_col_right__to__layout_builder'
+      paragraph_menu: 'paragraph_menu__to__layout_builder'
+      paragraph_accordion: 'paragraph_accordion__to__layout_builder'
+      paragraph_alert: 'paragraph_alert__to__layout_builder'
+process:
+  type:
+    plugin: default_value
+    default_value: basic_group
+  # Leave as we use the ID for menus
+  id: nid
+  uid:
+    plugin: default_value
+    default_value: 1
+  label: title
+  field_body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_promotion_image:
+    - plugin: sub_process
+      source: field_promotion_image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  default_temp:
+    plugin: default_layout
+    bundle: basic_group
+    entity: group
+  paragraphs_temp:
+    plugin: paragraphs_layout
+    source_field: field_paragraph
+  layout_builder__layout:
+    plugin: get
+    source:
+      - '@default_temp'
+      - '@paragraphs_temp'
+  field_group_contact_info:
+    - plugin: sub_process
+      source: field_contact_info
+      process:
+        target_id:
+          - plugin: migration_lookup
+            method: process
+            migration: upgrade_d7_grad_context__paragraph_contacts
+            source: value
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 0
+        target_revision_id:
+          - plugin: migration_lookup
+            method: process
+            source: value
+            migration: upgrade_d7_grad_context__paragraph_contacts
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 1
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias: alias
+destination:
+  plugin: 'entity:group'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_grad_context__paragraph_contacts
+  optional: [ ]

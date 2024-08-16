@@ -1,0 +1,86 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_to_profile_gradschool
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+  - GradSchool
+migration_group: insert_users
+label: 'User Accounts'
+source:
+  plugin: d7_user
+process:
+  title: name
+  field_profile_email: mail
+  status: status
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_profile_first_name:
+    plugin: gradschool_name
+    source: name
+    name: first
+  field_profile_last_name:
+    plugin: gradschool_name
+    source: name
+    name: last
+  field_profile_biography:
+    - plugin: sub_process
+      source: field_staff_description
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_staff_functions: field_staff_functions
+  field_staff_grad_school_role:
+    - plugin: sub_process
+      source: field_staff_grad_school_role
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  field_staff_group:
+    - plugin: sub_process
+      source: field_staff_group
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_profile_image:
+    - plugin: sub_process
+      source: field_staff_photo
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  field_staff_position: field_staff_position
+  #  field_staff_supervisor:
+  #    - plugin: sub_process
+  #      source: field_staff_supervisor
+  #      process:
+  #        target_id:
+  #          plugin: migration_lookup
+  #          migration: upgrade_d7_user_to_profile_gradschool
+  #          source: target_id
+  field_profile_appointment:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_profile_appointment
+  field_profile_office_phone: field_contact_phone1
+  type:
+    plugin: default_value
+    default_value: osu_profile
+destination:
+  plugin: 'entity:node'

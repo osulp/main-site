@@ -2,7 +2,7 @@ name: OSU Migrations - College of Health
 type: module
 description: Contains migrations specifically for the College of Health Site.
 package: OSU Migrations - Sites
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 
 dependencies:
   - osu_migrations:osu_migrations

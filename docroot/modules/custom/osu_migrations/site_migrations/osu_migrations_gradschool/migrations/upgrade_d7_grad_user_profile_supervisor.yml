@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_grad_user_profile_supervisor
+migration_tags:
+  - OSU Drupal Profile
+  - GradSchool
+  - OSU
+label: 'Custom OSU Migration for GradSchool Profile Supervisor Custom Fields.'
+source:
+  plugin: d7_user
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile_gradschool
+      source: uid
+  field_staff_supervisor:
+    - plugin: sub_process
+      source: field_staff_supervisor
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_grad_user_profile_supervisor
+            source: target_id
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_staff_supervisor
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile_gradschool
+  optional:
+    - upgrade_d7_node_og_organization

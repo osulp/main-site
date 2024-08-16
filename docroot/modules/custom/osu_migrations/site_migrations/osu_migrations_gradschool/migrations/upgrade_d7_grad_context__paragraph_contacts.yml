@@ -1,0 +1,43 @@
+id: upgrade_d7_grad_context__paragraph_contacts
+label: Field Collections
+migration_tags:
+  - Drupal 7
+  - Field Collection Content
+  - GradSchool
+  - OSU Content
+  - OSU
+#deriver: Drupal\paragraphs\Plugin\migrate\D7FieldCollectionItemDeriver
+source:
+  plugin: d7_osu_field_collection_item
+  field_name: field_contact_info
+  bundle: group
+process:
+  field_pb_contact_person: field_contact_person
+  field_pb_contact_department: field_contact_department
+  field_pb_contact_email:
+    - plugin: sub_process
+      source: field_contact_email
+      process:
+        uri:
+          - plugin: substr
+            source: value
+          - plugin: urlencode
+        title:
+          - plugin: default_value
+            default_value: "Email"
+  field_pb_contact_heading: field_conact_heading
+  field_pb_contact_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_contact_link
+  field_pb_contact_phone: field_contact_phone1
+  field_pb_contact_position: field_contact_position
+  type:
+    - plugin: default_value
+      default_value: contacts
+destination:
+  plugin: entity_reference_revisions:paragraph
+migration_dependencies:
+  required: { }
+  optional:
+    - d7_field_instance

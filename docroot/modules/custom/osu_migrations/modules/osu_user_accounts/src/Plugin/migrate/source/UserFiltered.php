@@ -51,7 +51,9 @@ class UserFiltered extends User {
     $query = parent::query();
     $query->innerJoin('users_roles', 'ur', 'u.uid = ur.uid');
     $query->innerJoin('role', 'r', 'ur.rid = r.rid');
-    $query->condition('r.name', $this->requiredRolesName, 'IN');
+    if (!empty($this->requiredRolesName)) {
+      $query->condition('r.name', $this->requiredRolesName, 'IN');
+    }
     $query->distinct(TRUE);
     return $query;
   }
