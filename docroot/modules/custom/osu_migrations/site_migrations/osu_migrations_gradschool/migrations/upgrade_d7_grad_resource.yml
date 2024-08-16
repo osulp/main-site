@@ -1,0 +1,96 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_grad_resource
+migration_group: GradSchool
+migration_tags:
+  - Drupal 7
+  - GradSchool
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: resource
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_resource_campus:
+    - plugin: sub_process
+      source: field_resource_campus
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  field_resource_categories:
+    - plugin: sub_process
+      source: field_resource_categories
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_contact_email_field: field_contact_email_field
+  group_group: group_group
+  field_resource_location:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_resource_location
+  field_contact_phone1: field_contact_phone1
+  field_promotion_image:
+    - plugin: sub_process
+      source: field_promotion_image
+      process:
+        target_id:
+          - plugin: migration_lookup
+            migration: upgrade_d7_files
+            source: fid
+        alt: alt
+  field_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_link
+  type:
+    plugin: default_value
+    default_value: resource
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

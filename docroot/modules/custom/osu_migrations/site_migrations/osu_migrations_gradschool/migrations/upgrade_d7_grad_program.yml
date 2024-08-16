@@ -1,0 +1,259 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_grad_program
+migration_group: GradSchool
+migration_tags:
+  - Drupal 7
+  - GradSchool
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: program
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_program_admission_notes:
+    - plugin: sub_process
+      source: field_program_admission_notes
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_tests_info:
+    - plugin: sub_process
+      source: field_program_tests_info
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_test_notes: field_program_test_notes
+  field_select_academic_term: field_select_academic_term
+  field_program_agp_appdate:
+    - plugin: sub_process
+      source: field_program_agp_appdate
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_program_agp_comments:
+    - plugin: sub_process
+      source: field_program_agp_comments
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_agp_date_details:
+    - plugin: sub_process
+      source: field_program_agp_date_details
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_agp_degree_opt: field_program_agp_degree_opt
+  field_program_agp_degree_type:
+    - plugin: sub_process
+      source: field_program_agp_degree_type
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: target_id
+  field_program_agp_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_agp_link
+  field_program_agp_participation: field_program_agp_participation
+  field_program_agp_undergrad:
+    - plugin: sub_process
+      source: field_program_agp_undergrad
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_admission_process: field_program_admission_process
+  field_program_admission_custom:
+    - plugin: sub_process
+      source: field_program_admission_custom
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_program_concentrations: field_program_concentrations
+  field_program_campus:
+    - plugin: sub_process
+      source: field_program_college
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_program_conc_msg: field_program_conc_msg
+  # Paragraph Item Migration
+  field_contacts:
+    - plugin: sub_process
+      source: field_contacts
+      process:
+        target_id:
+          - plugin: migration_lookup
+            method: process
+            migration: d7_paragraphs
+            source: value
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 0
+        target_revision_id:
+          - plugin: migration_lookup
+            method: process
+            source: value
+            migration: d7_paragraphs
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 1
+  # Paragraph Item Migration
+  field_program_deadlines_pb:
+    - plugin: sub_process
+      source: field_program_deadlines_pb
+      process:
+        target_id:
+          - plugin: migration_lookup
+            method: process
+            migration: d7_paragraphs
+            source: value
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 0
+        target_revision_id:
+          - plugin: migration_lookup
+            method: process
+            source: value
+            migration: d7_paragraphs
+          - plugin: skip_on_empty
+            method: process
+          - plugin: extract
+            index:
+              - 1
+  field_program_degrees:
+    - plugin: sub_process
+      source: field_program_degrees
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_toefl_ietls: field_toefl_ietls
+  field_program_interdiscipl: field_program_interdiscipl
+  field_program_mais: field_program_mais
+  field_program_admit_term_note: field_program_admit_term_note
+  field_program_status_notes: field_program_status_notes
+  field_toefl_notes: field_toefl_notes
+  field_program_college:
+    - plugin: sub_process
+      source: field_program_college
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_program_code_text: field_program_code_text
+  field_program_handbook:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_handbook
+  field_program_name: field_program_name
+  field_program_status: field_program_status
+  field_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_link
+  field_program_tests: field_program_tests
+  field_program_requirement_notice: field_program_requirement_notice
+  field_program_college_secondary:
+    - plugin: sub_process
+      source: field_program_college_secondary
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  field_program_sf_link_p1:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_sf_link_p1
+  field_program_slate_link:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: field_program_slate_link
+  field_toefl_ibt: field_toefl_ibt
+  field_toefl_paper: field_toefl_paper
+  type:
+    plugin: default_value
+    default_value: program
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

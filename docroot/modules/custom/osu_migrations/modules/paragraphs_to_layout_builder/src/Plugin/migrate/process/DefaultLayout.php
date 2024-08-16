@@ -31,8 +31,9 @@ class DefaultLayout extends LayoutBase {
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $bundle = $this->configuration['bundle'];
+    $entity = $this->configuration['entity'] ?? 'node';
     if ($bundle) {
-      $sections = $this->loadDefaultSections($bundle);
+      $sections = $this->loadDefaultSections($bundle, $entity);
       if (!empty($sections)) {
         return $sections;
       }

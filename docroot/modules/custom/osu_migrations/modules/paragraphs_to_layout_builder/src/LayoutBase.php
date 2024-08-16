@@ -750,13 +750,15 @@ class LayoutBase extends ProcessPluginBase implements ContainerFactoryPluginInte
    *
    * @param string $bundle
    *   The content type to load defaults from.
+   * @param string $entity
+   *   Optional entity type, default to node.
    *
    * @return \Drupal\layout_builder\Section[]
    *   An array of the default layout builder section objects loaded from
    *   config.
    */
-  protected function loadDefaultSections($bundle) {
-    $config = $this->configFactory->get("core.entity_view_display.node.{$bundle}.default");
+  protected function loadDefaultSections(string $bundle, string $entity = 'node'): array {
+    $config = $this->configFactory->get("core.entity_view_display.{$entity}.{$bundle}.default");
     $sections_array = $config->get('third_party_settings.layout_builder.sections');
     $sections = [];
 
