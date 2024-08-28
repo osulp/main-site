@@ -1,0 +1,16 @@
+{
+    "name": "osulp/osulp-drupal-subtheme",
+    "description": "Drupal Theme for OSULP",
+    "type": "drupal-custom-theme",
+    "authors": [
+        {
+            "name": "Corey Gillen",
+            "email": "corey.gillen@oregonstate.edu"
+        },
+	{
+	    "name": "Kenna Warsinske",
+	    "email": "warsinsk@oregonstate.edu"
+	}
+    ],
+    "require": {}
+}

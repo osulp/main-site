@@ -1,0 +1,26 @@
+name: OSULP
+type: theme
+base theme: madrone
+description: A flexible theme with a responsive, mobile-first layout.
+package: Custom
+core_version_requirement: ^10
+libraries:
+  - osulp/global
+  - madrone/fonts
+  - madrone/bootstrap
+  - madrone/global-styling
+regions:
+  header: Header
+  primary_menu: Primary menu
+  full_top: Full width below Primary menu
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  page_top: Page Top
+  content: Content
+  sidebar: Sidebar
+  page_bottom: Page Bottom
+  pre_footer: Full width above the Footer
+  footer: Footer
+ckeditor_stylesheets:
+  - dist/madrone.css

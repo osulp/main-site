@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17b0bf219766abb3b30fc48e0e5a2b45",
+    "content-hash": "2c58f37c2ba790a8adcdc375f4bd7b85",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -16336,6 +16336,39 @@
             "time": "2024-02-08T18:52:03+00:00"
         },
         {
+            "name": "osulp/osulp-drupal-subtheme",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:osulp/osulp-drupal-subtheme.git",
+                "reference": "f39876152b5c0fcfdbdf405dcf32e1f92a08e6db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/f39876152b5c0fcfdbdf405dcf32e1f92a08e6db",
+                "reference": "f39876152b5c0fcfdbdf405dcf32e1f92a08e6db",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "drupal-custom-theme",
+            "authors": [
+                {
+                    "name": "Corey Gillen",
+                    "email": "corey.gillen@oregonstate.edu"
+                },
+                {
+                    "name": "Kenna Warsinske",
+                    "email": "warsinsk@oregonstate.edu"
+                }
+            ],
+            "description": "Drupal Theme for OSULP",
+            "support": {
+                "source": "https://github.com/osulp/osulp-drupal-subtheme/tree/main",
+                "issues": "https://github.com/osulp/osulp-drupal-subtheme/issues"
+            },
+            "time": "2024-08-28T21:00:35+00:00"
+        },
+        {
             "name": "pear/archive_tar",
             "version": "1.5.0",
             "source": {
@@ -26574,7 +26607,8 @@
         "drupal/tour_ui": 10,
         "drupal/views_bootstrap": 10,
         "drupal/views_date_format_sql": 15,
-        "drupal/views_ical": 15
+        "drupal/views_ical": 15,
+        "osulp/osulp-drupal-subtheme": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
