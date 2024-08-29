@@ -43,30 +43,40 @@ Process:
 
 ## Local Development
 
-Build the container locally:
+### Build the container locally:
 
-- Easy: `docker compose build`
-- Advanced:
-  - For the development version of the container:
-    - `docker build --target=development --tag=osuwams/drupal:9-apache-dev .`
-  - For the Production version
-    - `docker build --target=production --tag=osuwams/drupal:9-apache .`
+#### Easy:
 
-Start the containers:
+- `docker compose build`
+
+#### Advanced:
+
+- For the development version of the container:
+  - `docker build --target=development --tag=osuwams/drupal:9-apache-dev .`
+- For the Production version
+  - `docker build --target=production --tag=osuwams/drupal:9-apache .`
+
+### Start the containers:
 
 - `docker compose up -d`
 
-View the logs:
+### View the logs:
 
 - `docker compose logs -f apache`
 
-Stop the containers:
+### Stop the containers:
 
 - `docker compose down`
 
-Stop the containers and remove any database config and solr data:
+### Stop the containers and remove any database config and solr data:
 
 - `docker compose down -v`
+
+### Setup for theme or module development
+
+- Copy `docker-compose.override.example.yml` to `docker-compose.override.yml`
+- Replace `volumes` definitions with overrides in the format of: `/path/to/local/folder:/path/to/container/folder`. The first definition has the correct path to the theme already set.
+- Remove any other example definitions
 
 ## Environment Variables
 
