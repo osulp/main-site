@@ -13,10 +13,7 @@ if (PHP_SAPI === 'cli') {
 \$settings['trusted_host_patterns'] = [
     '^localhost\$',
     '^.+\.localhost$',
-    '^osuwams.ews.oregonstate.edu$',
-    '^test.library.oregonstate.edu$',
-    '^test.lib.oregonstate.edu$',
-    '^localhost.oregonstate.edu\$',
+    '^.+\.oregonstate\.edu$',
 ];
 \$settings['hash_salt'] = '${DRUPAL_HASH_SALT}';
 \$databases['default']['default'] = [
