@@ -519,7 +519,7 @@
     },
     "merge-plugin": {
         "include": [
-            "web/modules/contrib/webform/composer.libraries.json"
+            "docroot/modules/contrib/webform/composer.libraries.json"
         ]
     },
     "require-dev": {
