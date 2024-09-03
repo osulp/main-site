@@ -2,8 +2,8 @@ name: "OSU Profile"
 description: "Adds OSU profile content type"
 package: OSU
 type: module
-version: 1.0.12
-core_version_requirement: ^9 || ^10
+version: 1.0.13
+core_version_requirement: ^10 || ^11
 dependencies:
  - auto_entitylabel:auto_entitylabel
  - osu_default_content:osu_default_content

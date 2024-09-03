@@ -2,8 +2,8 @@ name: OSU Custom Blocks
 type: module
 description: Create Custom Blocks types for use in OSU Drupal.
 package: OSU
-core_version_requirement: ^9 || ^10
-version: 1.0.1
+core_version_requirement: ^9 || ^10 || ^11
+version: 1.0.2
 dependencies:
   - core:block
   - core:layout_builder

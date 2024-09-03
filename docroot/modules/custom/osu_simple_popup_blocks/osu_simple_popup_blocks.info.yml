@@ -2,7 +2,7 @@ name: OSU Simple Popup Blocks
 type: module
 description: Provides additional functionality for the site.
 package: OSU
-version: '1.0.0'
-core_version_requirement: ^9 || ^10
+version: 1.0.1
+core_version_requirement: ^9 || ^10 || ^11
 dependencies:
   - simple_popup_blocks:simple_popup_blocks

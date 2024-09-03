@@ -6,6 +6,8 @@ dependencies:
     - field.field.node.osu_profile.field_osu_organizations
     - field.field.node.osu_profile.field_profile_address
     - field.field.node.osu_profile.field_profile_biography
+    - field.field.node.osu_profile.field_profile_credentials
+    - field.field.node.osu_profile.field_profile_curriculum_vitae
     - field.field.node.osu_profile.field_profile_email
     - field.field.node.osu_profile.field_profile_first_name
     - field.field.node.osu_profile.field_profile_image
@@ -381,9 +383,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -592,9 +596,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -698,9 +704,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -807,9 +815,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -829,7 +839,7 @@ third_party_settings:
                 label: hidden
                 settings:
                   link: false
-                third_party_settings: {  }
+                third_party_settings: { }
             weight: 4
             additional:
               bootstrap_styles:
@@ -913,9 +923,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -1035,9 +1047,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -1254,9 +1268,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -1282,8 +1298,6 @@ third_party_settings:
         - 'bootstrap_layout_builder:blb_col_4'
         - 'bootstrap_layout_builder:blb_col_5'
         - 'bootstrap_layout_builder:blb_col_6'
-_core:
-  default_config_hash: yHWy5xWM7LvnP4wbvZQLVwURjRSBfZP3d8CP4ZJRZQc
 id: node.osu_profile.default
 targetEntityType: node
 bundle: osu_profile

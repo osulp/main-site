@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies: { }
 id: upgrade_d7_user_profile_cla_osu_faculty
+migration_group: CLA
 migration_tags:
   - OSU Drupal Profile
   - OSU
@@ -15,14 +16,133 @@ process:
     - plugin: migration_lookup
       migration: upgrade_d7_user_to_profile
       source: uid
-  field_web_support: field_web_support
-  field_school_leader_list: field_school_leader_list_
+  field_office_hours: field_office_hours
+  field_career_links:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: career_links
+  field_spp_concentration: field_spp_concentration
+  field_concentration_contact: field_concentration_contact
+  field_spp_program: field_spp_program
+  field_public_policy_faculty_role: field_public_policy_faculty_role
+  field_osu_faculty_additional_inf:
+    - plugin: sub_process
+      source: osu_faculty_additional_info
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_faculty_education:
+    - plugin: sub_process
+      source: osu_faculty_education
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_faculty_employment:
+    - plugin: sub_process
+      source: osu_faculty_employment
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_faculty_presentations:
+    - plugin: sub_process
+      source: osu_faculty_presentations
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_faculty_affiliations:
+    - plugin: sub_process
+      source: osu_faculty_affiliations
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_osu_faculty_service:
+    - plugin: sub_process
+      source: osu_faculty_service
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_honors_and_awards:
+    - plugin: sub_process
+      source: osu_faculty_honors_and_awards
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_courses_taught:
+    - plugin: sub_process
+      source: osu_faculty_courses_taught
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_career_interests:
+    - plugin: sub_process
+      source: career_interests
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
   type:
     plugin: default_value
     default_value: osu_profile
     overwrite_properties:
-      - field_web_support
-      - field_school_leader_list
+      - field_office_hours
+      - field_career_links
+      - field_spp_concentration
+      - field_concentration_contact
+      - field_spp_program
+      - field_osu_faculty_additional_inf
+      - field_osu_faculty_education
+      - field_osu_faculty_employment
+      - field_osu_faculty_presentations
+      - field_osu_faculty_affiliations
+      - field_osu_faculty_service
+      - field_courses_taught
+      - field_honors_and_awards
+      - field_career_interests
+      - field_public_policy_faculty_role
 destination:
   plugin: 'entity:node'
 migration_dependencies:

@@ -213,6 +213,32 @@ function osu_media_update_10003(&$sandbox) {
 }
 
 /**
+ * Add view modes for Kaltura Video.
+ */
+function osu_media_update_10004(&$sandbox) {
+  $config_path = osu_media_get_install_location();
+  $config_source = new FileStorage($config_path);
+
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+
+  $view_modes = [
+    'media.kaltura.default',
+    'media.kaltura.frameless',
+    'media.kaltura.media_card',
+    'media.kaltura.media_library',
+    'media.kaltura.video_720',
+  ];
+
+  foreach ($view_modes as $view_mode) {
+    if ($config_source->exists('core.entity_view_display.' . $view_mode)) {
+      $config_storage->write('core.entity_view_display.' . $view_mode, $config_source->read('core.entity_view_display.' . $view_mode));
+    }
+  }
+  return t('Added view modes for Kaltura Video');
+}
+
+/**
  * Get the configuration path for this module.
  *
  * @return false|string

@@ -37,6 +37,7 @@ function osu_roles_form_user_admin_permissions_alter(&$form, FormStateInterface 
       if ($role !== 'description') {
         $form['permissions']['administer modules'][$role]['#disabled'] = TRUE;
         $form['permissions']['administer software updates'][$role]['#disabled'] = TRUE;
+        $form['permissions']['view update notifications'][$role]['#disabled'] = TRUE;
       }
     }
   }

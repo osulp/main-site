@@ -2,8 +2,8 @@ name: 'OSU Simple Tabs Content'
 type: module
 description: 'Add Simple Tab Content type and accompanying view.'
 package: OSU
-core_version_requirement: ^9 || ^10
-version: 1.0.0
+core_version_requirement: ^9 || ^10 || ^11
+version: 1.0.1
 dependencies:
   - core:node
   - core:taxonomy

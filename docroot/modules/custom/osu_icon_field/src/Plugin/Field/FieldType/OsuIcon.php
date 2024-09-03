@@ -12,6 +12,7 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "osu_icon",
  *   label = @Translation("OSU Icon"),
+ *   description = @Translation("An OSU Icon"),
  *   category = @Translation("Icons"),
  *   default_formatter = "osu_icon_formatter",
  *   default_widget = "osu_icon_widget",

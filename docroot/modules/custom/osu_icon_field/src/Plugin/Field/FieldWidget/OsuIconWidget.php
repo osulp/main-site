@@ -30,7 +30,7 @@ class OsuIconWidget extends WidgetBase {
       '#title' => $this->t('Icon name'),
       '#description' => $this->t('Start typing the name of the icon and it will show a list of available icons that match.'),
       '#default_value' => $value,
-      '#size' => 10000,
+      '#size' => 60,
       '#maxlength' => 100,
       '#id' => 'osuIconInput',
     ];

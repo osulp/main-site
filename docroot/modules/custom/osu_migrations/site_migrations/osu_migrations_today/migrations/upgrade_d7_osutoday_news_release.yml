@@ -1,0 +1,141 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_osutoday_news_release
+migration_group: OSU Today
+migration_tags:
+  - Drupal 7
+  - OSUToday
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: news_release
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_boilerplate:
+    - plugin: sub_process
+      source: field_boilerplate
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  # Migrate Image to Media
+  field_cover_photo:
+    - plugin: sub_process
+      source: field_cover_photo
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_media_images
+          source: fid
+        alt: alt
+        title: title
+  # Migrate Image to Media
+  field_custom_thumbnail:
+    - plugin: sub_process
+      source: field_custom_thumbnail
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_media_images
+          source: fid
+        alt: alt
+        title: title
+  field_feed_category:
+    - plugin: sub_process
+      source: field_feed_category
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  # Migrate Image to Media
+  field_multimedia:
+    - plugin: img_media_attr
+      source: field_multimedia
+  field_source:
+    - plugin: sub_process
+      source: field_source
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_media_contact:
+    - plugin: sub_process
+      source: field_media_contact
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_teaser:
+    - plugin: sub_process
+      source: field_teaser
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_thematic_tags:
+    - plugin: sub_process
+      source: field_thematic_tags
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_taxonomy_terms
+          source: tid
+  type:
+    plugin: default_value
+    default_value: news_release
+destination:
+  plugin: 'entity:node'
+  default_bundle: news_release
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

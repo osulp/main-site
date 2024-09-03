@@ -1,0 +1,8 @@
+name: OSU Migrations - OSU Today News
+type: module
+description: Contains migrations Templates for OSU Today/News site migrations.
+package: OSU Migrations - Sites
+core_version_requirement: ^10 || ^11
+
+dependencies:
+  - osu_migrations:osu_migrations

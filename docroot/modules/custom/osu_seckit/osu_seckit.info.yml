@@ -2,7 +2,8 @@ name: OSU Security Kit
 type: module
 description: Provides Default Configuration to Security Kit module
 package: OSU
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
+version: 2.0.2
 dependencies:
   - seckit:seckit
 

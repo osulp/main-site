@@ -2,8 +2,8 @@
 
 namespace Drupal\osu_icon_field\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 
 /**
  * Plugin implementation of the 'osu_icon' formatter.

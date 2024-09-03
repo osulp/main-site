@@ -12,9 +12,9 @@ Install all dependencies
 
 ## Update Fontawesome Icons
 1. To update the icons download the latest from [fontawesome](https://fontawesome.com/download) Free for Web.
-2. Extract the zip webfonts directory into webfonts.
-3. Extract icons.json from metadata and place into plugins/osu_icons/dialogs
-4. Extract the scss into plugin/osu_icons/styles
+2. Extract the zip webfonts directory into js/plugin/osu_icons/styles/webfonts.
+3. Extract icons.json from metadata and place into js/plugins/osu_icons/dialogs
+4. Extract the scss into js/plugin/osu_icons/styles
    1. Rename brands.scss to _brands.scss
    2. Rename regular.scss to _regular.scss
    3. Rename solid.scss to _solid.scss

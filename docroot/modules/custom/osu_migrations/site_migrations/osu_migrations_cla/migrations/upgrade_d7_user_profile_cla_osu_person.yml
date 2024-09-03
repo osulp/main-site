@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_user_profile_cla_osu_person
+migration_group: CLA
+migration_tags:
+  - OSU Drupal Profile
+  - OSU
+  - CLA
+label: 'Custom OSU Migration for CLA OSU Person Profile Custom Fields.'
+source:
+  plugin: d7_osu_profile2
+  profile2_type: osu_person
+process:
+  nid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_user_to_profile
+      source: uid
+  field_personal_links:
+    - plugin: field_link
+      uri_scheme: 'https://'
+      source: personal_links
+  field_personal_interests:
+    - plugin: sub_process
+      source: personal_interests
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  type:
+    plugin: default_value
+    default_value: osu_profile
+    overwrite_properties:
+      - field_personal_links
+      - field_personal_interests
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - upgrade_d7_user_to_profile
+  optional:
+    - upgrade_d7_node_og_organization

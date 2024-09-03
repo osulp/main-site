@@ -28,6 +28,7 @@ source:
       paragraph_3_col_right: 'paragraph_3_col_right__to__layout_builder'
       paragraph_menu: 'paragraph_menu__to__layout_builder'
       paragraph_accordion: 'paragraph_accordion__to__layout_builder'
+      paragraph_alert: 'paragraph_alert__to__layout_builder'
 process:
   body:
     - plugin: sub_process

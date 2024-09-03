@@ -48,7 +48,7 @@ Migrations need to be run in a specific order.
    `drush migrate:import --tag='Feature Story'`
 
 7. ### Other Content Types and Content Migrations
-   To import other Content types, fields, Widget settings and nodes
+   To import other Content types, fields, Widget settings, and nodes
 
    `drush migrate:import --tag='OSU Configuration' --force`
 

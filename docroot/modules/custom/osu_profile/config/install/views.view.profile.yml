@@ -727,7 +727,6 @@ display:
             vids:
               osu_organization: osu_organization
             anyall: ','
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true

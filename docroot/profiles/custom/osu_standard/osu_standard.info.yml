@@ -1,8 +1,8 @@
 name: OSU Standard
 type: profile
 description: 'Standard Drupal Installation Profile.'
-core_version_requirement: ^9 || ^10
-version: 1.1.8
+core_version_requirement: ^10 || ^11
+version: 1.1.12
 distribution:
   name: Oregon State
   langcode: en
@@ -14,7 +14,6 @@ dependencies:
   - breakpoint
   - ckeditor
   - config
-  - contact
   - contextual
   - datetime
   - dynamic_page_cache
@@ -46,7 +45,6 @@ dependencies:
   - telephone
   - text
   - toolbar
-  - tour
   - user
   - views
   - views_ui
@@ -55,7 +53,6 @@ dependencies:
   - acquia_purge
   - address
   - admin_toolbar
-  - admin_toolbar_links_access_filter
   - admin_toolbar_search
   - admin_toolbar_tools
   - asset_injector
@@ -124,6 +121,7 @@ dependencies:
   - pathauto
   - purge
   - purge_drush
+  - purge_file
   - purge_processor_cron
   - purge_processor_lateruntime
   - purge_queuer_coretags
@@ -141,7 +139,7 @@ dependencies:
   - token
   - toc_js
   - toc_js_per_node
-  - variationcache
+  - tour
   - views_bootstrap
   - views_bulk_edit
   - views_bulk_operations
