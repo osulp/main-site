@@ -29,10 +29,15 @@ jobs:
           image: osulp_library
           extra_build_args: "--target=production"
           tag: $TAG,${GIT_BRANCH_NAME}-latest
+      - docker/build:
+          registry: registry.library.oregonstate.edu
+          image: osulp_library
+          extra_build_args: "--target=development"
+          tag: ${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - docker/push:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          tag: $TAG,${GIT_BRANCH_NAME}-latest
+          tag: $TAG,${GIT_BRANCH_NAME}-latest,${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
