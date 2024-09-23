@@ -19,7 +19,7 @@ done
 echo
 
 # Find pod to pull files from
-pod=`kubectl get pods -n $environment --no-headers -o custom-columns=":metadata.name" | grep -G ^library-php | head -n 1`
+pod=`kubectl get pods -n $environment --no-headers -o custom-columns=":metadata.name" | grep -G ^libstaging-app | head -n 1`
 # Local database dump file
 out_file="dev/mariadb-init/live_dump.sql"
 # Offending COLLATE text
