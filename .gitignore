@@ -43,3 +43,5 @@
 /.env
 # Ignoring sass build cache
 .sass-cache/
+# Ignore Docker Override file
+docker-compose.override.yml
