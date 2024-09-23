@@ -1,10 +1,15 @@
 #!/bin/sh
 
 PS3='What would you like to update?: '
-options=("Dry-run" "Dev" "Prod" "Drupal Only" "Quit")
+options=("Install" "Dry-run" "Dev" "Prod" "Drupal Only" "Quit")
 select opt in "${options[@]}"
 do
   case $opt in
+    "Install")
+      echo "Installing locked modules"
+      docker compose run --rm apache composer install -o
+      break
+      ;;
     "Dry-run")
       echo "Performing update dry-run"
       docker compose run --rm apache composer update -o --dry-run
