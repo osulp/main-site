@@ -54,3 +54,6 @@ do
     *) echo "invalid option $REPLY";;
   esac
 done
+
+echo "Clearing Drupal cache"
+docker compose run --rm apache drush cr
