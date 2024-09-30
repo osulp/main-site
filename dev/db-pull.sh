@@ -47,6 +47,12 @@ do
     "Yes")
       echo "Removing local environment"
       docker compose down -v
+
+      echo "Clearing Drupal cache"
+      docker compose up -d
+      while [[ $(docker compose logs mariadb | grep 'ready for connections' | wc -l) -ne 2 ]]; do sleep 1; done
+      echo "Database is ready, running cache clear"
+      docker compose exec apache drush cr
       break ;;
     "No")
       echo "No changes necessary, exiting"
@@ -54,6 +60,3 @@ do
     *) echo "invalid option $REPLY";;
   esac
 done
-
-echo "Clearing Drupal cache"
-docker compose run --rm apache drush cr
