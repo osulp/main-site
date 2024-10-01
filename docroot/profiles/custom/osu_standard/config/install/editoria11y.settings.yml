@@ -1,6 +1,6 @@
 content_root: ''
 no_load: ''
-ignore_elements: '.filter-guidelines-item *, #toolbar-administration *, nav *, .block-local-tasks-block *'
+ignore_elements: '.filter-guidelines-item *,#toolbar-administration *,nav *,.block-local-tasks-block *,.block-group-operations *'
 embedded_content_warning: ''
 assertiveness: 'smart'
 download_links: ''

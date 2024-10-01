@@ -503,3 +503,39 @@ function osu_groups_basic_group_update_10000(&$sandbox): TranslatableMarkup {
   $role->save();
   return t('Updated OSU Groups Group Content Author role to allow access to Editoria11y.');
 }
+
+/**
+ * Add permissions to group content author to allow better content management.
+ */
+function osu_groups_basic_group_update_10001(&$sandbox): TranslatableMarkup {
+  $permissions = [
+    'administer nodes',
+    'create url aliases',
+    'view own unpublished content',
+  ];
+  try {
+    _update_perms($permissions, 'group_content_author');
+    return t('Add permissions "@permission" to role group_content_author', ['@permission' => implode(", ", $permissions)]);
+  }
+  catch (EntityStorageException $e) {
+    \Drupal::logger('osu_groups_basic_group')->error($e->getMessage());
+    throw $e;
+  }
+}
+
+/**
+ * Internal function
+ *
+ * @param array $permissions
+ * @param string $role
+ *
+ * @return void
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function _update_perms(array $permissions, string $role): void {
+  $role = Role::load($role);
+  foreach ($permissions as $permission) {
+    $role->grantPermission($permission);
+  }
+  $role->save();
+}

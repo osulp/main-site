@@ -6,7 +6,7 @@
       // Add plugin CSS to allow icons to be rendered in current editor.
       const cssPath = `${this.path}styles/osu_icons.css`;
       const osuIconUrl =
-        'https://cdn.icomoon.io/155267/OregonStateBrandIcons/style-cf.css?8rsof6';
+        'https://cdn.icomoon.io/155267/OregonStateBrandIcons/style-cf.css?6642o2';
 
       editor.addContentsCss(cssPath);
       CKEDITOR.document.appendStyleSheet(cssPath);

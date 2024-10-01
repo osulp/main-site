@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @file
+ * OSU Standard Installation Profile.
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\Entity\User;
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function osu_standard_form_install_configure_form_alter(&$form, FormStateInterface $formState) {
   // Set some placeholder text for this.
@@ -53,7 +58,6 @@ function osu_standard_default_modules(array &$install_state) {
     'ckeditor_div_manager',
     'osu_block_types',
     'osu_story',
-    'osu_groups_basic_group',
     'osu_profile',
     'osu_simple_tabs',
     'osu_library_hero',
@@ -62,13 +66,18 @@ function osu_standard_default_modules(array &$install_state) {
     'osu_library_two_column_25_75',
     'osu_library_two_column_50_50',
   ], TRUE);
+  // Adding these after to satisfy dependencies.
+  \Drupal::service('module_installer')->install([
+    'osu_groups',
+    'osu_groups_basic_group',
+  ], TRUE);
 }
 
 /**
  * Apply Configuration updates to the site post install.
  *
  * @param array $install_state
- *  The Drupal Install State.
+ *   The Drupal Install State.
  */
 function osu_standard_update_default_configuration(array &$install_state) {
   $site_host = \Drupal::request()->getHost();
@@ -97,13 +106,13 @@ function osu_standard_update_default_configuration(array &$install_state) {
   $user_search->set('status', FALSE);
   $user_search->save();
 
-  // Add cws_dpla to user 1 and enable cas
+  // Add cws_dpla to user 1 and enable cas.
   $super_user = User::load(1);
   /** @var Drupal\cas\Service\CasUserManager $casUserManager */
   $casUserManager = \Drupal::service('cas.user_manager');
   $casUserManager->setCasUsernameForAccount($super_user, 'cws_dpla');
 
-  // Remove display author information from node Webform type
+  // Remove display author information from node Webform type.
   $node_type_webform = $config_factory->getEditable('node.type.webform');
   $node_type_webform->set('display_submitted', FALSE);
   $node_type_webform->save();

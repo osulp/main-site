@@ -85,7 +85,7 @@ CKEDITOR.dialog.add("osu_iconsDialog", function(editor) {
 
       // Load OSU Icons from json file
       const osuIconUrl =
-        "https://cdn.icomoon.io/155267/OregonStateBrandIcons/selection.json?8rsof6";
+        "https://cdn.icomoon.io/155267/OregonStateBrandIcons/selection.json?6642o2";
       $.getJSON(osuIconUrl, function(data) {
         $.each(data.icons, function(key, val) {
           $(`${e_class} .osu-icons`).append(

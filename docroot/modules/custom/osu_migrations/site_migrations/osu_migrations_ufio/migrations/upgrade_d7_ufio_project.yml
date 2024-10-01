@@ -1,0 +1,128 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_ufio_project
+migration_group: UFIO
+migration_tags:
+  - Drupal 7
+  - UFIO
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: project
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  field_accessibility_features:
+    - plugin: sub_process
+      source: field_accessibility_features
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_architect: field_architect
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_completion_date: field_completion_date
+  field_construction_manager: field_construction_manager
+  field_description_of_project:
+    - plugin: sub_process
+      source: field_description_of_project
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_exclude_from_list: field_exclude_from_list
+  field_funding_source_s_: field_funding_source_s_
+  field_general_contractor: field_general_contractor
+  field_last_updated1:
+    - plugin: sub_process
+      source: field_last_updated1
+      process:
+        value:
+          plugin: format_date
+          from_format: 'Y-m-d H:i:s'
+          to_format: 'Y-m-d'
+          source: value
+  field_more_information:
+    - plugin: sub_process
+      source: field_more_information
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_primary_visual1:
+    - plugin: sub_process
+      source: field_primary_visual1
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+        alt: alt
+        title: title
+  field_project_budget: field_project_budget
+  field_project_category: field_project_category
+  field_projected_completion_date: field_projected_completion_date
+  field_projected_start_date: field_projected_start_date
+  field_project_manager: field_project_manager
+  field_project_status: field_project_status
+  field_sponsoring_organization: field_sponsoring_organization
+  field_start_date: field_start_date
+  field_sustainability_features: field_sustainability_features
+  field_type_of_project: field_type_of_project
+  field_visual_caption1: field_visual_caption1
+  field_webcam: field_webcam
+  type:
+    plugin: default_value
+    default_value: project
+destination:
+  plugin: 'entity:node'
+  default_bundle: guidance
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

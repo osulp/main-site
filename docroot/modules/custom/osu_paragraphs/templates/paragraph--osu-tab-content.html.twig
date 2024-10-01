@@ -1,0 +1,5 @@
+<div class="tab-paragraph">
+  <h3>{{ content.field_osu_tab_title }}</h3>
+  {# Render all other fields here as needed #}
+  {{ content|without('field_osu_tab_title') }}
+</div>

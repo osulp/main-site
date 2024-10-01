@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="drupal">
+  <description>PHP CodeSniffer configuration for Drupal coding standards.</description>
+  <file>.</file>
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,info,txt,md,yml"/>
+  <arg name="ignore" value="dist,node_modules,vendor"/>
+  <config name="drupal_core_version" value="10"/>
+  <!-- Default rule for Drupal -->
+  <rule ref="Drupal">
+    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>
+    <exclude-pattern type="relative">/src/Drush/*</exclude-pattern>
+  </rule>
+  <rule ref="DrupalPractice"/>
+  <!-- Override standard for files in /src/Drush/Commands to PSR12 -->
+  <rule ref="PSR12">
+    <include-pattern>*/src/Drush/*</include-pattern>
+  </rule>
+
+</ruleset>

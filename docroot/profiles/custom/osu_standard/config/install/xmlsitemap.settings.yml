@@ -13,4 +13,3 @@ disable_cron_regeneration: false
 i18n_selection_mode: simple
 cron_threshold_error: 1209600
 cron_threshold_warning: 172800
-
