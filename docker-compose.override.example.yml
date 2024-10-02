@@ -1,5 +1,7 @@
 services:
   apache:
+    environment:
+      DRUPAL_STAGING_SITE: https://www.example.com
     volumes:
       - /local/path/to/theme:/var/www/html/docroot/themes/custom/osulp-drupal-subtheme
       - /local/path/to/module:/var/www/html/docroot/modules/custom/a-module
