@@ -18,6 +18,8 @@ dependencies:
     - filter
     - layout_builder
     - media
+    - node
+    - path
     - system
 id: group_content_author
 label: 'Group Content Author'
@@ -27,6 +29,7 @@ permissions:
   - 'access contextual links'
   - 'access media overview'
   - 'access site reports'
+  - 'administer nodes'
   - 'configure editable basic_group group layout overrides'
   - 'configure editable page node layout overrides'
   - 'configure editable story node layout overrides'
@@ -35,6 +38,7 @@ permissions:
   - 'create image media'
   - 'create kaltura media'
   - 'create remote_video media'
+  - 'create url aliases'
   - 'delete own document media'
   - 'delete own image media'
   - 'delete own kaltura media'
@@ -50,3 +54,4 @@ permissions:
   - 'use text format full_html'
   - 'view all media revisions'
   - 'view editoria11y checker'
+  - 'view own unpublished content'

@@ -1,0 +1,8 @@
+name: OSU Migrations - Beavernation
+type: module
+description: Contains migrations Templates for Beavernation site migrations.
+package: OSU Migrations - Sites
+core_version_requirement: ^10 || ^11
+
+dependencies:
+  - osu_migrations:osu_migrations

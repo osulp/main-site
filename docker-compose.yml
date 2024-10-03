@@ -32,6 +32,7 @@ services:
       DRUPAL_DBNAME: drupal
       DRUPAL_MEMCACHE: true
       DRUPAL_MEMCACHEHOST: memcached
+      DRUPAL_STAGING_SITE: https://www.example.com
       PRIVATE_FILE_PATH: /mnt/files/private
     volumes:
     - ./:/var/www/html

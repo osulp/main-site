@@ -115,9 +115,9 @@ use them for examples.
 
 ### Custom Content Types in Groups
 
-For Node types that were added to Organic Groups (Organic Group Content) a separate migration YAML is required to
-associate the new nodes with groups. Firstly you need to "Install" Groups on the Custom Content type. Then using the
-Machine name generated for this Group association the Migration YAML can be set to add the nodes to the Group.
+For Node types that are added to Organic Groups (Organic Group Content), a separate migration YAML is required to
+associate the new nodes with groups. Firstly, you need to "Install" Groups on the Custom Content type. Then using the
+Machine name generated for this Group association, the Migration YAML can be set to add the nodes to the Group.
 Proper order should be respected, Nodes need to be migrated first Then the group Association Migration. Check
 out `site_migrations` For examples of Group Content migration.
 

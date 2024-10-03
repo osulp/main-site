@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * @file
+ * The Install Profile file.
+ */
+
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\shortcut\Entity\Shortcut;
 use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\user\Entity\Role;
@@ -237,8 +245,7 @@ function osu_standard_update_10008(&$sandbox): TranslatableMarkup {
 }
 
 /**
- * Give DX, Architect and manage Webform the permission to use the Webform
- * filter format.
+ * Give DX, Architect and manage Webform the permission to use the Webform filter format.
  */
 function osu_standard_update_10009(&$sandbox): TranslatableMarkup {
   $user_roles = [
@@ -290,7 +297,7 @@ function osu_standard_update_10011(&$sandbox): TranslatableMarkup {
  * Update Fontawesome icon CSN version.
  */
 function osu_standard_update_10012(&$sandbox) {
-  $fontawesome_settings = \Drupal::configFactory()
+  $fontawesome_settings = Drupal::configFactory()
     ->getEditable('fontawesome.settings');
   $fontawesome_settings->set('external_svg_location', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
   $fontawesome_settings->set('external_shim_location', "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/v4-shims.min.css");
@@ -302,7 +309,7 @@ function osu_standard_update_10012(&$sandbox) {
  * Update the CAS login Path.
  */
 function osu_standard_update_10013(&$sandbox): TranslatableMarkup {
-  $cas_settings = \Drupal::configFactory()->getEditable('cas.settings');
+  $cas_settings = Drupal::configFactory()->getEditable('cas.settings');
   $cas_server_settings = $cas_settings->get('server');
   $cas_server_settings['path'] = '/cas';
   $cas_settings->set("server", $cas_server_settings);
@@ -315,7 +322,7 @@ function osu_standard_update_10013(&$sandbox): TranslatableMarkup {
  */
 function osu_standard_update_10014(&$sandbox): TranslatableMarkup {
   // Load the 'full_html' editor configuration.
-  $config_factory = \Drupal::service('config.factory');
+  $config_factory = Drupal::service('config.factory');
   $editor_config = $config_factory->getEditable('editor.editor.full_html');
 
   if ($editor_config) {
@@ -332,7 +339,8 @@ function osu_standard_update_10014(&$sandbox): TranslatableMarkup {
         if (isset($group['items'])) {
           if (($key = array_search($button_to_remove, $group['items'])) !== FALSE) {
             unset($group['items'][$key]);
-            $group['items'] = array_values($group['items']); // Reindex the array.
+            // Reindex the array.
+            $group['items'] = array_values($group['items']);
             $button_found = TRUE;
           }
         }
@@ -361,6 +369,124 @@ function osu_standard_update_10014(&$sandbox): TranslatableMarkup {
 }
 
 /**
+ * Add other embed modes for media.
+ */
+function osu_standard_update_10015(&$sandbox): TranslatableMarkup {
+  // Load the 'full_html' filter configuration.
+  $config_factory = Drupal::service('config.factory');
+  $editor_config = $config_factory->getEditable('filter.format.full_html');
+  $editor_filters = $editor_config->get('filters');
+  $media_view_modes = $editor_filters['media_embed']['settings']['allowed_view_modes'];
+  $osu_view_modes = [
+    "default" => "default",
+    "frameless" => "frameless",
+    "media_card" => "media_card",
+    "osu_orange_bottom" => "osu_orange_bottom",
+    "video_720" => "video_720",
+  ];
+
+  $updated_media_view_modes = array_merge($media_view_modes, $osu_view_modes);
+  $editor_filters['media_embed']['settings']['allowed_view_modes'] = $updated_media_view_modes;
+  $editor_config->set('filters', $editor_filters);
+  $editor_config->save();
+  return t('Updated embedding view modes');
+}
+
+/**
+ * Update Editoria11y and Linkpurpose.
+ */
+function osu_standard_update_10016(&$sandbox): TranslatableMarkup {
+  $editoria11y_ignore_elements = [
+    '.block-local-tasks-block *',
+    '.block-group-operations *',
+  ];
+  $config_factory = Drupal::service('config.factory');
+  $editoria11y_settings = $config_factory->getEditable('editoria11y.settings');
+  $ignore_elements = array_filter(array_map('trim', explode(',', $editoria11y_settings->get('ignore_elements'))));
+  $ignore_elements = array_merge($ignore_elements, $editoria11y_ignore_elements);
+  $editoria11y_settings->set('ignore_elements', implode(',', $ignore_elements));
+  $editoria11y_settings->save();
+
+  $redundent_identifiers = [
+    '#block-madrone-main-menu a',
+    '#block-madrone-groupmenu a',
+  ];
+  $new_identifiers = [
+    '#madrone-primary-menu-container a',
+    '.block-superfish a',
+    '.block-menu a',
+    '.block-group-content-menu a',
+  ];
+  $linkpurpose_settings = $config_factory->getEditable('linkpurpose.settings');
+  $ignore_elements = array_filter(array_map('trim', explode(',', $linkpurpose_settings->get('ignore'))));
+  $ignore_elements = array_diff(
+    array_merge(
+      $ignore_elements,
+      $new_identifiers
+    ),
+    $redundent_identifiers
+  );
+  $linkpurpose_settings->set('ignore', implode(',', $ignore_elements));
+  $linkpurpose_settings->save();
+
+  return t('Updated editoria11y and linkpurpose');
+}
+
+/**
+ * Add the Meta Image field to the Basic Page content type and set up the Metatag defautls.
+ */
+function osu_standard_update_10017(&$sandbox) {
+  $install_profile_source_path = _get_install_profile_source_path();
+
+  try {
+    FieldStorageConfig::create($install_profile_source_path->read('field.storage.node.field_osu_meta_image'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    Drupal::logger('osu_standard')->error($e->getMessage());
+    throw $e;
+  }
+
+  try {
+    FieldConfig::create($install_profile_source_path->read('field.field.node.page.field_osu_meta_image'))
+      ->save();
+  }
+  catch (EntityStorageException $e) {
+    Drupal::logger('osu_standard')->error($e->getMessage());
+    throw $e;
+  }
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = Drupal::service('config.storage');
+  // Update form display.
+  $existing_node_form_display = $config_storage->read('core.entity_form_display.node.page.default');
+  $new_node_form_display = $install_profile_source_path->read('core.entity_form_display.node.page.default');
+  $existing_node_form_display['content'] = array_merge($new_node_form_display['content'], $existing_node_form_display['content']);
+  $config_storage->write('core.entity_form_display.node.page.default', $existing_node_form_display);
+  // Set the new field to hidden on the view display for the default display.
+  $node_view_display = $config_storage->read('core.entity_view_display.node.page.default');
+  unset($node_view_display['content']['field_osu_meta_image']);
+  $node_view_display['hidden']['field_osu_meta_image'] = TRUE;
+  $config_storage->write('core.entity_view_display.node.page.default', $node_view_display);
+  // Update node page metatag defaults.
+  $node_page_metatag_defaults = $config_storage->read('metatag.metatag_defaults.node__page');
+  if ($node_page_metatag_defaults === FALSE) {
+    $config_storage->write('metatag.metatag_defaults.node__page', $install_profile_source_path->read('metatag.metatag_defaults.node__page'));
+  }
+  else {
+    $new_node_metatag_defaults = $install_profile_source_path->read('metatag.metatag_defaults.node__page');
+    $node_page_metatag_defaults['tags'] = array_merge($new_node_metatag_defaults['tags'], $node_page_metatag_defaults['tags']);
+    $config_storage->write('metatag.metatag_defaults.node__page', $node_page_metatag_defaults);
+  }
+  // Update front page metatag defaults.
+  $font_metatag_defaults = $config_storage->read('metatag.metatag_defaults.front');
+  $new_front_metatag_defaults = $install_profile_source_path->read('metatag.metatag_defaults.front');
+  $font_metatag_defaults['tags'] = array_merge($new_front_metatag_defaults['tags'], $font_metatag_defaults['tags']);
+  $config_storage->write('metatag.metatag_defaults.front', $font_metatag_defaults);
+
+  return t('Added new metatag field for node and updated the metatag defaults');
+}
+
+/**
  * Installs an array of given modules.
  *
  * @param array $modules
@@ -372,9 +498,9 @@ function osu_standard_update_10014(&$sandbox): TranslatableMarkup {
  */
 function osu_standard_install_modules(array $modules): void {
   // Load the module handler and module installer services.
-  $module_handler = \Drupal::moduleHandler();
+  $module_handler = Drupal::moduleHandler();
   /** @var \Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer */
-  $module_installer = \Drupal::service('module_installer');
+  $module_installer = Drupal::service('module_installer');
 
   foreach ($modules as $module) {
     // Check if the module is already enabled.
@@ -407,8 +533,23 @@ function osu_standard_grant_permissions(array $roles, array $permissions): void 
       }
     }
   }
-  catch (InvalidPluginDefinitionException|PluginNotFoundException $e) {
+  catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
     Drupal::logger('osu_standard')->error($e->getMessage());
     throw new Exception('Unable to load user role storage.');
   }
+}
+
+/**
+ * Retrieves the source path for the install profile configuration.
+ *
+ * @return \Drupal\Core\Config\FileStorage
+ *   The FileStorage instance containing the path to the install profile
+ *   configuration.
+ */
+function _get_install_profile_source_path(): FileStorage {
+  $install_profile_path = Drupal::service('module_handler')
+    ->getModule('osu_standard')
+    ->getPath();
+  $config_path = realpath($install_profile_path . '/config/install');
+  return new FileStorage($config_path);
 }

@@ -1,0 +1,84 @@
+langcode: en
+status: true
+dependencies: { }
+id: upgrade_d7_ufio_employee_spotlight
+migration_group: UFIO
+migration_tags:
+  - Drupal 7
+  - UFIO
+  - OSU Content
+  - OSU
+source:
+  plugin: d7_node
+  node_type: employee_spotlight
+process:
+  nid: nid
+  title: title
+  status: status
+  created: created
+  changed: changed
+  comment: comment
+  promote: promote
+  sticky: sticky
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  uid:
+    - plugin: migration_lookup
+      migration: upgrade_d7_users_with_roles
+      source: node_uid
+      no_stub: true
+    - plugin: default_value
+      default_value: 1
+  body:
+    - plugin: sub_process
+      source: body
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        summary: summary
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_employee_name:
+    - plugin: sub_process
+      source: field_employee_name
+      process:
+        value:
+          plugin: osu_media_wysiwyg_filter
+          source: value
+        format:
+          plugin: default_value
+          default_value: 'full_html'
+  field_photo:
+    - plugin: sub_process
+      source: field_photo
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: upgrade_d7_files
+          source: fid
+        alt: alt
+        title: title
+  field_position: field_position
+  field_shop: field_shop
+  field_years_at_oregon_state: field_years_at_oregon_state
+  type:
+    plugin: default_value
+    default_value: employee_spotlight
+destination:
+  plugin: 'entity:node'
+  default_bundle: employee_spotlight
+migration_dependencies:
+  required:
+    - upgrade_d7_files
+    - upgrade_d7_media_images
+    - upgrade_d7_users_with_roles
+    - upgrade_d7_taxonomy_terms
+  optional:
+    - upgrade_d7_media_audio
+    - upgrade_d7_media_documents
+    - upgrade_d7_media_local_video
+    - upgrade_d7_media_kaltura
+    - upgrade_d7_media_remote_video

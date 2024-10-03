@@ -5,7 +5,6 @@ dependencies:
   module:
     - captcha
     - config
-    - contact
     - contextual
     - date_ap_style
     - easy_breadcrumb
@@ -31,10 +30,8 @@ permissions:
   - 'access contextual links'
   - 'access site in maintenance mode'
   - 'access site reports'
-  - 'access user contact forms'
   - 'administer ap style settings'
   - 'administer CAPTCHA settings'
-  - 'administer contact forms'
   - 'administer easy breadcrumb'
   - 'administer google analytics'
   - 'administer google tag manager'

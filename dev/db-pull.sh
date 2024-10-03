@@ -52,7 +52,8 @@ do
       docker compose up -d
       while [[ $(docker compose logs mariadb | grep 'ready for connections' | wc -l) -ne 2 ]]; do sleep 1; done
       echo "Database is ready, running cache clear"
-      docker compose exec apache drush cr
+      # Rebuild cache, enable and configure stage_file_proxy
+      docker compose exec apache bash -c "drush cr && drush en -y stage_file_proxy && drush config-set -y stage_file_proxy.settings origin \$DRUPAL_STAGING_SITE && drush updatedb -y"
       break ;;
     "No")
       echo "No changes necessary, exiting"

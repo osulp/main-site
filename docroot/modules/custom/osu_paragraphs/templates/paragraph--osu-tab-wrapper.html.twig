@@ -1,0 +1,32 @@
+{% set classes = [
+  'paragraph',
+  'paragraph--item-' ~ paragraph.id(),
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  'tab-wrapper-paragraph',
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+] %}
+<div{{ attributes.addClass(classes) }}>
+
+  <h2>{{ content.field_osu_tab_wrapper_title }}</h2>
+  <div class="vertical-tabs">
+    <ul class="tabs list-unstyled">
+      {% for key, item in content.field_osu_paragraph_item %}
+        {% if key|first != '#' %}
+          <li class="tabs__item"><a href="#tab-{{ item['#paragraph'].id() }}"
+                                    class="tabs__link">{{ item['#paragraph'].field_osu_tab_title.value }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="tabs-content">
+      {% for key, item in content.field_osu_paragraph_item %}
+        {% if key|first != '#' %}
+          {% set paragraph = item['#paragraph'] %}
+          <div id="tab-{{ paragraph.id() }}" class="tabs-content__items">
+            {{ item }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
