@@ -407,6 +407,7 @@
         "drupal/layout_builder_operation_link": "^2.0",
         "drupal/layout_builder_restrictions": "^3.0",
         "drupal/layout_library": "^1@beta",
+        "drupal/layoutbuilder_search_api": "^1.0",
         "drupal/libraries": "^4.0",
         "drupal/linkchecker": "^2.0",
         "drupal/linkicon": "^2.0",
@@ -442,6 +443,7 @@
         "drupal/schema_metatag": "^3",
         "drupal/search404": "^2.1",
         "drupal/search_api": "^1.34",
+        "drupal/search_api_page": "^1.1",
         "drupal/search_api_solr": "^4.3",
         "drupal/seckit": "^2.0",
         "drupal/section_library": "^1.0",
@@ -461,6 +463,7 @@
         "drupal/tb_megamenu": "^3@alpha",
         "drupal/text_field_formatter": "^2.0",
         "drupal/toc_js": "^2.0",
+        "drupal/token_filter": "^2.2",
         "drupal/tour_ui": "^2.0",
         "drupal/twig_tweak": "^3.1",
         "drupal/upgrade_status": "^4.0",
@@ -628,6 +631,9 @@
             "drupal/redirect": {
                 "3094700-2 Don't migrate disabled redirects": "https://www.drupal.org/files/issues/2019-11-18/redirect-migration_constraint_errors-3094700-2-d8.patch",
                 "3046873-1 Support Feeds Source": "https://www.drupal.org/files/issues/2019-04-09/redirect-feeds-target-3046873-1-8.patch"
+            },
+            "drupal/search_api_page": {
+                "3456275 Route entity.search_api_canonical does not exist": "https://git.drupalcode.org/project/search_api_page/-/merge_requests/10.diff"
             },
             "drupal/simple_popup_blocks": {
                 "3040744-14 Update show when delay is enabled": "https://www.drupal.org/files/issues/2022-10-28/delayed-popup-content-invisible-3040744-14.patch"

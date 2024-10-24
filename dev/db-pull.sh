@@ -54,6 +54,8 @@ do
       echo "Database is ready, running cache clear"
       # Rebuild cache, enable and configure stage_file_proxy
       docker compose exec apache bash -c "drush cr && drush en -y stage_file_proxy && drush config-set -y stage_file_proxy.settings origin \$DRUPAL_STAGING_SITE && drush updatedb -y"
+      # Enable solr modules, import config, and index layout builder blocks
+      docker compose exec apache bash -c "drush en -y layoutbuilder_search_api,search_api_page && drush config-import -y --source=/var/www/html/dev/search_api_config --partial && drush search-api:index -y"
       break ;;
     "No")
       echo "No changes necessary, exiting"
