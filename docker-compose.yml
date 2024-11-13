@@ -34,6 +34,9 @@ services:
       DRUPAL_MEMCACHEHOST: memcached
       DRUPAL_STAGING_SITE: https://www.example.com
       PRIVATE_FILE_PATH: /mnt/files/private
+      LIBCAL_LOCATIONS: '{ 1234: "valley", 5678: "cascades", 9010: "guin"}'
+      LIBCAL_CLIENT_ID: 1234
+      LIBCAL_CLIENT_SECRET: abcdef1234567890abcdef1234567890
     volumes:
     - ./:/var/www/html
     - ./private:/mnt/files/private
