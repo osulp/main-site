@@ -36,4 +36,3 @@ function osu_paragraphs_theme_suggestions_paragraph_alter(array &$suggestions, a
   $bundle = $paragraph->bundle();
   $suggestions[] = 'paragraph__osu_paragraphs__' . $bundle;
 }
-

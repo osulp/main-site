@@ -17,17 +17,17 @@ do
       ;;
     "Dev")
       echo "Running composer update"
-      docker compose run --rm apache composer update -o
+      docker compose run --rm apache composer update -oW
       break
       ;;
     "Prod")
       echo "Running composer update --no-dev"
-      docker compose run --rm apache composer update -o --no-dev
+      docker compose run --rm apache composer update -oW --no-dev
       break
       ;;
     "Drupal Only")
       echo "Running composer update drupal/*"
-      docker compose run --rm apache composer update -o drupal/*
+      docker compose run --rm apache composer update -oW drupal/*
       break
       ;;
     "Quit")
