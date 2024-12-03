@@ -7,3 +7,4 @@ vertical-tabs:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once

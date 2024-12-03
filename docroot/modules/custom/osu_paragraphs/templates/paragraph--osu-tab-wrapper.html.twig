@@ -7,26 +7,23 @@
   not paragraph.isPublished() ? 'paragraph--unpublished'
 ] %}
 <div{{ attributes.addClass(classes) }}>
-
   <h2>{{ content.field_osu_tab_wrapper_title }}</h2>
-  <div class="vertical-tabs">
-    <ul class="tabs list-unstyled">
-      {% for key, item in content.field_osu_paragraph_item %}
-        {% if key|first != '#' %}
-          <li class="tabs__item"><a href="#tab-{{ item['#paragraph'].id() }}"
-                                    class="tabs__link">{{ item['#paragraph'].field_osu_tab_title.value }}</a></li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-    <div class="tabs-content">
-      {% for key, item in content.field_osu_paragraph_item %}
-        {% if key|first != '#' %}
-          {% set paragraph = item['#paragraph'] %}
-          <div id="tab-{{ paragraph.id() }}" class="tabs-content__items">
+  <div class="tab-wrapper-paragraph__tabs">
+    {% for key, item in content.field_osu_paragraph_item %}
+      {% if key|first != '#' %}
+        {% set tab_link_id = 'tab-link-' ~ item['#paragraph'].id() %}
+        {% set tab_content_id = 'tab-content-' ~ item['#paragraph'].id() %}
+        <div class="tab-wrapper-paragraph__tab">
+          <a id="{{ tab_link_id }}" class="tab-wrapper-paragraph__tab-link"
+             href="#{{ tab_content_id }}" role="tab"
+             aria-controls="{{ tab_content_id }}">{{ item['#paragraph'].field_osu_tab_title.value }}
+            <span class="d-inline-block d-md-none fa-solid fa-chevron-down fa-3xl"></span></a>
+          <div id="{{ tab_content_id }}" class="tab-wrapper-paragraph__tab-content"
+               role="tabpanel" aria-hidden="true" aria-labelledby="{{ tab_link_id }}">
             {{ item }}
           </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
