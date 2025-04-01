@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43614f9eecb98cb7b93adcdc5dae17ea",
+    "content-hash": "5b175009443e605403f81b1024aff89b",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -1807,7 +1807,7 @@
                     "homepage": "https://www.drupal.org/user/822402"
                 },
                 {
-                    "name": "Mark Trapp",
+                    "name": "mark trapp",
                     "homepage": "https://www.drupal.org/user/212019"
                 },
                 {
@@ -1927,7 +1927,7 @@
                     "homepage": "https://www.drupal.org/user/86106"
                 },
                 {
-                    "name": "Centarro",
+                    "name": "centarro",
                     "homepage": "https://www.drupal.org/user/3661446"
                 },
                 {
@@ -2057,6 +2057,10 @@
                     "name": "Mohamed Anis Taktak (matio89)",
                     "homepage": "https://www.drupal.org/u/matio89",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "fethi.krout",
+                    "homepage": "https://www.drupal.org/user/3206765"
                 },
                 {
                     "name": "japerry",
@@ -3036,7 +3040,7 @@
                     "homepage": "https://www.drupal.org/user/32494"
                 },
                 {
-                    "name": "Olarin",
+                    "name": "olarin",
                     "homepage": "https://www.drupal.org/user/334773"
                 },
                 {
@@ -3237,8 +3241,8 @@
                     "version": "1.0.2",
                     "datestamp": "1695740655",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
                     }
                 }
             },
@@ -3247,10 +3251,6 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
-                {
-                    "name": "dczepierga",
-                    "homepage": "https://www.drupal.org/user/911466"
-                },
                 {
                     "name": "hass",
                     "homepage": "https://www.drupal.org/user/85918"
@@ -3268,12 +3268,8 @@
                     "homepage": "https://www.drupal.org/user/1078742"
                 },
                 {
-                    "name": "Magnus",
+                    "name": "magnus",
                     "homepage": "https://www.drupal.org/user/73919"
-                },
-                {
-                    "name": "mkesicki",
-                    "homepage": "https://www.drupal.org/user/922884"
                 },
                 {
                     "name": "nod_",
@@ -3288,7 +3284,7 @@
                     "homepage": "https://www.drupal.org/user/2793801"
                 },
                 {
-                    "name": "Wim Leers",
+                    "name": "wim leers",
                     "homepage": "https://www.drupal.org/user/99777"
                 },
                 {
@@ -4955,11 +4951,11 @@
                     "homepage": "https://www.drupal.org/user/2892725"
                 },
                 {
-                    "name": "Arrow",
+                    "name": "arrow",
                     "homepage": "https://www.drupal.org/user/423969"
                 },
                 {
-                    "name": "DieterHolvoet",
+                    "name": "dieterholvoet",
                     "homepage": "https://www.drupal.org/user/3567222"
                 },
                 {
@@ -4983,7 +4979,7 @@
                     "homepage": "https://www.drupal.org/user/2480548"
                 },
                 {
-                    "name": "Matroskeen",
+                    "name": "matroskeen",
                     "homepage": "https://www.drupal.org/user/3426249"
                 },
                 {
@@ -4999,7 +4995,7 @@
                     "homepage": "https://www.drupal.org/user/2375692"
                 },
                 {
-                    "name": "RobLoach",
+                    "name": "robloach",
                     "homepage": "https://www.drupal.org/user/61114"
                 },
                 {
@@ -5049,7 +5045,7 @@
             ],
             "authors": [
                 {
-                    "name": "DieterHolvoet",
+                    "name": "dieterholvoet",
                     "homepage": "https://www.drupal.org/user/3567222"
                 }
             ],
@@ -5278,7 +5274,7 @@
                     "homepage": "https://www.drupal.org/user/2416470"
                 },
                 {
-                    "name": "TR",
+                    "name": "tr",
                     "homepage": "https://www.drupal.org/user/202830"
                 }
             ],
@@ -5523,6 +5519,10 @@
                 {
                     "name": "neslee canil pinto",
                     "homepage": "https://www.drupal.org/user/3580850"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
                 }
             ],
             "description": "Provides the option of excluding node title(s) from display by individual node, node bundle, and view mode.",
@@ -6011,6 +6011,10 @@
                     "name": "Jonathan Eom",
                     "homepage": "https://www.drupal.org/user/3458427",
                     "email": "jonnyeom@gmail.com"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
                 }
             ],
             "description": "Provides the ability to easily delete files within Drupal administration.",
@@ -6233,7 +6237,7 @@
             ],
             "authors": [
                 {
-                    "name": "Daniel.Moberly",
+                    "name": "daniel.moberly",
                     "homepage": "https://www.drupal.org/user/1160788"
                 },
                 {
@@ -6483,7 +6487,7 @@
                     "homepage": "https://www.drupal.org/user/3086593"
                 },
                 {
-                    "name": "Jeff Cardwell",
+                    "name": "jeff cardwell",
                     "homepage": "https://www.drupal.org/user/2913129"
                 },
                 {
@@ -6736,7 +6740,7 @@
             "extra": {
                 "drupal": {
                     "version": "2.1.4",
-                    "datestamp": "1723489062",
+                    "datestamp": "1739061992",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6886,6 +6890,10 @@
                     "name": "Andrey Vitushkin (wombatbuddy)",
                     "homepage": "https://www.drupal.org/u/wombatbuddy",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "wombatbuddy",
+                    "homepage": "https://www.drupal.org/user/3547848"
                 }
             ],
             "description": "Enables to convert existing image fields to Media image fields.",
@@ -7587,6 +7595,10 @@
                 {
                     "name": "dulnan",
                     "homepage": "https://www.drupal.org/user/3652792"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
                 }
             ],
             "description": "Render Laybout Builder block edit forms in an iframe, using the admin theme.",
@@ -7781,7 +7793,7 @@
                     "homepage": "https://www.drupal.org/user/748208"
                 },
                 {
-                    "name": "Jeff Cardwell",
+                    "name": "jeff cardwell",
                     "homepage": "https://www.drupal.org/user/2913129"
                 },
                 {
@@ -7858,7 +7870,7 @@
             ],
             "authors": [
                 {
-                    "name": "EclipseGc",
+                    "name": "eclipsegc",
                     "homepage": "https://www.drupal.org/user/61203"
                 },
                 {
@@ -7979,7 +7991,7 @@
                     "homepage": "https://www.drupal.org/user/116002"
                 },
                 {
-                    "name": "Pol",
+                    "name": "pol",
                     "homepage": "https://www.drupal.org/user/47194"
                 },
                 {
@@ -8346,7 +8358,7 @@
                     "homepage": "https://www.drupal.org/user/2733365"
                 },
                 {
-                    "name": "Kristen Pol",
+                    "name": "kristen pol",
                     "homepage": "https://www.drupal.org/user/8389"
                 },
                 {
@@ -8358,11 +8370,11 @@
                     "homepage": "https://www.drupal.org/user/3523472"
                 },
                 {
-                    "name": "Nitebreed",
+                    "name": "nitebreed",
                     "homepage": "https://www.drupal.org/user/419423"
                 },
                 {
-                    "name": "Steven Buteneers",
+                    "name": "steven buteneers",
                     "homepage": "https://www.drupal.org/user/3301055"
                 }
             ],
@@ -8541,7 +8553,7 @@
                     "homepage": "https://www.drupal.org/user/1037976"
                 },
                 {
-                    "name": "Fabianx",
+                    "name": "fabianx",
                     "homepage": "https://www.drupal.org/user/693738"
                 },
                 {
@@ -8549,7 +8561,7 @@
                     "homepage": "https://www.drupal.org/user/45640"
                 },
                 {
-                    "name": "Jeremy",
+                    "name": "jeremy",
                     "homepage": "https://www.drupal.org/user/409"
                 },
                 {
@@ -8557,7 +8569,7 @@
                     "homepage": "https://www.drupal.org/user/2375"
                 },
                 {
-                    "name": "robertDouglass",
+                    "name": "robertdouglass",
                     "homepage": "https://www.drupal.org/user/5449"
                 }
             ],
@@ -8602,7 +8614,7 @@
             ],
             "authors": [
                 {
-                    "name": "Dave Reid",
+                    "name": "dave reid",
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
@@ -8610,7 +8622,7 @@
                     "homepage": "https://www.drupal.org/user/160302"
                 },
                 {
-                    "name": "JohnAlbin",
+                    "name": "johnalbin",
                     "homepage": "https://www.drupal.org/user/32095"
                 },
                 {
@@ -9170,7 +9182,7 @@
                     "homepage": "https://www.drupal.org/user/3145389"
                 },
                 {
-                    "name": "greenSkin",
+                    "name": "greenskin",
                     "homepage": "https://www.drupal.org/user/173855"
                 },
                 {
@@ -9464,7 +9476,7 @@
                     "homepage": "https://www.drupal.org/user/214652"
                 },
                 {
-                    "name": "Frans",
+                    "name": "frans",
                     "homepage": "https://www.drupal.org/user/514222"
                 },
                 {
@@ -9585,7 +9597,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.13",
-                    "datestamp": "1722507672",
+                    "datestamp": "1739552840",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9603,11 +9615,11 @@
             ],
             "authors": [
                 {
-                    "name": "Berdir",
+                    "name": "berdir",
                     "homepage": "https://www.drupal.org/user/214652"
                 },
                 {
-                    "name": "Dave Reid",
+                    "name": "dave reid",
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
@@ -9687,7 +9699,7 @@
                     "homepage": "https://www.drupal.org/user/314289"
                 },
                 {
-                    "name": "Sam152",
+                    "name": "sam152",
                     "homepage": "https://www.drupal.org/user/1485048"
                 }
             ],
@@ -9798,10 +9810,6 @@
                 {
                     "name": "omarlopesino",
                     "homepage": "https://www.drupal.org/u/omarlopesino"
-                },
-                {
-                    "name": "omarlopesino",
-                    "homepage": "https://www.drupal.org/user/2853043"
                 }
             ],
             "description": "Purge files from external caches.",
@@ -9974,7 +9982,7 @@
             ],
             "authors": [
                 {
-                    "name": "Berdir",
+                    "name": "berdir",
                     "homepage": "https://www.drupal.org/user/214652"
                 },
                 {
@@ -9982,7 +9990,7 @@
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
-                    "name": "Kristen Pol",
+                    "name": "kristen pol",
                     "homepage": "https://www.drupal.org/user/8389"
                 },
                 {
@@ -10042,7 +10050,7 @@
                     "homepage": "https://www.drupal.org/user/748566"
                 },
                 {
-                    "name": "Rajeshreeputra",
+                    "name": "rajeshreeputra",
                     "homepage": "https://www.drupal.org/user/3418561"
                 },
                 {
@@ -10717,6 +10725,10 @@
                     "role": "Maintainer"
                 },
                 {
+                    "name": "jastraat",
+                    "homepage": "https://www.drupal.org/user/105111"
+                },
+                {
                     "name": "mahmoud-zayed",
                     "homepage": "https://www.drupal.org/user/2947001"
                 },
@@ -10886,7 +10898,7 @@
             ],
             "authors": [
                 {
-                    "name": "Ameer Khan",
+                    "name": "ameer khan",
                     "homepage": "https://www.drupal.org/user/3087149"
                 },
                 {
@@ -10896,10 +10908,6 @@
                 {
                     "name": "mattbloomfield",
                     "homepage": "https://www.drupal.org/user/3620586"
-                },
-                {
-                    "name": "vengatjove",
-                    "homepage": "https://www.drupal.org/user/3555715"
                 }
             ],
             "description": "Enable Simple popup blocks to show any block contents, forms or custom div in popup. Now Drupal 8/9 compatible. Originally created by Ameer Khan. This is a stable release of the 2.0 version.",
@@ -11912,6 +11920,64 @@
             }
         },
         {
+            "name": "drupal/tour",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tour.git",
+                "reference": "2.0.8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/tour-2.0.8.zip",
+                "reference": "2.0.8",
+                "shasum": "87ac2b273d3154b08334ed9f4afeefdca1b2fef0"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11"
+            },
+            "require-dev": {
+                "drupal/dashboard": "*",
+                "php-forge/foxy": "^0.1"
+            },
+            "suggest": {
+                "drupal/tour_core": "*",
+                "drupal/tour_core_language": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.8",
+                    "datestamp": "1736542201",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Mustgrave (smustgrave)",
+                    "homepage": "https://www.drupal.org/u/smustgrave",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
+                }
+            ],
+            "description": "The Tour module provides guided tours of the site interface via tooltips.",
+            "homepage": "https://drupal.org/project/tour",
+            "support": {
+                "source": "https://git.drupalcode.org/project/tour",
+                "issues": "https://drupal.org/project/issues/tour"
+            }
+        },
+        {
             "name": "drupal/tour_ui",
             "version": "2.0.0",
             "source": {
@@ -11926,7 +11992,8 @@
                 "shasum": "bc21c1665c816434b7773be9c6064700e3bdd34d"
             },
             "require": {
-                "drupal/core": "^9.1 || ^10"
+                "drupal/core": "^9.1 || ^10",
+                "drupal/tour": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -11945,7 +12012,7 @@
             ],
             "authors": [
                 {
-                    "name": "GoZ",
+                    "name": "goz",
                     "homepage": "https://www.drupal.org/user/226961"
                 },
                 {
@@ -12008,7 +12075,7 @@
             ],
             "authors": [
                 {
-                    "name": "Chi",
+                    "name": "chi",
                     "homepage": "https://www.drupal.org/user/556138"
                 }
             ],
@@ -13072,12 +13139,12 @@
                     "homepage": "https://www.drupal.org/user/493050"
                 },
                 {
-                    "name": "quicksketch",
-                    "homepage": "https://www.drupal.org/user/35821"
+                    "name": "mandclu",
+                    "homepage": "https://www.drupal.org/user/52136"
                 },
                 {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
+                    "name": "quicksketch",
+                    "homepage": "https://www.drupal.org/user/35821"
                 }
             ],
             "description": "Enables the creation of webforms and questionnaires.",
@@ -22802,11 +22869,11 @@
                     "homepage": "https://www.drupal.org/user/2393360"
                 },
                 {
-                    "name": "Gábor Hojtsy",
+                    "name": "gábor hojtsy",
                     "homepage": "https://www.drupal.org/user/4166"
                 },
                 {
-                    "name": "Jose Reyero",
+                    "name": "jose reyero",
                     "homepage": "https://www.drupal.org/user/4299"
                 },
                 {
@@ -22814,7 +22881,7 @@
                     "homepage": "https://www.drupal.org/user/93488"
                 },
                 {
-                    "name": "Wim Leers",
+                    "name": "wim leers",
                     "homepage": "https://www.drupal.org/user/99777"
                 }
             ],
@@ -27904,7 +27971,7 @@
     "platform": {},
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.1.16"
+        "php": "8.3.13"
     },
     "plugin-api-version": "2.6.0"
 }

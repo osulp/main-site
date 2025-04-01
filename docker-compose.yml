@@ -40,7 +40,7 @@ services:
     volumes:
     - ./:/var/www/html
     - ./private:/mnt/files/private
-    - ~/.composer/auth.json:/var/www/.composer/auth.json:ro
+    - ~/.composer/:/var/www/.composer/
 
   solr:
     image: solr:8-slim
