@@ -8,108 +8,112 @@
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        {
+        "assets": {
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        {
+        "1": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "2": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/madrone.git"
         },
-        {
+        "3": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_groups.git"
         },
-        {
+        "4": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_standard.git"
         },
-        {
+        "5": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_media.git"
         },
-        {
+        "6": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_block_types.git"
         },
-        {
+        "7": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_bootstrap_layout_builder"
         },
-        {
+        "8": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_ckeditor_plugins.git"
         },
-        {
+        "9": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_seckit.git"
         },
-        {
+        "10": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_roles.git"
         },
-        {
+        "11": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_story.git"
         },
-        {
+        "12": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_profile.git"
         },
-        {
+        "13": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_default_content.git"
         },
-        {
+        "14": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_icon_field.git"
         },
-        {
+        "15": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_google_tag.git"
         },
-        {
+        "16": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/feeds_display.git"
         },
-        {
+        "17": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_migrations.git"
         },
-        {
+        "18": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_simple_popup_blocks.git"
         },
-        {
+        "19": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/admissions_articulations.git"
         },
-        {
+        "20": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_custom_blocks.git"
         },
-        {
+        "21": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_publications.git"
         },
-        {
+        "22": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_simple_tabs.git"
         },
-        {
+        "23": {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_paragraphs.git"
         },
-        {
+        "24": {
             "type": "vcs",
             "url": "https://github.com/osulp/osulp-drupal-subtheme.git"
         },
-        {
+        "25": {
             "type": "package",
             "package": {
                 "name": "toc/toc",
@@ -121,7 +125,7 @@
                 }
             }
         },
-        {
+        "26": {
             "type": "package",
             "package": {
                 "name": "apache/echarts",
@@ -139,7 +143,7 @@
                 }
             }
         },
-        {
+        "27": {
             "type": "package",
             "package": {
                 "name": "google/charts",
@@ -157,7 +161,7 @@
                 }
             }
         },
-        {
+        "28": {
             "type": "package",
             "package": {
                 "name": "highcharts/highcharts",
@@ -175,7 +179,7 @@
                 }
             }
         },
-        {
+        "29": {
             "type": "package",
             "package": {
                 "name": "highcharts/more",
@@ -193,7 +197,7 @@
                 }
             }
         },
-        {
+        "30": {
             "type": "package",
             "package": {
                 "name": "highcharts/exporting",
@@ -211,7 +215,7 @@
                 }
             }
         },
-        {
+        "31": {
             "type": "package",
             "package": {
                 "name": "highcharts/export-data",
@@ -229,7 +233,7 @@
                 }
             }
         },
-        {
+        "32": {
             "type": "package",
             "package": {
                 "name": "highcharts/accessibility",
@@ -247,7 +251,7 @@
                 }
             }
         },
-        {
+        "33": {
             "type": "package",
             "package": {
                 "name": "highcharts/3d",
@@ -265,7 +269,7 @@
                 }
             }
         },
-        {
+        "34": {
             "type": "package",
             "package": {
                 "name": "highcharts/drilldown",
@@ -283,7 +287,7 @@
                 }
             }
         },
-        {
+        "35": {
             "type": "package",
             "package": {
                 "name": "highcharts/data",
@@ -301,7 +305,7 @@
                 }
             }
         },
-        {
+        "36": {
             "type": "package",
             "package": {
                 "name": "highcharts/maps",
@@ -319,7 +323,7 @@
                 }
             }
         }
-    ],
+    },
     "require": {
         "acquia/memcache-settings": "^1.2",
         "bower-asset/colorbox": "^1.6",
@@ -335,7 +339,7 @@
         "drupal/address": "^2.0",
         "drupal/addtoany": "^2.0",
         "drupal/admin_toolbar": "^3.0",
-        "drupal/anchor_link": "^2",
+        "drupal/anchor_link": "^3.0@beta",
         "drupal/asset_injector": "^2.6",
         "drupal/auto_entitylabel": "^3.0",
         "drupal/better_exposed_filters": "^7.0",
@@ -508,6 +512,7 @@
         "npm-asset/fontawesome-iconpicker": "^3.2",
         "npm-asset/fonticonpicker--fonticonpicker": "^3.1",
         "npm-asset/jquery-ui-touch-punch": "^0.2.3",
+        "npm-asset/northernco--ckeditor5-anchor-drupal": "^0.5.0",
         "npm-asset/slick-carousel": "1.8.0",
         "oomphinc/composer-installers-extender": "^2.0",
         "osu-wams/admissions_articulations": "^1.0",
@@ -660,50 +665,21 @@
                 "web-root": "docroot/"
             }
         },
-        "installer-types": [
-            "bower-asset",
-            "npm-asset"
-        ],
+        "installer-types": ["npm-asset", "bower-asset"],
         "installer-paths": {
-            "docroot/core": [
-                "type:drupal-core"
-            ],
-            "docroot/libraries/ckeditor/plugins/{$name}": [
-                "drupal-ckeditor-libraries-group/div",
-                "drupal-ckeditor-libraries-group/liststyle"
-            ],
-            "docroot/libraries/slick": [
-                "npm-asset/slick-carousel"
-            ],
-            "docroot/libraries/chartjs": [
-                "npm-asset/chart.js"
-            ],
-            "docroot/libraries/{$name}": [
-                "type:drupal-library",
-                "type:npm-asset",
-                "type:bower-asset"
-            ],
-            "docroot/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "docroot/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "docroot/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "drush/Commands/contrib/{$name}": [
-                "type:drupal-drush"
-            ],
-            "docroot/profiles/custom/{$name}": [
-                "type:drupal-custom-profile"
-            ],
-            "docroot/modules/custom/{$name}": [
-                "type:drupal-custom-module"
-            ],
-            "docroot/themes/custom/{$name}": [
-                "type:drupal-custom-theme"
-            ]
+            "docroot/core": ["type:drupal-core"],
+            "docroot/libraries/ckeditor/plugins/{$name}": ["drupal-ckeditor-libraries-group/div", "drupal-ckeditor-libraries-group/liststyle"],
+            "docroot/libraries/slick": ["npm-asset/slick-carousel"],
+            "docroot/libraries/chartjs": ["npm-asset/chart.js"],
+            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "docroot/profiles/custom/{$name}": ["type:drupal-custom-profile"],
+            "docroot/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "docroot/themes/custom/{$name}": ["type:drupal-custom-theme"],
+            "docroot/libraries/ckeditor5-anchor-drupal": ["npm-asset/northernco--ckeditor5-anchor-drupal"],
+            "docroot/libraries/{$name}": ["type:drupal-library", "type:bower-asset", "type:npm-asset"]
         }
     }
 }
