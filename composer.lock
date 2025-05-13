@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02d832ede1f684ed2e9445059cf4dfae",
+    "content-hash": "577a6afb9a9e7e53f008b05df01292a1",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -13131,29 +13131,26 @@
         },
         {
             "name": "drupal/views_organization_chart",
-            "version": "1.0.5",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_organization_chart.git",
-                "reference": "1.0.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_organization_chart-1.0.5.zip",
-                "reference": "1.0.5",
-                "shasum": "4ec9b244ed82ec31f79f5cf862d78791fb64e0cf"
+                "reference": "f443a4e31bca24900ca100d9c49546094ec68a83"
             },
             "require": {
                 "drupal/core": "^9 || ^10 || ^11 || ^12"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "1.0.5",
-                    "datestamp": "1732930119",
+                    "version": "1.0.5+2-dev",
+                    "datestamp": "1741623232",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -28559,6 +28556,7 @@
         "drupal/views_bootstrap": 10,
         "drupal/views_date_format_sql": 15,
         "drupal/views_ical": 15,
+        "drupal/views_organization_chart": 20,
         "drupal/views_selective_filters": 15,
         "osulp/osulp-drupal-subtheme": 20
     },
