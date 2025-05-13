@@ -483,7 +483,7 @@
         "drupal/views_date_format_sql": "^3@alpha",
         "drupal/views_ical": "^1.0@alpha",
         "drupal/views_migration": "^1.2",
-        "drupal/views_organization_chart": "^1.0",
+        "drupal/views_organization_chart": "dev-1.x",
         "drupal/views_rss": "^2.2",
         "drupal/views_selective_filters": "^2@alpha",
         "drupal/views_taxonomy_term_name_depth": "^7.2",
@@ -665,21 +665,53 @@
                 "web-root": "docroot/"
             }
         },
-        "installer-types": ["npm-asset", "bower-asset"],
+        "installer-types": [
+            "npm-asset",
+            "bower-asset"
+        ],
         "installer-paths": {
-            "docroot/core": ["type:drupal-core"],
-            "docroot/libraries/ckeditor/plugins/{$name}": ["drupal-ckeditor-libraries-group/div", "drupal-ckeditor-libraries-group/liststyle"],
-            "docroot/libraries/slick": ["npm-asset/slick-carousel"],
-            "docroot/libraries/chartjs": ["npm-asset/chart.js"],
-            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
-            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
-            "docroot/profiles/custom/{$name}": ["type:drupal-custom-profile"],
-            "docroot/modules/custom/{$name}": ["type:drupal-custom-module"],
-            "docroot/themes/custom/{$name}": ["type:drupal-custom-theme"],
-            "docroot/libraries/ckeditor5-anchor-drupal": ["npm-asset/northernco--ckeditor5-anchor-drupal"],
-            "docroot/libraries/{$name}": ["type:drupal-library", "type:bower-asset", "type:npm-asset"]
+            "docroot/core": [
+                "type:drupal-core"
+            ],
+            "docroot/libraries/ckeditor/plugins/{$name}": [
+                "drupal-ckeditor-libraries-group/div",
+                "drupal-ckeditor-libraries-group/liststyle"
+            ],
+            "docroot/libraries/slick": [
+                "npm-asset/slick-carousel"
+            ],
+            "docroot/libraries/chartjs": [
+                "npm-asset/chart.js"
+            ],
+            "docroot/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "docroot/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "docroot/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "docroot/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "docroot/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "docroot/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ],
+            "docroot/libraries/ckeditor5-anchor-drupal": [
+                "npm-asset/northernco--ckeditor5-anchor-drupal"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ]
         }
     }
 }
