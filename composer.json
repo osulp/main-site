@@ -541,11 +541,6 @@
         "toc/toc": "^0.3.2",
         "wikimedia/composer-merge-plugin": "^2.1"
     },
-    "merge-plugin": {
-        "include": [
-            "docroot/modules/contrib/webform/composer.libraries.json"
-        ]
-    },
     "require-dev": {
         "drupal/ckeditor5_dev": "^1.0",
         "drupal/config_inspector": "^2.1",
@@ -594,6 +589,11 @@
     },
     "extra": {
         "composer-exit-on-patch-failure": true,
+        "merge-plugin": {
+            "include": [
+                "docroot/modules/contrib/webform/composer.libraries.json"
+            ]
+        },
         "patchLevel": {
             "drupal/core": "-p2"
         },
