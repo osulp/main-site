@@ -27,12 +27,12 @@ jobs:
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: "--target=production"
+          extra_build_args: '--target=production --build-arg=COMPOSER_AUTH="${COMPOSER_AUTH}"'
           tag: $TAG,${GIT_BRANCH_NAME}-latest
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: "--target=development"
+          extra_build_args: '--target=development --build-arg=COMPOSER_AUTH="${COMPOSER_AUTH}"'
           tag: ${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - docker/push:
           registry: registry.library.oregonstate.edu
