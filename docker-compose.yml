@@ -16,6 +16,8 @@ services:
     build:
       context: .
       target: development
+      args:
+        COMPOSER_AUTH: '{ "github-oauth": { "github.com": "$GITHUB_TOKEN" } }'
     platform: linux/amd64
     depends_on:
     - mariadb
