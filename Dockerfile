@@ -1,11 +1,12 @@
 FROM ghcr.io/osu-wams/php:8.2-apache AS production
-ARG COMPOSER_AUTH=${COMPOSER_AUTH}
+ARG GITHUB_TOKEN=${GITHUB_TOKEN}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
 WORKDIR /var/www/html
 USER www-data
 COPY --chown=www-data:www-data . /var/www/html
-RUN composer install -o --no-dev
+RUN composer config --global github-oauth.github.com ${GITHUB_TOKEN} \
+  && composer install -o --no-dev
 RUN mkdir -p /var/www/html/docroot/sites/default/files; \
   chown -R www-data:www-data /var/www/html/docroot/sites/default/files; \
   mkdir -p /var/www/files-private; \
