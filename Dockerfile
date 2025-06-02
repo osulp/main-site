@@ -1,4 +1,5 @@
 FROM ghcr.io/osu-wams/php:8.2-apache AS production
+ARG COMPOSER_AUTH=${COMPOSER_AUTH}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
 WORKDIR /var/www/html
