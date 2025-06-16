@@ -599,6 +599,7 @@
         },
         "patches": {
             "drupal/core": {
+                "3030154 layout_builder__layout_section column hitting database limit": "patches/3030154-10470.patch",
                 "3049332-118 Layout Builder getEntityTypeId null": "https://www.drupal.org/files/issues/2024-06-26/3049332_d10.3.0.patch",
                 "3162699-13 Layout Builder Debuging patch": "https://www.drupal.org/files/issues/2020-08-10/3162699-blockbuild-13.patch",
                 "2605218-135 Views Block Display skips preBlockBuild() call on ajax rebuild": "https://www.drupal.org/files/issues/2024-06-13/2605218-135.patch",
