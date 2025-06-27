@@ -4,6 +4,8 @@ COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
 USER root
 RUN apt update && apt upgrade -y && apt -y install sendmail
+RUN sed -i "s/;sendmail_path =/sendmail_path = ${PHP_SENDMAIL_PATH}/" /usr/local/etc/php/php.ini-production \
+    && sed -i "s/;sendmail_path =/sendmail_path = ${PHP_SENDMAIL_PATH}/" /usr/local/etc/php/php.ini-development
 WORKDIR /var/www/html
 USER www-data
 COPY --chown=www-data:www-data . /var/www/html
@@ -18,14 +20,17 @@ ENTRYPOINT [ "docker-wams-entry" ]
 CMD [ "apache2-foreground" ]
 
 FROM ghcr.io/osu-wams/php:8.2-apache-dev AS development
+ARG GITHUB_TOKEN=${GITHUB_TOKEN}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
 USER root
 RUN apt update && apt upgrade -y && apt -y install sendmail
+RUN sed -i "s/;sendmail_path =/sendmail_path = ${PHP_SENDMAIL_PATH}/" /usr/local/etc/php/php.ini-production \
+    && sed -i "s/;sendmail_path =/sendmail_path = ${PHP_SENDMAIL_PATH}/" /usr/local/etc/php/php.ini-development
 USER www-data
 WORKDIR /var/www/html
 COPY --from=production /var/www/html /var/www/html
 RUN composer config --global github-oauth.github.com ${GITHUB_TOKEN} \
-  &&  composer install -o
+  && composer install -o
 ENTRYPOINT [ "docker-wams-entry" ]
 CMD [ "apache2-foreground" ]

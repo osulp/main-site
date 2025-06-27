@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  docker: circleci/docker@2.6.0
+  docker: circleci/docker@2.8.2
 jobs:
   build_and_push:
     executor:
@@ -27,12 +27,12 @@ jobs:
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: "--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
+          extra_build_args: '--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg=PHP_SENDMAIL_PATH="${PHP_SENDMAIL_PATH}"'
           tag: $TAG,${GIT_BRANCH_NAME}-latest
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: "--target=development --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
+          extra_build_args: '--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg=PHP_SENDMAIL_PATH="${PHP_SENDMAIL_PATH}"'
           tag: ${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - docker/push:
           registry: registry.library.oregonstate.edu

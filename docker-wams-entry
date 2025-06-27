@@ -10,7 +10,6 @@ drupal_settings() {
 if (PHP_SAPI === 'cli') {
   ini_set('memory_limit', '1G');
 }
-ini_set('SMTP', '${SMTP_HOST}')
 \$settings['trusted_host_patterns'] = [
     '^localhost\$',
     '^.+\.localhost$',
@@ -138,5 +137,5 @@ else
   sed -i 's/cache\:\ true/cache\:\ false/' /var/www/html/docroot/sites/default/services.yml
   echo "Finished setting up Theme Development Settings."
 fi
-composer update osulp/osulp-drupal-subtheme
+composer update osulp/osulp-drupal-subtheme && drush cr &
 exec "$@"
