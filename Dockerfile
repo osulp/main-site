@@ -25,6 +25,7 @@ RUN apt update && apt upgrade -y && apt -y install sendmail
 USER www-data
 WORKDIR /var/www/html
 COPY --from=production /var/www/html /var/www/html
-RUN composer install -o
+RUN composer config --global github-oauth.github.com ${GITHUB_TOKEN} \
+  &&  composer install -o
 ENTRYPOINT [ "docker-wams-entry" ]
 CMD [ "apache2-foreground" ]
