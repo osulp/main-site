@@ -2,6 +2,8 @@ FROM ghcr.io/osu-wams/php:8.2-apache AS production
 ARG GITHUB_TOKEN=${GITHUB_TOKEN}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
+USER root
+RUN apt update && apt upgrade -y && apt -y install sendmail
 WORKDIR /var/www/html
 USER www-data
 COPY --chown=www-data:www-data . /var/www/html
@@ -18,6 +20,9 @@ CMD [ "apache2-foreground" ]
 FROM ghcr.io/osu-wams/php:8.2-apache-dev AS development
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
+USER root
+RUN apt update && apt upgrade -y && apt -y install sendmail
+USER www-data
 WORKDIR /var/www/html
 COPY --from=production /var/www/html /var/www/html
 RUN composer install -o
