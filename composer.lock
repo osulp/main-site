@@ -18648,12 +18648,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/osulp/osulp-drupal-subtheme.git",
-                "reference": "7b9829760b8984d0c98a5cc8281b845f090bf7c7"
+                "reference": "bb1a89a932b540e052099c7079eaaaad7820b9c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/7b9829760b8984d0c98a5cc8281b845f090bf7c7",
-                "reference": "7b9829760b8984d0c98a5cc8281b845f090bf7c7",
+                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/bb1a89a932b540e052099c7079eaaaad7820b9c4",
+                "reference": "bb1a89a932b540e052099c7079eaaaad7820b9c4",
                 "shasum": ""
             },
             "require-dev": {
@@ -18701,7 +18701,7 @@
                 "source": "https://github.com/osulp/osulp-drupal-subtheme/tree/main",
                 "issues": "https://github.com/osulp/osulp-drupal-subtheme/issues"
             },
-            "time": "2025-06-25T18:31:50+00:00"
+            "time": "2025-06-27T18:56:02+00:00"
         },
         {
             "name": "pear/archive_tar",

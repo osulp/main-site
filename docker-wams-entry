@@ -130,6 +130,7 @@ else
 fi
 if [ -z "${DRUPAL_THEME_DEVEL}" ]; then
   echo "Running in Production Mode"
+  composer update osulp/osulp-drupal-subtheme && drush cr &
 else
   cp /var/www/html/docroot/sites/default/default.services.yml /var/www/html/docroot/sites/default/services.yml
   sed -i 's/debug\:\ false/debug\:\ true/' /var/www/html/docroot/sites/default/services.yml
@@ -137,5 +138,4 @@ else
   sed -i 's/cache\:\ true/cache\:\ false/' /var/www/html/docroot/sites/default/services.yml
   echo "Finished setting up Theme Development Settings."
 fi
-composer update osulp/osulp-drupal-subtheme && drush cr &
 exec "$@"
