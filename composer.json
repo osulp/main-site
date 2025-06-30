@@ -462,6 +462,7 @@
         "drupal/slick_views": "^3.0",
         "drupal/smart_date": "^4.0",
         "drupal/smart_trim": "^2.0",
+        "drupal/smtp": "^1.4",
         "drupal/stage_file_proxy": "^3.1",
         "drupal/superfish": "^1.7",
         "drupal/svg_image": "^3.0",

@@ -27,12 +27,12 @@ jobs:
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: '--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg=PHP_SENDMAIL_PATH="${PHP_SENDMAIL_PATH}"'
+          extra_build_args: "--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
           tag: $TAG,${GIT_BRANCH_NAME}-latest
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          extra_build_args: '--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN} --build-arg=PHP_SENDMAIL_PATH="${PHP_SENDMAIL_PATH}"'
+          extra_build_args: "--target=development --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
           tag: ${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - docker/push:
           registry: registry.library.oregonstate.edu

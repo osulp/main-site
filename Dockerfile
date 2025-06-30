@@ -1,12 +1,6 @@
 FROM ghcr.io/osu-wams/php:8.2-apache AS production
-ARG SMTP_HOST=${SMTP_HOST}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
-USER root
-RUN apt update && apt upgrade -y && apt -y install sendmail
-RUN echo "sendmail_path = /usr/sbin/sendmail -t -i " > /usr/local/etc/php/conf.d/docker-php-sendmail.ini \
-    && echo "define(`SMART_HOST', `${SMTP_HOST}')dnl" \
-    && make -C /etc/mail
 WORKDIR /var/www/html
 USER www-data
 COPY --chown=www-data:www-data . /var/www/html
@@ -26,12 +20,6 @@ FROM ghcr.io/osu-wams/php:8.2-apache-dev AS development
 ARG SMTP_HOST=${SMTP_HOST}
 COPY docker-wams-entry /usr/local/bin
 ENV PATH="$PATH:/var/www/html/vendor/bin"
-USER root
-RUN apt update && apt upgrade -y && apt -y install sendmail
-RUN echo "sendmail_path = /usr/sbin/sendmail -t -i " > /usr/local/etc/php/conf.d/docker-php-sendmail.ini \
-    && echo "define(`SMART_HOST', `${SMTP_HOST}')dnl" \
-    && make -C /etc/mail
-USER www-data
 WORKDIR /var/www/html
 COPY --from=production /var/www/html /var/www/html
 ARG GITHUB_TOKEN=${GITHUB_TOKEN}
