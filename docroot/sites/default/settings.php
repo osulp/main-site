@@ -377,7 +377,7 @@ $settings['update_free_access'] = FALSE;
  * Be aware, however, that it is likely that this would allow IP
  * address spoofing unless more advanced precautions are taken.
  */
-# $settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy'] = TRUE;
 
 /**
  * Reverse proxy addresses.
@@ -386,7 +386,7 @@ $settings['update_free_access'] = FALSE;
  * IPv4/IPv6 addresses or subnets in CIDR notation. This setting is required if
  * $settings['reverse_proxy'] is TRUE.
  */
-# $settings['reverse_proxy_addresses'] = ['a.b.c.d', 'e.f.g.h/24', ...];
+$settings['reverse_proxy_addresses'] = ['192.168.0.0/16'];
 
 /**
  * Reverse proxy trusted headers.
@@ -423,7 +423,7 @@ $settings['update_free_access'] = FALSE;
  * @see \Symfony\Component\HttpFoundation\Request::setTrustedProxies
  */
 # $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
-
+$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO;
 
 /**
  * Page caching:
