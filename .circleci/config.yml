@@ -24,16 +24,21 @@ jobs:
       - setup_remote_docker
       - docker/check:
           registry: registry.library.oregonstate.edu
+      - docker/pull:
+          images: registry.library.oregonstate.edu/osulp_library:main-staging-latest, registry.library.oregonstate.edu/osulp_library:main-latest
+          ignore-docker-pull-error: true
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
           extra_build_args: "--target=production --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
           tag: $TAG,${GIT_BRANCH_NAME}-latest
+          cache_from: registry.library.oregonstate.edu/osulp_library:main-latest
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
           extra_build_args: "--target=development --build-arg=GITHUB_TOKEN=${GITHUB_TOKEN}"
           tag: ${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
+          cache_from: registry.library.oregonstate.edu/osulp_library:main-staging-latest
       - docker/push:
           registry: registry.library.oregonstate.edu
           image: osulp_library
