@@ -55,7 +55,7 @@ if (\$memcache_is_active && \$memcache_module_is_present && (\$memcache_exists |
     Memcached::OPT_TCP_NODELAY => TRUE,
     Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
   ];
-  \$settings['memcache']['key_prefix'] = '';
+  \$settings['memcache']['key_prefix'] = 'drupal';
   // Define custom bootstrap container definition to use Memcache for cache.container.
   \$settings['bootstrap_container_definition'] = [
     'parameters' => [],
