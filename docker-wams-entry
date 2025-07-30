@@ -26,7 +26,7 @@ if (PHP_SAPI === 'cli') {
     'prefix' => '',
     'collation' => 'utf8mb4_general_ci',
 ];
-\$settings['file_temp_path'] = '/tmp';
+\$settings['file_temp_path'] = getenv('TEMP_FILE_PATH') ?: '/tmp';
 \$settings['file_private_path'] = getenv('PRIVATE_FILE_PATH');
 \$settings['config_sync_directory'] =  \$app_root . '/../config/' . basename(\$site_path);
 \$config['cas.settings']['forced_login']['enabled']=FALSE;
