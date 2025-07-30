@@ -56,12 +56,6 @@ if (\$memcache_is_active && \$memcache_module_is_present && (\$memcache_exists |
     Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
   ];
   \$settings['memcache']['key_prefix'] = 'drupal:';
-  \$settings['session_storage'] = [
-    'class' => 'Drupal\memcache\MemcacheBackend',
-    'name' => 'session',
-    'bin' => 'sessions',
-    'prefix' => 'drupal:',
-  ];
   // Define custom bootstrap container definition to use Memcache for cache.container.
   \$settings['bootstrap_container_definition'] = [
     'parameters' => [],
@@ -104,6 +98,7 @@ if (\$memcache_is_active && \$memcache_module_is_present && (\$memcache_exists |
     ],
   ];
   \$settings['cache']['default'] = 'cache.backend.memcache';
+  \$settings['session_storage'] = 'cache.backend.memcache';
 }
 EOT
   echo "Finished setting up Drupal settings!"
