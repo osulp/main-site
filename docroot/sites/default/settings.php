@@ -386,7 +386,7 @@ $settings['reverse_proxy'] = TRUE;
  * IPv4/IPv6 addresses or subnets in CIDR notation. This setting is required if
  * $settings['reverse_proxy'] is TRUE.
  */
-$settings['reverse_proxy_addresses'] = ['192.168.0.0/16'];
+$settings['reverse_proxy_addresses'] = ['192.168.0.0/16', '10.192.164.0/24'];
 
 /**
  * Reverse proxy trusted headers.
