@@ -98,7 +98,6 @@ if (\$memcache_is_active && \$memcache_module_is_present && (\$memcache_exists |
     ],
   ];
   \$settings['cache']['default'] = 'cache.backend.memcache';
-  \$settings['session_storage'] = 'cache.backend.memcache';
 }
 EOT
   echo "Finished setting up Drupal settings!"
