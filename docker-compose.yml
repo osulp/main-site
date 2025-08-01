@@ -27,7 +27,7 @@ services:
       # By default xdebug extension also disabled.
       PHP_EXTENSIONS_DISABLE: xhprof,spx
       PHP_MAIL_MIXED_LF_AND_CRLF: On
-      HASH_SALT: foobarbaz
+      DRUPAL_HASH_SALT: foobarbaz
       DRUPAL_DBHOST: mariadb
       DRUPAL_DBPORT: 3306
       DRUPAL_DBUSER: drupal
