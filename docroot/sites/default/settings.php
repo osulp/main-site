@@ -89,6 +89,16 @@
  * @endcode
  */
 $databases = [];
+$databases['default']['default'] = [
+    'database' => getenv('DRUPAL_DBNAME'),
+    'username' =>getenv('DRUPAL_DBUSER'),
+    'password' => getenv('DRUPAL_DBPASS'),
+    'host' => getenv('DRUPAL_DBHOST'),
+    'port' => getenv('DRUPAL_DBPORT') ?: 3306,
+    'driver' => 'mysql',
+    'prefix' => '',
+    'collation' => 'utf8mb4_general_ci',
+];
 
 /**
  * Customizing database settings.
@@ -286,7 +296,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = getenv('HASH_SALT') ?: '';
 
 /**
  * Deployment identifier.
@@ -624,7 +634,7 @@ $settings['file_private_path'] = getenv('PRIVATE_FILE_PATH');
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-# $settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = getenv('TEMP_FILE_PATH') ?: '/tmp';
 
 /**
  * Session write interval:
@@ -772,7 +782,11 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
-# $settings['trusted_host_patterns'] = [];
+$settings['trusted_host_patterns'] = [
+    '^localhost$',
+    '^.+\.localhost$',
+    '^.+\.oregonstate\.edu$',
+];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -877,38 +891,45 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  *
  * Keep this code block at the end of this file to take full effect.
  */
-// Memcached settings for local install
-$settings['memcache']['servers'] = ['memcached:11211' => 'default'];
-$settings['memcache']['bins'] = ['default' => 'default'];
-$settings['memcache']['key_prefix'] = '';
-$settings['cache']['default'] = 'cache.backend.memcache';
-$settings['memcache']['debug'] = TRUE;
+// Misc settings from WAMS
+
+$config['cas.settings']['forced_login']['enabled']=FALSE;
+$config['cas.settings']['user_accounts']['prevent_normal_login']=FALSE;
+$config['field_ui.settings']['field_prefix'] = 'field_';
+$config['seckit.settings']['seckit_xss']['csp']['upgrade-req']=FALSE;
+$config['dx_messages.settings']['dx_api_key'] = getenv('DATA_DX_KEY');
+
+// Memcache settings
+$memcache_exists = class_exists('Memcache', FALSE);
+$memcached_exists = class_exists('Memcached', FALSE);
+$memcache_services_yml = DRUPAL_ROOT . '/modules/contrib/memcache/memcache.services.yml';
+$memcache_module_is_present = file_exists($memcache_services_yml);
+$memcache_is_active = getenv('DRUPAL_MEMCACHE') ?: FALSE;
+if ($memcache_is_active && $memcache_module_is_present && ($memcache_exists || $memcached_exists)) {
+  $memcache_host = getenv('DRUPAL_MEMCACHEHOST') ?: 'memcached';
+  $settings['memcache']['servers'] = [
+    "$memcache_host:11211" => 'default',
+  ];
+  $settings['memcache']['bins'] = ['default' => 'default'];
+  // Use Memcached extension if available.
+  if ($memcached_exists) {
+    $settings['memcache']['extension'] = 'Memcached';
+  }
+  $class_loader->addPsr4('Drupal\\memcache\\', $app_root . '/modules/contrib/memcache/src');
+  $settings['container_yamls'][] = $memcache_services_yml;
+  $settings['memcache']['options'] = [
+    Memcached::OPT_COMPRESSION => TRUE,
+    Memcached::OPT_TCP_NODELAY => TRUE,
+    Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
+  ];
+  $settings['memcache']['key_prefix'] = 'drupal';
+  $settings['cache']['default'] = 'cache.backend.memcache';
+
+  // Use Memcached as session store
+  ini_set('session.save_handler', 'memcached');
+  ini_set('session.save_path', "$memcache_host:11211");
+}
 
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
-}
-// Newrelic Multisite
-if (extension_loaded('newrelic')) {
-  $exploded_path = explode('/', dirname(__FILE__));
-  $site_domain = array_pop($exploded_path);
-  newrelic_set_appname("$site_domain;d8cws", '', 'true');
-}
-// Acquia specific settings.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/' . $_ENV['AH_SITE_GROUP'] . '/cwsd8-settings.inc';
-  $config['automated_cron.settings']['interval'] = 0;
-  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-    $settings['file_temp_path'] = "/mnt/gfs/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/tmp";
-    $settings['file_private_path'] = '/mnt/files/' . $_ENV['AH_SITE_GROUP'] . '.' . $_ENV['AH_SITE_ENVIRONMENT'] . '/' . $site_path . '/files-private';
-  }
-  // Acquia cloud secrets file.
-  $secrets_file = "/mnt/files/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/secrets.settings.php";
-  if (file_exists($secrets_file)) {
-    require $secrets_file;
-  }
-  // Memcached settings for Acquia Hosting
-  $memcache_settings_file = DRUPAL_ROOT . "/../vendor/acquia/memcache-settings/memcache.settings.php";
-  if (file_exists($memcache_settings_file)) {
-    require_once $memcache_settings_file;
-  }
 }
