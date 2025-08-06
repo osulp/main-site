@@ -11,6 +11,23 @@ services:
     volumes:
       - ./dev/mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
       - mariadb:/var/lib/mysql # Use bind mount
+    networks:
+      - web
+
+  traefik:
+    image: traefik:v2.11 # Use a recent Traefik version
+    command:
+      - --api.insecure=true # Enable Traefik Dashboard (for testing)
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false # Only expose services with specific labels
+      - --entrypoints.web.address=:80
+    ports:
+      - "3000:80"
+      - "8080:8080" # Traefik Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Mount Docker socket for Traefik to discover services
+    networks:
+      - web
 
   apache:
     build:
@@ -19,10 +36,13 @@ services:
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     platform: linux/amd64
+    deploy:
+      mode: replicated
+      replicas: 1
     depends_on:
     - mariadb
-    ports:
-    - 3000:80
+    # ports:
+    # - 3000:80
     environment:
       # By default xdebug extension also disabled.
       PHP_EXTENSIONS_DISABLE: xhprof,spx
@@ -36,8 +56,9 @@ services:
       DRUPAL_MEMCACHE: true
       DRUPAL_MEMCACHEHOST: memcached
       DRUPAL_STAGING_SITE: https://www.example.com
-      DRUPAL_THEME_DEVEL: true
+      DRUPAL_THEME_DEVEL: false
       PRIVATE_FILE_PATH: /mnt/files/private
+      TEMP_FILE_PATH: /mnt/files/private/temp
       LIBCAL_LOCATIONS: '[{ "1234": "valley", "5678": "cascades", "9010": "guin"}]'
       LIBCAL_CLIENT_ID: 1234
       LIBCAL_CLIENT_SECRET: abcdef1234567890abcdef1234567890
@@ -45,6 +66,14 @@ services:
     - ./:/var/www/html
     - ./private:/mnt/files/private
     - ~/.composer/:/var/www/.composer/
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache.rule=Host(`test.lib.oregonstate.edu`)"
+      - "traefik.http.routers.apache.entrypoints=web"
+      - 'traefik.http.services.apache.loadbalancer.server.port=80'
+      - "traefik.http.services.apache.loadbalancer.sticky=false" # Optional: enable sticky sessions
 
   solr:
     image: solr:8-slim
@@ -61,10 +90,18 @@ services:
     volumes:
     - solr:/var/solr
     - ./dev/solr_8.x_config/conf:/opt/solr/server/solr/configsets/_default/conf
+    networks:
+      - web
 
   memcached:
     image: memcached:1.6-alpine
+    networks:
+      - web
 
 volumes:
   solr:
   mariadb:
+
+networks:
+  web:
+    external: false
