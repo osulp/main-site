@@ -2,6 +2,7 @@
 
 PS3='Would you like to dump production or staging? '
 environment="drupal-test"
+deploy="libstaging-app"
 options=("Prod" "Staging")
 select opt in "${options[@]}"
 do
@@ -9,6 +10,7 @@ do
     "Prod")
       echo "Setting dump environment to production"
       environment="drupal-prod"
+      deploy="library25-app"
       break ;;
     "Staging")
       echo "Setting dump environment to staging"
@@ -19,7 +21,7 @@ done
 echo
 
 # Find pod to pull files from
-pod=`kubectl get pods -n $environment --no-headers -o custom-columns=":metadata.name" | grep -G ^libstaging-app | head -n 1`
+pod=`kubectl get pods -n $environment --no-headers -o custom-columns=":metadata.name" | grep -G ^$deploy | head -n 1`
 # Local database dump file
 out_file="dev/mariadb-init/live_dump.sql"
 # Offending COLLATE text
@@ -34,7 +36,7 @@ cd "$parent_path/.."
 kubectl exec -itn $environment $pod -- bash -c "drush sql:dump --result-file=/tmp/dump.sql --extra-dump=--no-tablespaces"
 
 # Pull the database
-kubectl cp $environment/$pod:/tmp/dump.sql $out_file
+kubectl cp --retries=5 $environment/$pod:/tmp/dump.sql $out_file
 
 # Replace COLLATE text
 sed -i '' "s/$to_replace//g" $out_file
