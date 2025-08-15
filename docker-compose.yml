@@ -37,7 +37,7 @@ services:
       DRUPAL_MEMCACHE: true
       DRUPAL_MEMCACHEHOST: memcached
       DRUPAL_STAGING_SITE: https://www.example.com
-      DRUPAL_THEME_DEVEL: true
+      DRUPAL_THEME_DEVEL: false
       PRIVATE_FILE_PATH: /mnt/files/private
       LIBCAL_LOCATIONS: '[{ "1234": "valley", "5678": "cascades", "9010": "guin"}]'
       LIBCAL_CLIENT_ID: 1234
