@@ -11,7 +11,9 @@ ARG GITHUB_TOKEN=
 RUN mkdir -p /var/www/html/docroot/sites/default/files; \
   chown -R www-data:www-data /var/www/html/docroot/sites/default/files; \
   mkdir -p /var/www/files-private; \
-  chown -R www-data:www-data /var/www/files-private;
+  chown -R www-data:www-data /var/www/files-private; \
+  mkdir -p /var/www/html/docroot/images; \
+  ln -sf /var/www/files-private/images/findosu.jpg /var/www/html/docroot/images/findosu.jpg;
 VOLUME /var/www/html/docroot/sites/default/files
 ENTRYPOINT [ "docker-wams-entry" ]
 CMD [ "apache2-foreground" ]
