@@ -10,4 +10,9 @@ else
   sed -i 's/cache\:\ true/cache\:\ false/' /var/www/html/docroot/sites/default/services.yml
   echo "Finished setting up Theme Development Settings."
 fi
+
+# Copy our static image files into the docroot
+mkdir -p /var/www/html/docroot/images
+cp /var/www/html/images/* /var/www/html/docroot/images
+
 exec "$@"
