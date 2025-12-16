@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82a0a205060f07329d9915eefa041383",
+    "content-hash": "678e3f252d4ef54a261a2aa2ec61cf3e",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -18820,12 +18820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/osulp/osulp-drupal-subtheme.git",
-                "reference": "bb1a89a932b540e052099c7079eaaaad7820b9c4"
+                "reference": "0095032a6db825bac2cacc06ac9f06efd943496f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/bb1a89a932b540e052099c7079eaaaad7820b9c4",
-                "reference": "bb1a89a932b540e052099c7079eaaaad7820b9c4",
+                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/0095032a6db825bac2cacc06ac9f06efd943496f",
+                "reference": "0095032a6db825bac2cacc06ac9f06efd943496f",
                 "shasum": ""
             },
             "require-dev": {
@@ -18873,7 +18873,7 @@
                 "source": "https://github.com/osulp/osulp-drupal-subtheme/tree/main",
                 "issues": "https://github.com/osulp/osulp-drupal-subtheme/issues"
             },
-            "time": "2025-06-27T18:56:02+00:00"
+            "time": "2025-11-27T00:08:09+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -29300,8 +29300,8 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.3.13"
     },
