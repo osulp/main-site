@@ -541,7 +541,7 @@
         "osu-wams/osu_simple_tabs": "^1.0",
         "osu-wams/osu_standard": "^1.0",
         "osu-wams/osu_story": "^1.0",
-        "osulp/osulp-drupal-subtheme": "dev-main#6dc88ee080d3ccf6e860081723251e5dee24eb96",
+        "osulp/osulp-drupal-subtheme": "dev-main#485c6e00f05347543b01eb7433c87fba8b3cba1c",
         "toc/toc": "^0.3.2",
         "wikimedia/composer-merge-plugin": "^2.1"
     },
