@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8237436dd278a2246684c39b1bce518a",
+    "content-hash": "8f301159e6b9447ad84028ebd17a64a0",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -15595,10 +15595,10 @@
         },
         {
             "name": "highcharts/3d",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/highcharts-3d.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts-3d.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15610,10 +15610,10 @@
         },
         {
             "name": "highcharts/accessibility",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/modules/accessibility.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/accessibility.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15625,10 +15625,10 @@
         },
         {
             "name": "highcharts/data",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/modules/data.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/data.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15640,10 +15640,10 @@
         },
         {
             "name": "highcharts/drilldown",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/modules/drilldown.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/drilldown.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15655,10 +15655,10 @@
         },
         {
             "name": "highcharts/export-data",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/modules/export-data.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/export-data.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15670,10 +15670,10 @@
         },
         {
             "name": "highcharts/exporting",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/modules/exporting.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/exporting.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15685,10 +15685,10 @@
         },
         {
             "name": "highcharts/highcharts",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/highcharts.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15700,10 +15700,10 @@
         },
         {
             "name": "highcharts/maps",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/maps/11.2.0/modules/map.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/map.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -15715,10 +15715,10 @@
         },
         {
             "name": "highcharts/more",
-            "version": "11.2.0",
+            "version": "12.5.0",
             "dist": {
                 "type": "file",
-                "url": "https://code.highcharts.com/11.2.0/highcharts-more.js"
+                "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts-more.js"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

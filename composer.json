@@ -8,112 +8,112 @@
         "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
         "chat": "https://www.drupal.org/node/314178"
     },
-    "repositories": {
-        "drupal": {
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        "assets": {
+        {
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        "1": {
+        {
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        "2": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/madrone.git"
         },
-        "3": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_groups.git"
         },
-        "4": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_standard.git"
         },
-        "5": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_media.git"
         },
-        "6": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_block_types.git"
         },
-        "7": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_bootstrap_layout_builder"
         },
-        "8": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_ckeditor_plugins.git"
         },
-        "9": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_seckit.git"
         },
-        "10": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_roles.git"
         },
-        "11": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_story.git"
         },
-        "12": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_profile.git"
         },
-        "13": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_default_content.git"
         },
-        "14": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_icon_field.git"
         },
-        "15": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_google_tag.git"
         },
-        "16": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/feeds_display.git"
         },
-        "17": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_migrations.git"
         },
-        "18": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_simple_popup_blocks.git"
         },
-        "19": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/admissions_articulations.git"
         },
-        "20": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_custom_blocks.git"
         },
-        "21": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_publications.git"
         },
-        "22": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_simple_tabs.git"
         },
-        "23": {
+        {
             "type": "vcs",
             "url": "https://github.com/osu-wams/osu_paragraphs.git"
         },
-        "24": {
+        {
             "type": "vcs",
             "url": "https://github.com/osulp/osulp-drupal-subtheme.git"
         },
-        "25": {
+        {
             "type": "package",
             "package": {
                 "name": "toc/toc",
@@ -125,7 +125,7 @@
                 }
             }
         },
-        "26": {
+        {
             "type": "package",
             "package": {
                 "name": "apache/echarts",
@@ -143,7 +143,7 @@
                 }
             }
         },
-        "27": {
+        {
             "type": "package",
             "package": {
                 "name": "google/charts",
@@ -161,169 +161,313 @@
                 }
             }
         },
-        "28": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/highcharts",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/highcharts.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
+  {
+     "type": "package",
+     "package": {
+         "name": "highcharts/highcharts",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/more",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_more"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts-more.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/exporting",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_exporting"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/exporting.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/export-data",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_export-data"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/export-data.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/accessibility",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_accessibility"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/accessibility.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/3d",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_3d"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/highcharts-3d.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/annotations",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_annotations"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/annotations.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/boost",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_boost"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/boost.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/coloraxis",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_coloraxis"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/coloraxis.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/data",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_data"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/data.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/dumbbell",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_dumbbell"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/dumbbell.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/high-contrast-light",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_high-contrast-light"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/themes/high-contrast-light.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/pattern-fill",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_pattern-fill"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/pattern-fill.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/no-data-to-display",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_no-data-to-display"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/no-data-to-display.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/solid-gauge",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_solid-gauge"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/solid-gauge.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+     "type": "package",
+     "package": {
+         "name": "highcharts/drilldown",
+         "version": "12.5.0",
+         "type": "drupal-library",
+         "extra": {
+             "installer-name": "highcharts_drilldown"
+         },
+         "dist": {
+             "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/drilldown.js",
+             "type": "file"
+         },
+         "require": {
+             "composer/installers": "^1.0 || ^2.0"
+         }
+     }
+ },
+ {
+    "type": "package",
+    "package": {
+        "name": "highcharts/maps",
+        "version": "12.5.0",
+        "type": "drupal-library",
+        "extra": {
+            "installer-name": "highcharts_maps"
         },
-        "29": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/more",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_more"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/highcharts-more.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
+        "dist": {
+            "url": "https://cdn.jsdelivr.net/npm/highcharts@12.5.0/modules/map.js",
+            "type": "file"
         },
-        "30": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/exporting",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_exporting"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/modules/exporting.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "31": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/export-data",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_export-data"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/modules/export-data.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "32": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/accessibility",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_accessibility"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/modules/accessibility.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "33": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/3d",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_3d"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/highcharts-3d.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "34": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/drilldown",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_drilldown"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/modules/drilldown.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "35": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/data",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_data"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/11.2.0/modules/data.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
-        },
-        "36": {
-            "type": "package",
-            "package": {
-                "name": "highcharts/maps",
-                "version": "11.2.0",
-                "type": "drupal-library",
-                "extra": {
-                    "installer-name": "highcharts_maps"
-                },
-                "dist": {
-                    "url": "https://code.highcharts.com/maps/11.2.0/modules/map.js",
-                    "type": "file"
-                },
-                "require": {
-                    "composer/installers": "^1.0 || ^2.0"
-                }
-            }
+        "require": {
+            "composer/installers": "^1.0 || ^2.0"
         }
-    },
+    }
+}
+    ],
     "require": {
         "acquia/memcache-settings": "^1.2",
         "bower-asset/colorbox": "^1.6",
@@ -499,15 +643,15 @@
         "drupal/yearonly": "^9.1",
         "drush/drush": "^12",
         "google/charts": "^45.0",
-        "highcharts/3d": "^11.2",
-        "highcharts/accessibility": "^11.2",
-        "highcharts/data": "^11.0",
-        "highcharts/drilldown": "^11.0",
-        "highcharts/export-data": "^11.2",
-        "highcharts/exporting": "^11.2",
-        "highcharts/highcharts": "^11.2",
-        "highcharts/maps": "^11.0",
-        "highcharts/more": "^11.2",
+        "highcharts/3d": "^12",
+        "highcharts/accessibility": "^12",
+        "highcharts/data": "^12",
+        "highcharts/drilldown": "^12",
+        "highcharts/export-data": "^12",
+        "highcharts/exporting": "^12",
+        "highcharts/highcharts": "^12",
+        "highcharts/maps": "^12",
+        "highcharts/more": "^12",
         "mnsami/composer-custom-directory-installer": "^2.0",
         "npm-asset/blazy": "^1.8",
         "npm-asset/chart.js": "^4.4",
