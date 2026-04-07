@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2f02e77f818f1301d605cb0031bb81e",
+    "content-hash": "8237436dd278a2246684c39b1bce518a",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -3318,17 +3318,17 @@
         },
         {
             "name": "drupal/charts",
-            "version": "5.1.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/charts.git",
-                "reference": "5.1.0"
+                "reference": "5.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/charts-5.1.0.zip",
-                "reference": "5.1.0",
-                "shasum": "667086aa01f6af319d8f056ca11d3eedb4536bd7"
+                "url": "https://ftp.drupal.org/files/projects/charts-5.2.0.zip",
+                "reference": "5.2.0",
+                "shasum": "6c51d85039407a6e68733f8068c3af86d97f460e"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -3336,8 +3336,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.1.0",
-                    "datestamp": "1721677330",
+                    "version": "5.2.0",
+                    "datestamp": "1775594157",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3350,22 +3350,47 @@
             ],
             "authors": [
                 {
-                    "name": "andileco",
-                    "homepage": "https://www.drupal.org/user/2054544"
+                    "name": "Daniel Cothran (andileco)",
+                    "homepage": "https://www.drupal.org/u/andileco",
+                    "role": "Maintainer"
                 },
                 {
-                    "name": "nikathone",
-                    "homepage": "https://www.drupal.org/user/2421800"
+                    "name": "Nia Kathoni (nikathone)",
+                    "homepage": "https://www.drupal.org/u/nikathone",
+                    "role": "Maintainer"
                 },
                 {
-                    "name": "quicksketch",
-                    "homepage": "https://www.drupal.org/user/35821"
+                    "name": "Nate Lampton (quicksketch)",
+                    "homepage": "https://www.drupal.org/u/quicksketch",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "brmassa",
+                    "homepage": "https://www.drupal.org/u/brmassa",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Rafal W (kenorb)",
+                    "homepage": "https://www.drupal.org/u/kenorb",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Pierre Vriens (pierrevriens)",
+                    "homepage": "https://www.drupal.org/u/pierrevriens",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Majali (rashad612)",
+                    "homepage": "https://www.drupal.org/u/rashad612",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "A charting API for Drupal that provides chart elements and integration with Views.",
-            "homepage": "https://www.drupal.org/project/charts",
+            "description": "A charting API for Drupal that provides chart elements and integration with Views",
+            "homepage": "https://drupal.org/project/charts",
             "support": {
-                "source": "https://git.drupalcode.org/project/charts"
+                "source": "https://git.drupalcode.org/project/charts",
+                "issues": "https://www.drupal.org/project/issues/charts?version=all_5.1.*",
+                "docs": "https://www.drupal.org/docs/contributed-modules/charts"
             }
         },
         {
