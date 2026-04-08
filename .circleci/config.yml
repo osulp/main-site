@@ -10,6 +10,8 @@ jobs:
       DOCKER_PASSWORD: admin
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Generate deployed version
           command: |
