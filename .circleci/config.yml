@@ -24,10 +24,8 @@ jobs:
       - docker/check:
           registry: registry.library.oregonstate.edu
       - docker/pull:
-      # Assuming it takes less time to pull the layers than build them. If we make changes that don't involve the composer file, this is a huge cache win.
           images: registry.library.oregonstate.edu/osulp_library:main-staging-latest, registry.library.oregonstate.edu/osulp_library:main-latest
           ignore-docker-pull-error: true
-      # we are building twice
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: osulp_library
@@ -43,7 +41,6 @@ jobs:
       - docker/push:
           registry: registry.library.oregonstate.edu
           image: osulp_library
-          # again -- twice
           tag: $TAG,${GIT_BRANCH_NAME}-latest,${TAG}-staging,${GIT_BRANCH_NAME}-staging-latest
       - persist_to_workspace:
           root: /tmp/workspace
@@ -55,7 +52,6 @@ workflows:
       - build_and_push:
           filters:
             branches:
-            # this is the only three times that this will run
               only:
                 - main
                 - /infra\/.*/
