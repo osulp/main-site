@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6d54bef96f16fbe9f5021646eaeca6b",
+    "content-hash": "1e5d9260305537861eca5cfbb514a930",
     "packages": [
         {
             "name": "acquia/memcache-settings",
@@ -19140,16 +19140,16 @@
         },
         {
             "name": "osulp/osulp-drupal-subtheme",
-            "version": "dev-newTab",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/osulp/osulp-drupal-subtheme.git",
-                "reference": "3f0e94da0395590669f3b35bbb5fec7307b7ee2d"
+                "reference": "44d7fbef00a491feff05d069cbf80d6f12f2b4e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/3f0e94da0395590669f3b35bbb5fec7307b7ee2d",
-                "reference": "3f0e94da0395590669f3b35bbb5fec7307b7ee2d",
+                "url": "https://api.github.com/repos/osulp/osulp-drupal-subtheme/zipball/44d7fbef00a491feff05d069cbf80d6f12f2b4e4",
+                "reference": "44d7fbef00a491feff05d069cbf80d6f12f2b4e4",
                 "shasum": ""
             },
             "require-dev": {
@@ -19157,6 +19157,7 @@
                 "friendsoftwig/twigcs": "^6.4",
                 "squizlabs/php_codesniffer": "*"
             },
+            "default-branch": true,
             "type": "drupal-custom-theme",
             "extra": {
                 "hooks": {
@@ -19193,10 +19194,10 @@
             ],
             "description": "Drupal Theme for OSULP",
             "support": {
-                "source": "https://github.com/osulp/osulp-drupal-subtheme/tree/newTab",
+                "source": "https://github.com/osulp/osulp-drupal-subtheme/tree/main",
                 "issues": "https://github.com/osulp/osulp-drupal-subtheme/issues"
             },
-            "time": "2026-08-25T22:12:00+00:00"
+            "time": "2026-08-21T23:42:33+00:00"
         },
         {
             "name": "pear/archive_tar",
